@@ -10,7 +10,8 @@ Les emplacements vides affichent un aplat coloré avec le chemin attendu : il su
 
 | Dossier | Contenu |
 |---|---|
-| `images/hero/` | 4 grandes photos d'accueil : `mariage.jpg`, `createurs.jpg`, `marques.jpg`, `lieux.jpg` |
+| `images/hero/` | `hero.jpg` (grande photo du header, elle donne le mood du site), `mariage.jpg`, `createurs.jpg`, `marques.jpg`, `lieux.jpg` (section Services), `faq.jpg`, `contact.jpg` |
+| `videos/hero.mp4` | (optionnel) vidéo d'ambiance du header, à activer dans `assets/js/config.js` |
 | `images/mariage/`, `images/createurs/`, `images/marques/`, `images/lieux/` | Photos du portfolio : `01.jpg`, `02.jpg`, `03.jpg`… |
 | `images/reels/` | Image d'aperçu de chaque reel : `01.jpg`… |
 | `videos/reels/` | Reels verticaux en `.mp4` : `01.mp4`… |

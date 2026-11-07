@@ -7,247 +7,245 @@
   <meta name="description" content="Trame Studio, studio photo et vidéo : mariages, reels et contenus pour créateurs, images professionnelles pour les marques, photos et vidéos de logements et hôtels.">
   <meta property="og:title" content="Trame Studio — Photo & Vidéo">
   <meta property="og:description" content="Nous tissons vos histoires en images. Mariages · Créateurs · Marques · Lieux.">
-  <meta property="og:image" content="images/hero/mariage.jpg">
-  <meta name="theme-color" content="#14110f">
+  <meta property="og:image" content="images/hero/hero.jpg">
+  <meta name="theme-color" content="#0b0b0b">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-  <!-- Intro : un fil qui se tisse -->
-  <div class="intro" aria-hidden="true">
-    <svg class="intro__weave" viewBox="0 0 400 120" preserveAspectRatio="none">
-      <path d="M0 60 C 60 10, 100 110, 160 60 S 260 10, 320 60 S 380 110, 400 60" />
-      <path d="M0 60 C 60 110, 100 10, 160 60 S 260 110, 320 60 S 380 10, 400 60" />
-    </svg>
-    <span class="intro__word">trame<em>studio</em></span>
-  </div>
+  <!-- ============ HERO : la photo / vidéo donne le mood ============ -->
+  <header class="hero" id="top">
+    <div class="hero__media media" data-label="images/hero/hero.jpg  (ou videos/hero.mp4)">
+      <img src="images/hero/hero.jpg" alt="" fetchpriority="high">
+    </div>
+    <div class="hero__shade"></div>
 
-  <!-- Curseur viseur (desktop) -->
-  <div class="viewfinder" aria-hidden="true"><span></span><span></span><span></span><span></span><b class="viewfinder__label"></b></div>
-
-  <header class="nav">
-    <a href="#top" class="logo" aria-label="Trame Studio, accueil">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 10h24M4 16h24M4 22h24" /><path class="logo__weft" d="M10 4v24M16 4v24M22 4v24" /></svg>
-      <span>trame<em>studio</em></span>
-    </a>
-    <nav class="nav__links" aria-label="Navigation principale">
-      <a href="#univers">Univers</a>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#reels">Reels</a>
-      <a href="#methode">Méthode</a>
-      <a href="#contact" class="nav__cta">Parlons de votre projet</a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#top" class="nav__logo">Trame Studio</a>
+      <div class="nav__pills">
+        <a href="#apropos">Studio</a>
+        <a href="#services">Services</a>
+        <a href="#travaux">Travaux</a>
+        <a href="#reels">Reels</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <button class="nav__burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span></button>
     </nav>
-    <button class="nav__burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span></button>
-  </header>
 
-  <main id="top">
-
-    <!-- HERO : le métier à tisser — 4 fils, 4 univers -->
-    <section class="hero">
-      <div class="hero__head">
-        <p class="eyebrow"><span class="rec"></span> Studio photo & vidéo</p>
-        <h1 class="hero__title">
-          <span class="line"><span>Nous tissons</span></span>
-          <span class="line"><span><em>vos histoires</em></span></span>
-          <span class="line"><span>en images.</span></span>
-        </h1>
-        <p class="hero__lede">Mariages, créateurs de contenu, marques et lieux d'exception&nbsp;: chaque projet est un fil. Nous le suivons du premier échange jusqu'à la dernière image livrée.</p>
-      </div>
-
-      <div class="loom" role="list">
-        <a class="loom__thread" href="#portfolio" data-filter="mariage" role="listitem" data-cursor="Voir">
-          <div class="media" data-label="images/hero/mariage.jpg"><img src="images/hero/mariage.jpg" alt="Mariage — reportage photo et film" loading="eager"></div>
-          <span class="loom__num">01</span>
-          <span class="loom__name">Mariages</span>
-        </a>
-        <a class="loom__thread" href="#portfolio" data-filter="createurs" role="listitem" data-cursor="Voir">
-          <div class="media" data-label="images/hero/createurs.jpg"><img src="images/hero/createurs.jpg" alt="Contenu pour créateurs et influenceurs" loading="eager"></div>
-          <span class="loom__num">02</span>
-          <span class="loom__name">Créateurs</span>
-        </a>
-        <a class="loom__thread" href="#portfolio" data-filter="marques" role="listitem" data-cursor="Voir">
-          <div class="media" data-label="images/hero/marques.jpg"><img src="images/hero/marques.jpg" alt="Photo et vidéo professionnelles pour les marques" loading="eager"></div>
-          <span class="loom__num">03</span>
-          <span class="loom__name">Marques</span>
-        </a>
-        <a class="loom__thread" href="#portfolio" data-filter="lieux" role="listitem" data-cursor="Voir">
-          <div class="media" data-label="images/hero/lieux.jpg"><img src="images/hero/lieux.jpg" alt="Photos de logements, hôtels et lieux de voyage" loading="eager"></div>
-          <span class="loom__num">04</span>
-          <span class="loom__name">Lieux</span>
-        </a>
-      </div>
-
-      <div class="hero__foot">
-        <span class="mono">Photo · Film · Reels</span>
-        <span class="mono hero__scroll">Défiler <i></i></span>
-        <span class="mono" data-config="zone">France & destination</span>
-      </div>
-    </section>
-
-    <!-- Bandeau défilant -->
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee__track">
-        <span>Mariages</span><i>✦</i><span><em>Reels</em></span><i>✦</i><span>Contenus créateurs</span><i>✦</i><span><em>Portraits pro</em></span><i>✦</i><span>Hôtels & logements</span><i>✦</i><span><em>Films</em></span><i>✦</i>
-        <span>Mariages</span><i>✦</i><span><em>Reels</em></span><i>✦</i><span>Contenus créateurs</span><i>✦</i><span><em>Portraits pro</em></span><i>✦</i><span>Hôtels & logements</span><i>✦</i><span><em>Films</em></span><i>✦</i>
-      </div>
+    <div class="hero__intro">
+      <p>Photo & vidéo pour les mariages, les créateurs, les marques et les lieux. Des images qui racontent, qui durent et qui performent.</p>
+      <a class="pill pill--light" href="#contact"><span>Réserver une date</span><i>→</i></a>
     </div>
 
-    <!-- UNIVERS -->
-    <section class="univers" id="univers">
-      <div class="section-head">
-        <p class="eyebrow">(01) — Univers</p>
-        <h2>Quatre fils,<br><em>une même exigence.</em></h2>
-      </div>
+    <h1 class="hero__title" aria-label="Trame Studio">
+      <span class="hero__word">Trame</span> <span class="hero__word">Studio</span>
+    </h1>
 
-      <ol class="threads">
-        <li class="thread" data-preview="images/hero/mariage.jpg">
-          <span class="thread__num">01</span>
-          <h3 class="thread__title">Mariages</h3>
-          <p class="thread__text">Un regard discret le jour J, des images vraies pour toute une vie. Reportage photo, film cinématique et teaser vertical prêt à partager le soir même.</p>
-          <ul class="thread__tags"><li>Reportage photo</li><li>Film & teaser</li><li>Séance couple</li><li>Galerie privée</li></ul>
-        </li>
-        <li class="thread" data-preview="images/hero/createurs.jpg">
-          <span class="thread__num">02</span>
-          <h3 class="thread__title">Créateurs & influenceurs</h3>
-          <p class="thread__text">Des reels qui arrêtent le scroll et des photos qui gardent votre identité. Tournage, montage rythmé, formats natifs pour Instagram et TikTok.</p>
-          <ul class="thread__tags"><li>Reels & TikTok</li><li>Shooting lifestyle</li><li>Packs mensuels</li><li>Montage vertical</li></ul>
-        </li>
-        <li class="thread" data-preview="images/hero/marques.jpg">
-          <span class="thread__num">03</span>
-          <h3 class="thread__title">Marques & professionnels</h3>
-          <p class="thread__text">Portraits d'équipe, photos produit, vidéos de marque : des images professionnelles pour votre site, vos réseaux et vos campagnes.</p>
-          <ul class="thread__tags"><li>Portrait corporate</li><li>Produit</li><li>Vidéo de marque</li><li>Événementiel</li></ul>
-        </li>
-        <li class="thread" data-preview="images/hero/lieux.jpg">
-          <span class="thread__num">04</span>
-          <h3 class="thread__title">Lieux & voyage</h3>
-          <p class="thread__text">Logements, gîtes, hôtels et villas : des photos lumineuses et des visites vidéo qui donnent envie de réserver, pensées pour Airbnb, Booking et vos réseaux.</p>
-          <ul class="thread__tags"><li>Location saisonnière</li><li>Hôtellerie</li><li>Visite vidéo</li><li>Contenu voyage</li></ul>
-        </li>
-      </ol>
-      <div class="thread-preview" aria-hidden="true"><div class="media"><img alt=""></div></div>
+    <div class="hero__bar">
+      <span>© <span class="js-year"></span> Trame Studio</span>
+      <span data-config="zone">France & destination</span>
+      <a href="#apropos">Défiler ↓</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ À PROPOS ============ -->
+    <section class="about" id="apropos">
+      <p class="label">À propos</p>
+      <p class="about__text js-lit">Trame Studio est un studio photo et vidéo qui tisse vos histoires en images&nbsp;: des mariages sincères, des reels qui arrêtent le scroll, des visuels pros pour les marques et des lieux qui donnent envie de partir.</p>
+
+      <div class="about__cards">
+        <div class="stat"><strong>04<small>univers</small></strong><p>Mariages, créateurs, marques et lieux : un même regard, quatre façons de raconter.</p></div>
+        <div class="stat stat--dark"><strong>2<small>en 1</small></strong><p>Photo et vidéo réunies : une seule équipe, une seule direction artistique.</p></div>
+        <div class="stat"><strong>9:16<small>natif</small></strong><p>Des formats pensés pour Instagram, TikTok, Airbnb et votre site.</p></div>
+      </div>
+      <a class="pill" href="#contact"><span>Démarrer un projet</span><i>→</i></a>
     </section>
 
-    <!-- PORTFOLIO -->
-    <section class="portfolio" id="portfolio">
-      <div class="section-head section-head--light">
-        <p class="eyebrow">(02) — Portfolio</p>
-        <h2>Images <em>choisies.</em></h2>
+    <!-- ============ SERVICES ============ -->
+    <section class="services" id="services">
+      <div class="head">
+        <p class="label">Services</p>
+        <div class="head__row">
+          <h2>Ce que<br>nous faisons</h2>
+          <p class="head__aside">Quatre univers, une même exigence : des images justes, livrées dans les formats dont vous avez besoin.</p>
+        </div>
       </div>
 
-      <div class="filters" role="tablist" aria-label="Filtrer le portfolio">
-        <button class="filter is-active" data-filter="all" role="tab" aria-selected="true">Tout <sup></sup></button>
-        <button class="filter" data-filter="mariage" role="tab" aria-selected="false">Mariages <sup></sup></button>
-        <button class="filter" data-filter="createurs" role="tab" aria-selected="false">Créateurs <sup></sup></button>
-        <button class="filter" data-filter="marques" role="tab" aria-selected="false">Marques <sup></sup></button>
-        <button class="filter" data-filter="lieux" role="tab" aria-selected="false">Lieux <sup></sup></button>
+      <div class="services__grid">
+        <div class="acc" data-acc>
+          <details class="acc__item" open data-img="images/hero/mariage.jpg" data-cat="mariage">
+            <summary><span class="acc__n">01</span><span class="acc__t">Mariages</span><i class="acc__icon"></i></summary>
+            <div class="acc__body">
+              <p>Un regard discret le jour J, des images vraies pour toute une vie. Reportage photo, film cinématique et teaser vertical à partager le soir même.</p>
+              <ul><li>Reportage photo</li><li>Film & teaser</li><li>Séance couple</li><li>Galerie privée</li></ul>
+            </div>
+          </details>
+          <details class="acc__item" data-img="images/hero/createurs.jpg" data-cat="createurs">
+            <summary><span class="acc__n">02</span><span class="acc__t">Créateurs & influenceurs</span><i class="acc__icon"></i></summary>
+            <div class="acc__body">
+              <p>Des reels qui arrêtent le scroll et des photos qui gardent votre identité. Tournage, montage rythmé, formats natifs pour Instagram et TikTok.</p>
+              <ul><li>Reels & TikTok</li><li>Shooting lifestyle</li><li>Packs mensuels</li><li>Montage vertical</li></ul>
+            </div>
+          </details>
+          <details class="acc__item" data-img="images/hero/marques.jpg" data-cat="marques">
+            <summary><span class="acc__n">03</span><span class="acc__t">Marques & pros</span><i class="acc__icon"></i></summary>
+            <div class="acc__body">
+              <p>Portraits d'équipe, photos produit, vidéos de marque : des images professionnelles pour votre site, vos réseaux et vos campagnes.</p>
+              <ul><li>Portrait corporate</li><li>Produit</li><li>Vidéo de marque</li><li>Événementiel</li></ul>
+            </div>
+          </details>
+          <details class="acc__item" data-img="images/hero/lieux.jpg" data-cat="lieux">
+            <summary><span class="acc__n">04</span><span class="acc__t">Lieux & voyage</span><i class="acc__icon"></i></summary>
+            <div class="acc__body">
+              <p>Logements, gîtes, hôtels et villas : des photos lumineuses et des visites vidéo qui donnent envie de réserver, pensées pour Airbnb, Booking et vos réseaux.</p>
+              <ul><li>Location saisonnière</li><li>Hôtellerie</li><li>Visite vidéo</li><li>Contenu voyage</li></ul>
+            </div>
+          </details>
+        </div>
+        <div class="services__img media" data-cat="mariage" data-label="images/hero/mariage.jpg"><img src="images/hero/mariage.jpg" alt=""></div>
+      </div>
+    </section>
+
+    <!-- ============ TRAVAUX ============ -->
+    <section class="work" id="travaux">
+      <div class="head">
+        <p class="label">Travaux</p>
+        <h2>Nos images</h2>
       </div>
 
+      <div class="bigword" aria-hidden="true">
+        <span>Port</span>
+        <span class="bigword__img media" data-label="images/hero/createurs.jpg" data-cat="createurs"><img src="images/hero/createurs.jpg" alt=""></span>
+        <span>folio</span>
+      </div>
+
+      <div class="filters" role="tablist" aria-label="Filtrer les travaux">
+        <button class="filter is-active" data-filter="all" role="tab" aria-selected="true">Tout<sup></sup></button>
+        <button class="filter" data-filter="mariage" role="tab" aria-selected="false">Mariages<sup></sup></button>
+        <button class="filter" data-filter="createurs" role="tab" aria-selected="false">Créateurs<sup></sup></button>
+        <button class="filter" data-filter="marques" role="tab" aria-selected="false">Marques<sup></sup></button>
+        <button class="filter" data-filter="lieux" role="tab" aria-selected="false">Lieux<sup></sup></button>
+      </div>
       <div class="grid" id="grid"></div>
     </section>
 
-    <!-- REELS -->
+    <!-- ============ REELS ============ -->
     <section class="reels" id="reels">
-      <div class="section-head section-head--light reels__head">
-        <p class="eyebrow">(03) — Reels</p>
-        <h2>Pensé pour<br><em>le format vertical.</em></h2>
-        <p class="reels__hint mono">Survolez pour lancer · glissez pour parcourir →</p>
+      <div class="head">
+        <p class="label">Reels</p>
+        <div class="head__row">
+          <h2>Pensé pour<br>le vertical</h2>
+          <p class="head__aside">Survolez pour lancer la lecture, glissez pour parcourir.</p>
+        </div>
       </div>
       <div class="reels__rail" id="reels-rail"></div>
     </section>
 
-    <!-- MANIFESTE -->
-    <section class="manifesto">
-      <p class="eyebrow">(04) — Le studio</p>
-      <p class="manifesto__text" id="manifesto">
-        Une trame, c'est l'ensemble des fils qui tiennent une étoffe. C'est aussi le fil d'un récit. Chez Trame Studio, nous ne faisons pas que des photos&nbsp;: nous construisons des histoires cohérentes, lumineuses et sincères, pensées pour durer comme pour performer sur les réseaux.
-      </p>
-    </section>
-
-    <!-- METHODE -->
-    <section class="methode" id="methode">
-      <div class="section-head">
-        <p class="eyebrow">(05) — Méthode</p>
-        <h2>Du premier échange<br><em>à la livraison.</em></h2>
+    <!-- ============ MÉTHODE (noir) ============ -->
+    <section class="method" id="methode">
+      <div class="method__left">
+        <p class="label label--light">Notre méthode</p>
+        <h2 class="method__title"><span>Simple,</span> clair et sans surprise</h2>
+        <div class="method__ctrl">
+          <button class="round" data-step="-1" aria-label="Étape précédente">←</button>
+          <button class="round" data-step="1" aria-label="Étape suivante">→</button>
+        </div>
       </div>
-      <div class="steps">
-        <svg class="steps__thread" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0 20 C 125 0, 125 40, 250 20 S 375 0, 500 20 S 625 40, 750 20 S 875 0, 1000 20" /></svg>
-        <article class="step">
-          <span class="step__num">01</span>
-          <h3>Échange</h3>
-          <p>On parle de vous, de votre projet, de vos envies. Appel ou rendez-vous, sans engagement.</p>
-        </article>
-        <article class="step">
-          <span class="step__num">02</span>
-          <h3>Préparation</h3>
-          <p>Moodboard, repérages, planning et liste des plans : rien n'est laissé au hasard.</p>
-        </article>
-        <article class="step">
-          <span class="step__num">03</span>
-          <h3>Tournage</h3>
-          <p>Le jour J, on se fait discrets ou on vous dirige, selon ce que le projet demande.</p>
-        </article>
-        <article class="step">
-          <span class="step__num">04</span>
-          <h3>Livraison</h3>
-          <p>Galerie privée, fichiers HD et formats adaptés à chaque réseau, dans les délais annoncés.</p>
-        </article>
+      <div class="ring" aria-live="polite">
+        <svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="92" class="ring__track"/><circle cx="100" cy="100" r="92" class="ring__bar" pathLength="100"/></svg>
+        <div class="ring__content">
+          <span class="ring__n">01</span>
+          <h3 class="ring__t">Échange</h3>
+          <p class="ring__p">On parle de vous, de votre projet et de vos envies. Appel ou rendez-vous, sans engagement.</p>
+        </div>
       </div>
     </section>
 
-    <!-- CONTACT -->
+    <!-- ============ FAQ ============ -->
+    <section class="faq" id="faq">
+      <div class="faq__left">
+        <p class="label">FAQ</p>
+        <h2>Tout ce qu'il<br>faut savoir</h2>
+        <div class="faq__list">
+          <details><summary>Où intervenez-vous ?<i class="acc__icon"></i></summary><p>Partout en France et à l'étranger pour les mariages et les lieux. Les frais de déplacement sont indiqués clairement dans le devis.</p></details>
+          <details><summary>Faites-vous la photo et la vidéo ensemble ?<i class="acc__icon"></i></summary><p>Oui, c'est notre spécialité. Un seul interlocuteur, une direction artistique cohérente et des contenus prêts pour chaque support.</p></details>
+          <details><summary>Quand vais-je recevoir mes images ?<i class="acc__icon"></i></summary><p>Le délai est fixé dans le devis selon le projet. Pour les créateurs et les réseaux, un aperçu rapide peut être livré très vite.</p></details>
+          <details><summary>Proposez-vous des formules sur mesure ?<i class="acc__icon"></i></summary><p>Toujours. Chaque devis est construit selon votre projet : durée, nombre d'images, formats vidéo, déplacement.</p></details>
+          <details><summary>Comment réserver une date ?<i class="acc__icon"></i></summary><p>Envoyez-nous une demande via le formulaire ci-dessous. Après un premier échange, un devis puis un acompte confirment la date.</p></details>
+        </div>
+      </div>
+      <div class="faq__img media" data-cat="marques" data-label="images/hero/faq.jpg"><img src="images/hero/faq.jpg" alt=""></div>
+    </section>
+
+    <!-- ============ CONTACT (noir) ============ -->
     <section class="contact" id="contact">
-      <div class="contact__intro">
-        <p class="eyebrow">(06) — Contact</p>
-        <h2>Racontez-nous<br><em>votre histoire.</em></h2>
-        <p>Une date, une idée, un lieu&nbsp;? Écrivez-nous, nous répondons sous 48&nbsp;h avec une proposition sur mesure.</p>
-        <ul class="contact__direct">
-          <li><span class="mono">E-mail</span><a data-config="email" href="mailto:contact@tramestudio.fr">contact@tramestudio.fr</a></li>
-          <li><span class="mono">Instagram</span><a data-config="instagram" href="https://instagram.com/tramestudio" target="_blank" rel="noopener">@tramestudio</a></li>
-        </ul>
+      <div class="contact__head">
+        <p class="label label--light">Contact</p>
+        <h2>Créons<br>ensemble</h2>
+      </div>
+      <div class="contact__stage">
+        <div class="marquee" aria-hidden="true"><div class="marquee__track">
+          <span>Mariages</span><b>✦</b><span>Reels</span><b>✦</b><span>Créateurs</span><b>✦</b><span>Marques</span><b>✦</b><span>Hôtels & logements</span><b>✦</b>
+          <span>Mariages</span><b>✦</b><span>Reels</span><b>✦</b><span>Créateurs</span><b>✦</b><span>Marques</span><b>✦</b><span>Hôtels & logements</span><b>✦</b>
+        </div></div>
+        <div class="contact__img media" data-cat="mariage" data-label="images/hero/contact.jpg"><img src="images/hero/contact.jpg" alt=""></div>
       </div>
 
       <form class="form" id="contact-form" novalidate>
         <fieldset class="form__types">
-          <legend class="mono">Votre projet</legend>
+          <legend>Votre projet</legend>
           <label><input type="radio" name="type" value="Mariage" checked><span>Mariage</span></label>
           <label><input type="radio" name="type" value="Créateur / influenceur"><span>Créateur</span></label>
           <label><input type="radio" name="type" value="Marque / professionnel"><span>Marque</span></label>
           <label><input type="radio" name="type" value="Logement / hôtel"><span>Lieu</span></label>
         </fieldset>
         <div class="form__row">
-          <label class="field"><span class="mono">Nom</span><input name="nom" required autocomplete="name" placeholder="Votre nom"></label>
-          <label class="field"><span class="mono">E-mail</span><input name="email" type="email" required autocomplete="email" placeholder="vous@exemple.fr"></label>
+          <label class="field"><span>Nom</span><input name="nom" required autocomplete="name"></label>
+          <label class="field"><span>E-mail</span><input name="email" type="email" required autocomplete="email"></label>
         </div>
         <div class="form__row">
-          <label class="field"><span class="mono">Date</span><input name="date" placeholder="Date ou période"></label>
-          <label class="field"><span class="mono">Lieu</span><input name="lieu" placeholder="Ville, région…"></label>
+          <label class="field"><span>Date ou période</span><input name="date"></label>
+          <label class="field"><span>Lieu</span><input name="lieu"></label>
         </div>
-        <label class="field"><span class="mono">Message</span><textarea name="message" rows="4" required placeholder="Parlez-nous de votre projet…"></textarea></label>
-        <button class="btn" type="submit" data-cursor="Envoyer"><span>Envoyer la demande</span><i>→</i></button>
+        <label class="field"><span>Votre projet</span><textarea name="message" rows="3" required></textarea></label>
+        <button class="pill pill--light" type="submit"><span>Envoyer la demande</span><i>→</i></button>
         <p class="form__status" role="status" aria-live="polite"></p>
       </form>
     </section>
   </main>
 
+  <!-- ============ FOOTER ============ -->
   <footer class="footer">
-    <div class="footer__word" aria-hidden="true">trame<em>studio</em></div>
-    <div class="footer__bar">
-      <span class="mono">© <span id="year"></span> Trame Studio</span>
-      <span class="mono">Photo · Vidéo · Reels</span>
-      <a class="mono" href="#top">Haut de page ↑</a>
+    <div class="footer__top">
+      <div>
+        <p class="footer__small">Une idée, une date, un lieu ?<br>Écrivez-nous.</p>
+        <a class="footer__mail" data-config="email" href="mailto:contact@tramestudio.fr">contact@tramestudio.fr</a>
+      </div>
+      <div class="footer__card">
+        <strong>Prêt ?</strong>
+        <a class="pill pill--light" href="#contact"><span>Démarrer</span><i>→</i></a>
+      </div>
     </div>
+    <div class="footer__cols">
+      <nav><a href="#apropos">Studio</a><a href="#services">Services</a><a href="#travaux">Travaux</a><a href="#reels">Reels</a><a href="#contact">Contact</a></nav>
+      <div class="footer__right"><strong>Réseaux</strong><a data-config="instagram" href="https://instagram.com/tramestudio" target="_blank" rel="noopener">@tramestudio</a></div>
+    </div>
+    <div class="footer__word" aria-hidden="true">Trame Studio</div>
+    <div class="footer__bar"><span>© <span class="js-year"></span> Trame Studio</span><span>Photo · Vidéo · Reels</span></div>
   </footer>
 
   <!-- Visionneuse -->
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visionneuse" hidden>
     <button class="lightbox__close" aria-label="Fermer">Fermer ✕</button>
     <button class="lightbox__nav lightbox__prev" aria-label="Précédent">←</button>
-    <figure class="lightbox__stage"><div class="lightbox__media"></div><figcaption class="lightbox__caption mono"></figcaption></figure>
+    <figure class="lightbox__stage"><div class="lightbox__media"></div><figcaption class="lightbox__caption"></figcaption></figure>
     <button class="lightbox__nav lightbox__next" aria-label="Suivant">→</button>
   </div>
 
