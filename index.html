@@ -3,16 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Trame Studio — Photo & Vidéo · Mariages, Créateurs, Marques, Lieux</title>
-  <meta name="description" content="Trame Studio, studio photo et vidéo : mariages, sport, reels et contenus pour créateurs, images professionnelles pour les marques, photos et vidéos de logements et hôtels.">
+  <title>Trame Studio — Photo & Vidéo · Mariage, Sport, Créateurs, Marques</title>
+  <meta name="description" content="Studio photo et vidéo : mariages, sport, contenus pour créateurs, marques et lieux. Des images vraies qui marquent et qui performent.">
   <meta property="og:title" content="Trame Studio — Photo & Vidéo">
-  <meta property="og:description" content="Nous tissons vos histoires en images. Mariages · Sport · Créateurs · Marques · Lieux.">
+  <meta property="og:description" content="Des images vraies, qui marquent. Mariage · Sport · Créateurs · Marques · Lieux.">
   <meta property="og:image" content="images/hero/hero.jpg">
   <meta name="theme-color" content="#0b0b0b">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="images/hero/hero.jpg">
+  <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -20,237 +22,225 @@
   <div class="curtain" aria-hidden="true"><span>Trame Studio</span></div>
   <div class="cursor" aria-hidden="true"><i></i><b></b></div>
 
-  <!-- ============ HERO : la photo / vidéo donne le mood ============ -->
+  <!-- ============ HERO ============ -->
   <header class="hero" id="top">
-    <div class="hero__media media" data-label="images/hero/hero.jpg  (ou videos/hero.mp4)">
-      <img src="images/hero/hero.jpg" alt="" fetchpriority="high">
-    </div>
+    <div class="hero__media media"><img src="images/hero/hero.jpg" alt="Coureur de la Diagonale des Fous préparant son sac" fetchpriority="high"></div>
     <div class="hero__shade"></div>
 
     <nav class="nav" aria-label="Navigation principale">
       <a href="#top" class="nav__logo">Trame Studio</a>
       <div class="nav__pills">
-        <a href="#apropos">Studio</a>
         <a href="#services">Services</a>
-        <a href="#travaux">Travaux</a>
-        <a href="#reels">Reels</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#reels" data-reels-link>Reels</a>
         <a href="#faq">FAQ</a>
-        <a href="#contact">Contact</a>
+        <a href="#contact" class="nav__cta">Réserver</a>
       </div>
       <button class="nav__burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span></button>
     </nav>
 
     <div class="hero__intro">
-      <p>Photo & vidéo pour les mariages, le sport, les créateurs, les marques et les lieux. Des images qui racontent, qui durent et qui performent.</p>
-      <a class="pill pill--light" data-magnetic href="#contact"><span>Réserver une date</span><i>→</i></a>
+      <p>Photo & vidéo qui racontent vraiment.</p>
+      <a class="btn btn--light" data-magnetic href="#contact"><span>Réserver une date</span><i>→</i></a>
     </div>
 
-    <h1 class="hero__title" aria-label="Trame Studio">
-      <span class="hero__word">Trame</span> <span class="hero__word">Studio</span>
-    </h1>
+    <h1 class="hero__title" aria-label="Trame Studio"><span class="hero__word">Trame</span> <span class="hero__word">Studio</span></h1>
 
     <div class="hero__bar">
-      <span>© <span class="js-year"></span> Trame Studio</span>
+      <span>Mariage · Sport · Créateurs · Marques</span>
       <span data-config="zone">France & destination</span>
       <a href="#apropos">Défiler ↓</a>
     </div>
   </header>
 
   <main>
-
     <!-- ============ À PROPOS ============ -->
-    <section class="about" id="apropos">
-      <p class="label">À propos</p>
-      <p class="about__text js-lit">Trame Studio est un studio photo et vidéo qui tisse vos histoires en images&nbsp;: des mariages sincères, l'énergie du sport, des reels qui arrêtent le scroll, des visuels pros pour les marques et des lieux qui donnent envie de partir.</p>
-
-      <div class="about__cards">
-        <div class="stat"><strong data-count="5">05<small>univers</small></strong><p>Mariages, sport, créateurs, marques et lieux : un même regard, cinq façons de raconter.</p></div>
-        <div class="stat stat--dark"><strong>2<small>en 1</small></strong><p>Photo et vidéo réunies : une seule équipe, une seule direction artistique.</p></div>
-        <div class="stat"><strong>9:16<small>natif</small></strong><p>Des formats pensés pour Instagram, TikTok, Airbnb et votre site.</p></div>
+    <section class="section" id="apropos">
+      <div class="container about__grid">
+        <div>
+          <p class="eyebrow">Le studio</p>
+          <p class="about__text js-lit">Des images vraies, pensées pour être vues et pour durer.</p>
+        </div>
+        <div class="stats reveal">
+          <div class="stat"><strong>05</strong><p>univers : mariage, sport, créateurs, marques, lieux.</p></div>
+          <div class="stat stat--dark"><strong>2en1</strong><p>Photo + vidéo, une seule équipe.</p></div>
+          <div class="stat"><strong>9:16</strong><p>Formats prêts à publier.</p></div>
+        </div>
       </div>
-      <a class="pill" data-magnetic href="#contact"><span>Démarrer un projet</span><i>→</i></a>
     </section>
 
     <!-- ============ SERVICES ============ -->
-    <section class="services" id="services">
-      <div class="head">
-        <p class="label">Services</p>
-        <div class="head__row">
-          <h2 data-split>Ce que<br>nous faisons</h2>
-          <p class="head__aside">Cinq univers, une même exigence : des images justes, livrées dans les formats dont vous avez besoin.</p>
+    <section class="section section--alt" id="services">
+      <div class="container">
+        <div class="head">
+          <div><p class="eyebrow">Services</p><h2 data-split>Ce que<br>nous faisons</h2></div>
+          <p class="lead">Un regard, cinq terrains de jeu.</p>
         </div>
-      </div>
 
-      <div class="services__grid">
-        <div class="acc" data-acc>
-          <details class="acc__item" open data-img="images/hero/mariage.jpg" data-cat="mariage">
-            <summary><span class="acc__n">01</span><span class="acc__t">Mariages</span><i class="acc__icon"></i></summary>
-            <div class="acc__body">
-              <p>Un regard discret le jour J, des images vraies pour toute une vie. Reportage photo, film cinématique et teaser vertical à partager le soir même.</p>
-              <ul><li>Reportage photo</li><li>Film & teaser</li><li>Séance couple</li><li>Galerie privée</li></ul>
-            </div>
-          </details>
-          <details class="acc__item" data-img="images/hero/sport.jpg" data-cat="sport">
-            <summary><span class="acc__n">02</span><span class="acc__t">Sport</span><i class="acc__icon"></i></summary>
-            <div class="acc__body">
-              <p>L'intensité d'un match, l'effort d'un athlète, l'ambiance d'un événement : photos d'action et vidéos dynamiques pour les clubs, les sportifs et les marques.</p>
-              <ul><li>Photo d'action</li><li>Highlights vidéo</li><li>Portraits d'athlètes</li><li>Événements & clubs</li></ul>
-            </div>
-          </details>
-          <details class="acc__item" data-img="images/hero/createurs.jpg" data-cat="createurs">
-            <summary><span class="acc__n">03</span><span class="acc__t">Créateurs & influenceurs</span><i class="acc__icon"></i></summary>
-            <div class="acc__body">
-              <p>Des reels qui arrêtent le scroll et des photos qui gardent votre identité. Tournage, montage rythmé, formats natifs pour Instagram et TikTok.</p>
-              <ul><li>Reels & TikTok</li><li>Shooting lifestyle</li><li>Packs mensuels</li><li>Montage vertical</li></ul>
-            </div>
-          </details>
-          <details class="acc__item" data-img="images/hero/marques.jpg" data-cat="marques">
-            <summary><span class="acc__n">04</span><span class="acc__t">Marques & pros</span><i class="acc__icon"></i></summary>
-            <div class="acc__body">
-              <p>Portraits d'équipe, photos produit, vidéos de marque : des images professionnelles pour votre site, vos réseaux et vos campagnes.</p>
-              <ul><li>Portrait corporate</li><li>Produit</li><li>Vidéo de marque</li><li>Événementiel</li></ul>
-            </div>
-          </details>
-          <details class="acc__item" data-img="images/hero/lieux.jpg" data-cat="lieux">
-            <summary><span class="acc__n">05</span><span class="acc__t">Lieux & voyage</span><i class="acc__icon"></i></summary>
-            <div class="acc__body">
-              <p>Logements, gîtes, hôtels et villas : des photos lumineuses et des visites vidéo qui donnent envie de réserver, pensées pour Airbnb, Booking et vos réseaux.</p>
-              <ul><li>Location saisonnière</li><li>Hôtellerie</li><li>Visite vidéo</li><li>Contenu voyage</li></ul>
-            </div>
-          </details>
+        <div class="services__grid">
+          <div class="acc" data-acc>
+            <details class="acc__item" open data-img="images/hero/mariage.jpg">
+              <summary><span class="acc__n">01</span><span class="acc__t">Mariage</span><i class="acc__icon"></i></summary>
+              <div class="acc__body"><p>Les émotions du jour J, sans mise en scène.</p><ul><li class="tag">Reportage</li><li class="tag">Film</li><li class="tag">Teaser 9:16</li></ul></div>
+            </details>
+            <details class="acc__item" data-img="images/hero/sport.jpg">
+              <summary><span class="acc__n">02</span><span class="acc__t">Sport</span><i class="acc__icon"></i></summary>
+              <div class="acc__body"><p>L'effort, la sueur, la ligne d'arrivée.</p><ul><li class="tag">Trail & course</li><li class="tag">Athlètes</li><li class="tag">Highlights</li></ul></div>
+            </details>
+            <details class="acc__item" data-img="images/hero/createurs.jpg">
+              <summary><span class="acc__n">03</span><span class="acc__t">Créateurs</span><i class="acc__icon"></i></summary>
+              <div class="acc__body"><p>Des reels qui arrêtent le scroll.</p><ul><li class="tag">Reels</li><li class="tag">Shooting</li><li class="tag">Packs mensuels</li></ul></div>
+            </details>
+            <details class="acc__item" data-img="images/hero/marques.jpg">
+              <summary><span class="acc__n">04</span><span class="acc__t">Marques</span><i class="acc__icon"></i></summary>
+              <div class="acc__body"><p>Des visuels pros pour vendre mieux.</p><ul><li class="tag">Portraits</li><li class="tag">Produit</li><li class="tag">Film de marque</li></ul></div>
+            </details>
+            <details class="acc__item" data-img="images/hero/lieux.jpg">
+              <summary><span class="acc__n">05</span><span class="acc__t">Lieux</span><i class="acc__icon"></i></summary>
+              <div class="acc__body"><p>Des logements qui donnent envie de réserver.</p><ul><li class="tag">Airbnb</li><li class="tag">Hôtels</li><li class="tag">Visite vidéo</li></ul></div>
+            </details>
+          </div>
+          <div class="services__img media"><img src="images/hero/mariage.jpg" alt=""></div>
         </div>
-        <div class="services__img media" data-cat="mariage" data-label="images/hero/mariage.jpg"><img src="images/hero/mariage.jpg" alt=""></div>
       </div>
     </section>
 
-    <!-- ============ TRAVAUX ============ -->
-    <section class="work" id="travaux">
-      <div class="head">
-        <p class="label">Travaux</p>
-        <h2 data-split>Nos images</h2>
+    <!-- ============ PORTFOLIO ============ -->
+    <section class="section" id="portfolio">
+      <div class="container">
+        <p class="eyebrow">Portfolio</p>
+        <div class="bigword" aria-hidden="true">
+          <span>Port</span>
+          <span class="bigword__img media"><img src="images/hero/portfolio.jpg" alt=""></span>
+          <span>folio</span>
+        </div>
+        <div class="filters" role="tablist" aria-label="Filtrer le portfolio">
+          <button class="filter is-active" data-filter="all" role="tab" aria-selected="true">Tout<sup></sup></button>
+          <button class="filter" data-filter="mariage" role="tab" aria-selected="false">Mariage<sup></sup></button>
+          <button class="filter" data-filter="sport" role="tab" aria-selected="false">Sport<sup></sup></button>
+          <button class="filter" data-filter="createurs" role="tab" aria-selected="false">Créateurs<sup></sup></button>
+          <button class="filter" data-filter="marques" role="tab" aria-selected="false">Marques<sup></sup></button>
+          <button class="filter" data-filter="lieux" role="tab" aria-selected="false">Lieux<sup></sup></button>
+        </div>
+        <div class="grid" id="grid"></div>
       </div>
-
-      <div class="bigword" aria-hidden="true">
-        <span>Port</span>
-        <span class="bigword__img media" data-label="images/hero/createurs.jpg" data-cat="createurs"><img src="images/hero/createurs.jpg" alt=""></span>
-        <span>folio</span>
-      </div>
-
-      <div class="filters" role="tablist" aria-label="Filtrer les travaux">
-        <button class="filter is-active" data-filter="all" role="tab" aria-selected="true">Tout<sup></sup></button>
-        <button class="filter" data-filter="mariage" role="tab" aria-selected="false">Mariages<sup></sup></button>
-        <button class="filter" data-filter="sport" role="tab" aria-selected="false">Sport<sup></sup></button>
-        <button class="filter" data-filter="createurs" role="tab" aria-selected="false">Créateurs<sup></sup></button>
-        <button class="filter" data-filter="marques" role="tab" aria-selected="false">Marques<sup></sup></button>
-        <button class="filter" data-filter="lieux" role="tab" aria-selected="false">Lieux<sup></sup></button>
-      </div>
-      <div class="grid" id="grid"></div>
     </section>
 
-    <!-- ============ REELS ============ -->
-    <section class="reels" id="reels">
-      <div class="head">
-        <p class="label">Reels</p>
-        <div class="head__row">
-          <h2 data-split>Pensé pour<br>le vertical</h2>
-          <p class="head__aside">Survolez pour lancer la lecture, glissez pour parcourir.</p>
+    <!-- ============ REELS (s'affiche dès qu'un reel est ajouté) ============ -->
+    <section class="section section--alt reels" id="reels" hidden>
+      <div class="container">
+        <div class="head">
+          <div><p class="eyebrow">Reels</p><h2 data-split>Pensé pour<br>le vertical</h2></div>
+          <p class="lead">Survolez pour lancer.</p>
         </div>
       </div>
       <div class="reels__rail" id="reels-rail"></div>
     </section>
 
-    <!-- ============ MÉTHODE (noir) ============ -->
-    <section class="method" id="methode">
-      <div class="method__left">
-        <p class="label label--light">Notre méthode</p>
-        <h2 class="method__title"><span>Simple,</span> clair et sans surprise</h2>
-        <div class="method__ctrl">
-          <button class="round" data-step="-1" aria-label="Étape précédente">←</button>
-          <button class="round" data-step="1" aria-label="Étape suivante">→</button>
+    <!-- ============ MÉTHODE ============ -->
+    <section class="section section--inverse" id="methode">
+      <div class="container method">
+        <div>
+          <p class="eyebrow">Méthode</p>
+          <h2 class="method__title"><span>Simple.</span> Clair. Sans surprise.</h2>
+          <div class="method__ctrl">
+            <button class="round" data-step="-1" aria-label="Étape précédente">←</button>
+            <button class="round" data-step="1" aria-label="Étape suivante">→</button>
+          </div>
+        </div>
+        <div class="ring reveal" aria-live="polite">
+          <svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="92" class="ring__track"/><circle cx="100" cy="100" r="92" class="ring__bar" pathLength="100"/></svg>
+          <div class="ring__content">
+            <span class="ring__n">01</span>
+            <h3 class="ring__t">Échange</h3>
+            <p class="ring__p">Un appel pour cerner votre projet.</p>
+          </div>
         </div>
       </div>
-      <div class="ring" aria-live="polite">
-        <svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="92" class="ring__track"/><circle cx="100" cy="100" r="92" class="ring__bar" pathLength="100"/></svg>
-        <div class="ring__content">
-          <span class="ring__n">01</span>
-          <h3 class="ring__t">Échange</h3>
-          <p class="ring__p">On parle de vous, de votre projet et de vos envies. Appel ou rendez-vous, sans engagement.</p>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="section">
+      <div class="container">
+        <div class="cta reveal">
+          <h2>Votre histoire mérite mieux qu'un souvenir flou.</h2>
+          <a class="btn" data-magnetic href="#contact"><span>Demander un devis</span><i>→</i></a>
         </div>
       </div>
     </section>
 
     <!-- ============ FAQ ============ -->
-    <section class="faq" id="faq">
-      <div class="faq__left">
-        <p class="label">FAQ</p>
-        <h2 data-split>Tout ce qu'il<br>faut savoir</h2>
-        <div class="faq__list">
-          <details><summary>Où intervenez-vous ?<i class="acc__icon"></i></summary><p>Partout en France et à l'étranger pour les mariages, le sport et les lieux. Les frais de déplacement sont indiqués clairement dans le devis.</p></details>
-          <details><summary>Faites-vous la photo et la vidéo ensemble ?<i class="acc__icon"></i></summary><p>Oui, c'est notre spécialité. Un seul interlocuteur, une direction artistique cohérente et des contenus prêts pour chaque support.</p></details>
-          <details><summary>Quand vais-je recevoir mes images ?<i class="acc__icon"></i></summary><p>Le délai est fixé dans le devis selon le projet. Pour les créateurs et les réseaux, un aperçu rapide peut être livré très vite.</p></details>
-          <details><summary>Proposez-vous des formules sur mesure ?<i class="acc__icon"></i></summary><p>Toujours. Chaque devis est construit selon votre projet : durée, nombre d'images, formats vidéo, déplacement.</p></details>
-          <details><summary>Comment réserver une date ?<i class="acc__icon"></i></summary><p>Envoyez-nous une demande via le formulaire ci-dessous. Après un premier échange, un devis puis un acompte confirment la date.</p></details>
+    <section class="section section--alt" id="faq">
+      <div class="container faq">
+        <div>
+          <p class="eyebrow">FAQ</p>
+          <h2 data-split>Questions<br>fréquentes</h2>
+          <div class="faq__list">
+            <details><summary>Où intervenez-vous ?<i class="acc__icon"></i></summary><p>Partout en France et à l'étranger.</p></details>
+            <details><summary>Photo et vidéo le même jour ?<i class="acc__icon"></i></summary><p>Oui, une seule équipe pour les deux.</p></details>
+            <details><summary>Quels délais de livraison ?<i class="acc__icon"></i></summary><p>Annoncés dans le devis. Un aperçu peut arriver très vite.</p></details>
+            <details><summary>Comment réserver ?<i class="acc__icon"></i></summary><p>Formulaire, appel, devis, acompte : la date est à vous.</p></details>
+          </div>
         </div>
+        <div class="faq__img media reveal"><img src="images/hero/faq.jpg" alt="Mariée en robe de dentelle"></div>
       </div>
-      <div class="faq__img media" data-cat="marques" data-label="images/hero/faq.jpg"><img src="images/hero/faq.jpg" alt=""></div>
     </section>
 
-    <!-- ============ CONTACT (noir) ============ -->
-    <section class="contact" id="contact">
-      <div class="contact__head">
-        <p class="label label--light">Contact</p>
+    <!-- ============ CONTACT ============ -->
+    <section class="section section--inverse contact" id="contact">
+      <div class="container">
+        <p class="eyebrow">Contact</p>
         <h2 data-split>Créons<br>ensemble</h2>
-      </div>
-      <div class="contact__stage">
-        <div class="marquee" aria-hidden="true"><div class="marquee__track">
-          <span>Mariages</span><b>✦</b><span>Sport</span><b>✦</b><span>Reels</span><b>✦</b><span>Créateurs</span><b>✦</b><span>Marques</span><b>✦</b><span>Hôtels & logements</span><b>✦</b>
-          <span>Mariages</span><b>✦</b><span>Sport</span><b>✦</b><span>Reels</span><b>✦</b><span>Créateurs</span><b>✦</b><span>Marques</span><b>✦</b><span>Hôtels & logements</span><b>✦</b>
-        </div></div>
-        <div class="contact__img media" data-cat="mariage" data-label="images/hero/contact.jpg"><img src="images/hero/contact.jpg" alt=""></div>
-      </div>
+        <div class="contact__stage">
+          <div class="marquee" aria-hidden="true"><div class="marquee__track">
+            <span>Mariage</span><b>✦</b><span>Sport</span><b>✦</b><span>Créateurs</span><b>✦</b><span>Marques</span><b>✦</b><span>Lieux</span><b>✦</b>
+            <span>Mariage</span><b>✦</b><span>Sport</span><b>✦</b><span>Créateurs</span><b>✦</b><span>Marques</span><b>✦</b><span>Lieux</span><b>✦</b>
+          </div></div>
+          <div class="contact__img media"><img src="images/hero/contact.jpg" alt=""></div>
+        </div>
 
-      <form class="form" id="contact-form" novalidate>
-        <fieldset class="form__types">
-          <legend>Votre projet</legend>
-          <label><input type="radio" name="type" value="Mariage" checked><span>Mariage</span></label>
-          <label><input type="radio" name="type" value="Sport"><span>Sport</span></label>
-          <label><input type="radio" name="type" value="Créateur / influenceur"><span>Créateur</span></label>
-          <label><input type="radio" name="type" value="Marque / professionnel"><span>Marque</span></label>
-          <label><input type="radio" name="type" value="Logement / hôtel"><span>Lieu</span></label>
-        </fieldset>
-        <div class="form__row">
-          <label class="field"><span>Nom</span><input name="nom" required autocomplete="name"></label>
-          <label class="field"><span>E-mail</span><input name="email" type="email" required autocomplete="email"></label>
-        </div>
-        <div class="form__row">
-          <label class="field"><span>Date ou période</span><input name="date"></label>
-          <label class="field"><span>Lieu</span><input name="lieu"></label>
-        </div>
-        <label class="field"><span>Votre projet</span><textarea name="message" rows="3" required></textarea></label>
-        <button class="pill pill--light" type="submit"><span>Envoyer la demande</span><i>→</i></button>
-        <p class="form__status" role="status" aria-live="polite"></p>
-      </form>
+        <form class="form" id="contact-form" novalidate>
+          <fieldset class="form__types">
+            <legend>Votre projet</legend>
+            <label><input type="radio" name="type" value="Mariage" checked><span>Mariage</span></label>
+            <label><input type="radio" name="type" value="Sport"><span>Sport</span></label>
+            <label><input type="radio" name="type" value="Créateur"><span>Créateur</span></label>
+            <label><input type="radio" name="type" value="Marque"><span>Marque</span></label>
+            <label><input type="radio" name="type" value="Lieu"><span>Lieu</span></label>
+          </fieldset>
+          <div class="form__row">
+            <label class="field"><span>Nom</span><input name="nom" required autocomplete="name"></label>
+            <label class="field"><span>E-mail</span><input name="email" type="email" required autocomplete="email"></label>
+          </div>
+          <div class="form__row">
+            <label class="field"><span>Date</span><input name="date"></label>
+            <label class="field"><span>Lieu</span><input name="lieu"></label>
+          </div>
+          <label class="field"><span>Votre projet en deux mots</span><textarea name="message" rows="3" required></textarea></label>
+          <button class="btn btn--light" type="submit"><span>Envoyer</span><i>→</i></button>
+          <p class="form__status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
     </section>
   </main>
 
   <!-- ============ FOOTER ============ -->
   <footer class="footer">
-    <div class="footer__top">
-      <div>
-        <p class="footer__small">Une idée, une date, un lieu ?<br>Écrivez-nous.</p>
-        <a class="footer__mail" data-config="email" href="mailto:contact@tramestudio.fr">contact@tramestudio.fr</a>
+    <div class="container">
+      <div class="footer__top">
+        <div>
+          <p class="footer__small">Un projet ? Écrivez-nous.</p>
+          <a class="footer__mail" data-config="email" href="mailto:contact@tramestudio.fr">contact@tramestudio.fr</a>
+        </div>
+        <a class="btn" data-magnetic href="#contact"><span>Réserver</span><i>→</i></a>
       </div>
-      <div class="footer__card">
-        <strong>Prêt ?</strong>
-        <a class="pill pill--light" href="#contact"><span>Démarrer</span><i>→</i></a>
+      <div class="footer__cols">
+        <nav aria-label="Pied de page"><a href="#services">Services</a><a href="#portfolio">Portfolio</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></nav>
+        <div class="footer__right"><a data-config="instagram" href="https://instagram.com/tramestudio" target="_blank" rel="noopener">@tramestudio</a></div>
       </div>
+      <div class="footer__word" aria-hidden="true">Trame<span>.</span>Studio</div>
+      <div class="footer__bar"><span>© <span class="js-year"></span> Trame Studio</span><a href="design-system.html">Design system</a></div>
     </div>
-    <div class="footer__cols">
-      <nav><a href="#apropos">Studio</a><a href="#services">Services</a><a href="#travaux">Travaux</a><a href="#reels">Reels</a><a href="#contact">Contact</a></nav>
-      <div class="footer__right"><strong>Réseaux</strong><a data-config="instagram" href="https://instagram.com/tramestudio" target="_blank" rel="noopener">@tramestudio</a></div>
-    </div>
-    <div class="footer__word" aria-hidden="true">Trame Studio</div>
-    <div class="footer__bar"><span>© <span class="js-year"></span> Trame Studio</span><span>Photo · Vidéo · Reels</span></div>
   </footer>
 
   <!-- Visionneuse -->

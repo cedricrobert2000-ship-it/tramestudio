@@ -1,0 +1,104 @@
+/* ==========================================================================
+   TRAME STUDIO — DESIGN TOKENS
+   Une seule source de vérité : couleurs, typo, espacements, rayons, ombres,
+   mouvements. Modifiez une valeur ici, tout le site suit.
+   ========================================================================== */
+:root {
+  /* ---------- Couleurs : primitives ---------- */
+  --white:     #ffffff;
+  --grey-50:   #f6f6f5;
+  --grey-100:  #ececeb;
+  --grey-200:  #dcdcda;
+  --grey-300:  #c4c4c1;
+  --grey-500:  #8b8b88;
+  --grey-700:  #4a4a48;
+  --grey-800:  #2a2a29;
+  --grey-900:  #161616;
+  --black:     #0b0b0b;
+  --red-500:   #d4231b;   /* rouge Trame : la casquette de la Diagonale */
+  --red-600:   #b81c15;
+  --red-100:   #fbe9e8;
+
+  /* ---------- Couleurs : rôles ---------- */
+  --color-bg:          var(--white);
+  --color-bg-alt:      var(--grey-50);
+  --color-surface:     var(--white);
+  --color-ink:         var(--black);
+  --color-ink-soft:    var(--grey-700);
+  --color-muted:       var(--grey-500);
+  --color-line:        rgba(11, 11, 11, .10);
+  --color-inverse:     var(--black);
+  --color-inverse-ink: var(--white);
+  --color-inverse-muted: #9a9a97;
+  --color-inverse-line: rgba(255, 255, 255, .14);
+  --color-accent:      var(--red-500);
+  --color-accent-hover: var(--red-600);
+  --color-accent-soft: var(--red-100);
+  --color-on-accent:   var(--white);
+  --color-placeholder: var(--grey-200);
+
+  /* ---------- Typographie ---------- */
+  --font-display: "Anton", "Impact", "Arial Narrow", sans-serif;
+  --font-body:    "Inter", system-ui, -apple-system, sans-serif;
+
+  --fs-2xs: 11px;
+  --fs-xs:  12px;
+  --fs-sm:  14px;
+  --fs-md:  16px;
+  --fs-lg:  clamp(18px, 1.6vw, 22px);
+  --fs-xl:  clamp(26px, 2.6vw, 36px);
+  --fs-2xl: clamp(40px, 5.4vw, 80px);
+  --fs-3xl: clamp(52px, 7.6vw, 120px);
+  --fs-hero: clamp(76px, 15.4vw, 260px);
+
+  --lh-tight: .9;
+  --lh-snug:  1.15;
+  --lh-body:  1.6;
+  --tracking-caps: .08em;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+
+  /* ---------- Espacements (base 4) ---------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+  --space-section: clamp(96px, 13vw, 200px);
+  --gutter: clamp(20px, 5vw, 80px);
+  --container: 1360px;
+  --measure: 46ch;
+
+  /* ---------- Formes ---------- */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+  --border: 1px solid var(--color-line);
+
+  /* ---------- Profondeur ---------- */
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, .06);
+  --shadow-md: 0 18px 40px rgba(0, 0, 0, .12);
+  --shadow-lg: 0 30px 80px rgba(0, 0, 0, .35);
+
+  /* ---------- Mouvement ---------- */
+  --ease-out: cubic-bezier(.2, .7, .1, 1);
+  --ease-in-out: cubic-bezier(.8, 0, .2, 1);
+  --dur-fast: .25s;
+  --dur-base: .5s;
+  --dur-slow: 1s;
+  --dur-xslow: 1.4s;
+
+  /* ---------- Couches ---------- */
+  --z-nav: 50;
+  --z-cursor: 125;
+  --z-overlay: 99;
+  --z-progress: 120;
+  --z-curtain: 130;
+}

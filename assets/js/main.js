@@ -82,7 +82,7 @@
 
   /* ---------- Texte qui s'allume au scroll ---------- */
   $$(".js-lit").forEach((el) => {
-    const KEYS = ["histoires", "sport,", "partir."];
+    const KEYS = ["vraies,", "durer."];
     el.innerHTML = el.textContent.trim().split(/\s+/).map((w) => `<span class="w${KEYS.includes(w) ? " is-key" : ""}">${w}</span>`).join(" ");
     const words = $$(".w", el);
     const update = () => {
@@ -102,16 +102,14 @@
     d.addEventListener("toggle", () => {
       if (!d.open) return;
       $$("[data-acc] details").forEach((o) => { if (o !== d) o.open = false; });
-      if (sImg.dataset.label === d.dataset.img) return;
-      sImg.classList.add("is-swapping");
-      setTimeout(() => {
-        sImg.classList.remove("is-empty");
-        sImg.dataset.label = d.dataset.img;
-        sImgEl.onerror = () => sImg.classList.add("is-empty");
-        sImgEl.onload = () => sImg.classList.remove("is-empty");
-        sImgEl.src = d.dataset.img;
-        sImg.classList.remove("is-swapping");
-      }, 250);
+      // on ne change l'image que si elle existe : sinon on garde la précédente
+      const next = new Image();
+      next.onload = () => {
+        if (sImgEl.getAttribute("src") === d.dataset.img) return;
+        sImg.classList.add("is-swapping");
+        setTimeout(() => { sImgEl.src = d.dataset.img; sImg.classList.remove("is-swapping", "is-empty"); }, 250);
+      };
+      next.src = d.dataset.img;
     });
   });
   $$(".faq details").forEach((d) => d.addEventListener("toggle", () => {
@@ -143,6 +141,7 @@
   $$(".filter").forEach((f) => {
     const n = f.dataset.filter === "all" ? PORTFOLIO.length : PORTFOLIO.filter((p) => p.cat === f.dataset.filter).length;
     $("sup", f).textContent = String(n).padStart(2, "0");
+    if (!n) f.hidden = true; // catégorie vide : filtre masqué
   });
   let activeFilter = "all";
   function applyFilter(cat) {
@@ -204,8 +203,10 @@
   lb.addEventListener("touchstart", (e) => { sx = e.touches[0].clientX; }, { passive: true });
   lb.addEventListener("touchend", (e) => { const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1); });
 
-  /* ---------- Reels ---------- */
+  /* ---------- Reels (section affichée seulement s'il y en a) ---------- */
   const rail = $("#reels-rail");
+  $("#reels").hidden = !REELS.length;
+  $$("[data-reels-link]").forEach((a) => { a.hidden = !REELS.length; if (!REELS.length) a.style.display = "none"; });
   REELS.forEach((r) => {
     const el = document.createElement("article");
     el.className = "reel";
@@ -247,10 +248,10 @@
 
   /* ---------- Méthode : anneau en 4 étapes ---------- */
   const STEPS = [
-    ["Échange", "On parle de vous, de votre projet et de vos envies. Appel ou rendez-vous, sans engagement."],
-    ["Préparation", "Moodboard, repérages, planning et liste des plans : rien n'est laissé au hasard."],
-    ["Tournage", "Le jour J, on se fait discrets ou on vous dirige, selon ce que le projet demande."],
-    ["Livraison", "Galerie privée, fichiers HD et formats adaptés à chaque réseau, dans les délais annoncés."],
+    ["Échange", "Un appel pour cerner votre projet."],
+    ["Préparation", "Moodboard, repérages, planning."],
+    ["Tournage", "Discrets ou directifs, selon le besoin."],
+    ["Livraison", "Galerie privée et formats prêts à publier."],
   ];
   const ringBar = $(".ring__bar"), ringContent = $(".ring__content");
   let cur = 0, timer;
@@ -337,7 +338,7 @@
   }
 
   /* ---------- Apparitions au scroll ---------- */
-  $$(".head, .about__cards, .acc, .services__img, .bigword, .ring, .faq__list, .faq__img, .form").forEach((el) => el.classList.add("reveal"));
+  $$(".head, .acc, .services__img, .bigword, .faq__list, .form").forEach((el) => el.classList.add("reveal"));
   const io = new IntersectionObserver((entries) => entries.forEach((e) => {
     if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
   }), { threshold: .1, rootMargin: "0px 0px -6% 0px" });

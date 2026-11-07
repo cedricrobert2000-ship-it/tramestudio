@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trame Studio — Design system</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .ds-section { padding-block: var(--space-9); border-top: var(--border); }
+    .ds-title { font-size: var(--fs-2xl); margin-bottom: var(--space-7); }
+    .ds-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--space-4); }
+    .swatch { border: var(--border); border-radius: var(--radius-md); overflow: hidden; background: var(--color-surface); }
+    .swatch div { height: 96px; }
+    .swatch p { padding: var(--space-3); font-size: var(--fs-xs); }
+    .swatch code, .row code { font-size: var(--fs-2xs); color: var(--color-muted); display: block; }
+    .row { display: grid; grid-template-columns: 180px 1fr; align-items: baseline; gap: var(--space-5); padding-block: var(--space-4); border-bottom: var(--border); }
+    .bar { height: 16px; background: var(--color-accent); border-radius: 3px; }
+    .radius { width: 96px; height: 96px; background: var(--color-inverse); }
+    .demo { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; }
+    .demo-dark { padding: var(--space-6); border-radius: var(--radius-lg); background: var(--color-inverse); }
+    .ds-head { padding-block: var(--space-10) var(--space-8); }
+    .ds-head h1 { font-size: var(--fs-3xl); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="ds-head">
+      <p class="eyebrow">Trame Studio</p>
+      <h1>Design system</h1>
+      <p class="lead" style="margin-top: var(--space-5)">Tous les styles du site viennent de <code>assets/css/tokens.css</code>. Changez une valeur, le site entier suit.</p>
+      <p style="margin-top: var(--space-6)"><a class="btn" href="index.html"><span>Retour au site</span><i>←</i></a></p>
+    </header>
+
+    <section class="ds-section">
+      <h2 class="ds-title">Couleurs</h2>
+      <div class="ds-grid" id="colors"></div>
+    </section>
+
+    <section class="ds-section">
+      <h2 class="ds-title">Typographie</h2>
+      <div class="row"><code>--fs-hero · Anton</code><span style="font: var(--fs-3xl)/var(--lh-tight) var(--font-display); text-transform: uppercase">Trame</span></div>
+      <div class="row"><code>--fs-3xl · h2</code><span style="font: var(--fs-2xl)/var(--lh-tight) var(--font-display); text-transform: uppercase">Ce que nous faisons</span></div>
+      <div class="row"><code>--fs-xl · titres</code><span style="font: var(--fs-xl)/1 var(--font-display); text-transform: uppercase">Mariage</span></div>
+      <div class="row"><code>--fs-lg · accroche</code><span class="lead">Photo & vidéo qui racontent vraiment.</span></div>
+      <div class="row"><code>--fs-md · texte</code><span>Les émotions du jour J, sans mise en scène.</span></div>
+      <div class="row"><code>--fs-xs · eyebrow</code><span class="eyebrow" style="margin:0">Services</span></div>
+    </section>
+
+    <section class="ds-section">
+      <h2 class="ds-title">Espacements</h2>
+      <div id="spaces"></div>
+    </section>
+
+    <section class="ds-section">
+      <h2 class="ds-title">Rayons</h2>
+      <div class="demo">
+        <div><div class="radius" style="border-radius: var(--radius-sm)"></div><code>--radius-sm</code></div>
+        <div><div class="radius" style="border-radius: var(--radius-md)"></div><code>--radius-md</code></div>
+        <div><div class="radius" style="border-radius: var(--radius-lg)"></div><code>--radius-lg</code></div>
+        <div><div class="radius" style="border-radius: var(--radius-pill); width: 160px"></div><code>--radius-pill</code></div>
+      </div>
+    </section>
+
+    <section class="ds-section">
+      <h2 class="ds-title">Composants</h2>
+      <div class="demo" style="margin-bottom: var(--space-6)">
+        <a class="btn" href="#"><span>Bouton principal</span><i>→</i></a>
+        <span class="tag">Tag</span><span class="tag">Reportage</span>
+        <button class="filter is-active">Filtre actif<sup>12</sup></button>
+        <button class="filter">Filtre<sup>04</sup></button>
+      </div>
+      <div class="demo-dark demo" style="margin-bottom: var(--space-6)">
+        <a class="btn btn--light" href="#"><span>Bouton clair</span><i>→</i></a>
+        <button class="round">→</button>
+      </div>
+      <div class="stats" style="max-width: 520px">
+        <div class="stat"><strong>05</strong><p>Carte statistique</p></div>
+        <div class="stat stat--dark"><strong>2en1</strong><p>Variante sombre</p></div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const cs = getComputedStyle(document.documentElement);
+    const colors = ["--color-bg","--color-bg-alt","--color-ink","--color-ink-soft","--color-muted","--color-inverse","--color-accent","--color-accent-hover","--color-accent-soft","--grey-200"];
+    document.getElementById("colors").innerHTML = colors.map((c) =>
+      `<div class="swatch"><div style="background:var(${c})"></div><p>${c.replace("--color-","").replace("--","")}<code>${cs.getPropertyValue(c).trim()}</code></p></div>`).join("");
+    const spaces = [1,2,3,4,5,6,7,8,9,10];
+    document.getElementById("spaces").innerHTML = spaces.map((n) =>
+      `<div class="row"><code>--space-${n} · ${cs.getPropertyValue("--space-" + n).trim()}</code><div class="bar" style="width:var(--space-${n})"></div></div>`).join("");
+  </script>
+</body>
+</html>

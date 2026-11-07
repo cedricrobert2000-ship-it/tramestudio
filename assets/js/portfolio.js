@@ -18,25 +18,33 @@
    ========================================================================== */
 
 window.TRAME_PORTFOLIO = [
-  { cat: "mariage",   src: "images/mariage/01.jpg",   title: "Les préparatifs",       ratio: "4/5" },
-  { cat: "lieux",     src: "images/lieux/01.jpg",     title: "Villa en bord de mer",  ratio: "3/2" },
-  { cat: "createurs", src: "images/createurs/01.jpg", title: "Shooting lifestyle",    ratio: "4/5" },
-  { cat: "marques",   src: "images/marques/01.jpg",   title: "Portrait de dirigeante", ratio: "1/1" },
-  { cat: "sport",     src: "images/sport/01.jpg",     title: "Dans l'action",         ratio: "3/2" },
-  { cat: "mariage",   src: "images/mariage/02.jpg",   title: "La cérémonie",          ratio: "3/2" },
-  { cat: "createurs", src: "images/createurs/02.jpg", title: "Collab mode",           ratio: "9/16" },
-  { cat: "lieux",     src: "images/lieux/02.jpg",     title: "Chambre d'hôtel",       ratio: "4/5" },
-  { cat: "marques",   src: "images/marques/02.jpg",   title: "Packshot produit",      ratio: "4/5" },
-  { cat: "sport",     src: "images/sport/02.jpg",     title: "Portrait d'athlète",    ratio: "4/5" },
-  { cat: "mariage",   src: "images/mariage/03.jpg",   title: "Première danse",        ratio: "4/5" },
-  { cat: "lieux",     src: "images/lieux/03.jpg",     title: "Gîte en pleine nature", ratio: "3/2" },
-  { cat: "createurs", src: "images/createurs/03.jpg", title: "Voyage & contenu",      ratio: "1/1" },
-  { cat: "marques",   src: "images/marques/03.jpg",   title: "Équipe en action",      ratio: "3/2" },
-  { cat: "sport",     src: "images/sport/03.jpg",     title: "Jour de match",         ratio: "1/1" },
+  // Sport : Diagonale des Fous (Grand Raid, La Réunion) · Mariage
+  { cat: "sport",   src: "images/sport/01.jpg",   title: "Quartier d'orange",      ratio: "2/3" },
+  { cat: "mariage", src: "images/mariage/01.jpg", title: "Le porté",               ratio: "2/3" },
+  { cat: "sport",   src: "images/sport/02.jpg",   title: "Préparer le sac",        ratio: "3/2" },
+  { cat: "mariage", src: "images/mariage/03.jpg", title: "La haie d'honneur",      ratio: "2/3" },
+  { cat: "sport",   src: "images/sport/03.jpg",   title: "Sous la capuche",        ratio: "2/3" },
+  { cat: "mariage", src: "images/mariage/02.jpg", title: "Au balcon",              ratio: "3/2" },
+  { cat: "sport",   src: "images/sport/04.jpg",   title: "Dossard 1635",           ratio: "9/16" },
+  { cat: "mariage", src: "images/mariage/04.jpg", title: "Elle se retourne",       ratio: "2/3" },
+  { cat: "sport",   src: "images/sport/06.jpg",   title: "Derniers réglages",      ratio: "3/2" },
+  { cat: "mariage", src: "images/mariage/05.jpg", title: "L'attente",              ratio: "2/3" },
+  { cat: "sport",   src: "images/sport/05.jpg",   title: "Nuit de course",         ratio: "2/3" },
+  { cat: "mariage", src: "images/mariage/06.jpg", title: "Main dans la main",      ratio: "2/3" },
+  { cat: "sport",   src: "images/sport/08.jpg",   title: "Pieds nus",              ratio: "3/2" },
+  { cat: "mariage", src: "images/mariage/07.jpg", title: "Dentelle",               ratio: "2/3" },
+  { cat: "sport",   src: "images/sport/07.jpg",   title: "Avant le départ",        ratio: "2/3" },
+  { cat: "mariage", src: "images/mariage/08.jpg", title: "Dans les hautes herbes", ratio: "2/3" },
+  { cat: "sport",   src: "images/sport/09.jpg",   title: "La ligne d'arrivée",     ratio: "2/3" },
+  { cat: "mariage", src: "images/mariage/09.jpg", title: "À la fenêtre",           ratio: "2/3" },
+  { cat: "sport",   src: "images/sport/10.jpg",   title: "Le camp de base",        ratio: "2/3" },
+  { cat: "mariage", src: "images/mariage/10.jpg", title: "Portrait d'invité",      ratio: "2/3" },
+  // À venir : créateurs, marques, lieux. Exemple :
+  // { cat: "createurs", src: "images/createurs/01.jpg", title: "Shooting lifestyle", ratio: "4/5" },
   // Exemple vidéo :
-  // { cat: "mariage", src: "images/mariage/film-cover.jpg", video: "videos/mariage-teaser.mp4", title: "Teaser du mariage", ratio: "3/2" },
+  // { cat: "sport", src: "images/sport/film-cover.jpg", video: "videos/sport-teaser.mp4", title: "Teaser", ratio: "3/2" },
   // Exemple YouTube / Vimeo :
-  // { cat: "mariage", src: "images/mariage/film-cover.jpg", embed: "https://vimeo.com/123456789", title: "Film de mariage", ratio: "3/2" },
+  // { cat: "mariage", src: "images/mariage/01.jpg", embed: "https://vimeo.com/123456789", title: "Film de mariage", ratio: "3/2" },
 ];
 
 /* ==========================================================================
@@ -45,12 +53,8 @@ window.TRAME_PORTFOLIO = [
      poster : image affichée avant lecture
    ========================================================================== */
 
+// La section Reels s'affiche automatiquement dès qu'il y a au moins un reel ici.
 window.TRAME_REELS = [
-  { cat: "createurs", video: "videos/reels/01.mp4", poster: "images/reels/01.jpg", title: "Get ready with me",      client: "Créatrice lifestyle" },
-  { cat: "lieux",     video: "videos/reels/02.mp4", poster: "images/reels/02.jpg", title: "Visite en 30 secondes",  client: "Location saisonnière" },
-  { cat: "mariage",   video: "videos/reels/03.mp4", poster: "images/reels/03.jpg", title: "Teaser du jour J",       client: "Mariage" },
-  { cat: "sport",     video: "videos/reels/04.mp4", poster: "images/reels/04.jpg", title: "Highlights du match",    client: "Club sportif" },
-  { cat: "marques",   video: "videos/reels/05.mp4", poster: "images/reels/05.jpg", title: "Coulisses de marque",    client: "Marque locale" },
-  { cat: "createurs", video: "videos/reels/06.mp4", poster: "images/reels/06.jpg", title: "Transition outfit",      client: "Influenceuse mode" },
-  { cat: "lieux",     video: "videos/reels/07.mp4", poster: "images/reels/07.jpg", title: "Golden hour à l'hôtel",  client: "Hôtellerie" },
+  // { cat: "sport", video: "videos/reels/01.mp4", poster: "images/reels/01.jpg", title: "Diagonale des Fous", client: "Trail" },
+  // { cat: "createurs", video: "videos/reels/02.mp4", poster: "images/reels/02.jpg", title: "Anne", client: "Créatrice" },
 ];

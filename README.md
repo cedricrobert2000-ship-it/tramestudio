@@ -20,6 +20,12 @@ Pour ajouter **plus** de photos, ajoutez une ligne dans `assets/js/portfolio.js`
 
 **Conseils** : JPG de 2000 px maximum sur le grand côté (~300–500 Ko), vidéos de 15–30 s en 1080×1920 sans son, moins de 8 Mo.
 
+## Design system
+
+- `assets/css/tokens.css` : toutes les valeurs (couleurs, typo, espacements, rayons, ombres, animations). Changez `--red-500` pour changer l'accent du site entier.
+- `assets/css/style.css` : les composants, qui n'utilisent que les tokens.
+- `design-system.html` : la page de référence visuelle (couleurs, typo, boutons…).
+
 ## Vos coordonnées
 
 Tout est dans `assets/js/config.js` : e-mail, Instagram, zone d'intervention et formulaire de contact (Formspree en option).
