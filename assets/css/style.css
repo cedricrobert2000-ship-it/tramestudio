@@ -3,15 +3,15 @@
    ========================================================================== */
 :root {
   --white: #ffffff;
-  --paper: #f4f3f0;
+  --paper: #efefef;
   --black: #0b0b0b;
   --ink-2: #161616;
   --grey: #8a8a8a;
   --grey-2: #c9c9c6;
-  /* Couleur d'accent : légère, calée sur le style des photos (à ajuster) */
-  --accent: #c79a6b;      /* ← couleur principale : changez-la ici et tout le site suit */
-  --accent-ink: #8a5d33;
-  --tint: #f2ebe2;
+  /* Accent rouge, utilisé avec parcimonie sur une base gris / blanc / noir */
+  --accent: #d4231b;      /* ← couleur principale : changez-la ici et tout le site suit */
+  --accent-ink: #c41f17;
+  --tint: #e4e4e3;
   --line: rgba(11, 11, 11, .12);
   --line-d: rgba(255, 255, 255, .14);
 
@@ -29,20 +29,20 @@ body { margin: 0; background: var(--paper); color: var(--black); font: 15px/1.55
 img, video { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
-::selection { background: var(--accent); color: var(--black); }
+::selection { background: var(--accent); color: var(--white); }
 
 h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 400; text-transform: uppercase; line-height: .9; letter-spacing: -.005em; }
 h2 { font-size: clamp(48px, 7.4vw, 112px); }
 .label { font: 600 12px var(--sans); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 18px; display: flex; align-items: center; gap: 10px; }
 .label::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 var(--accent); animation: pulse 2.4s infinite; }
-@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(199,154,107,.6); } 70%, 100% { box-shadow: 0 0 0 8px rgba(199,154,107,0); } }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(212,35,27,.55); } 70%, 100% { box-shadow: 0 0 0 8px rgba(212,35,27,0); } }
 .label--light { color: var(--white); }
 
 /* ---------- Boutons pilule ---------- */
 .pill { display: inline-flex; align-items: center; gap: 14px; background: var(--black); color: var(--white); border-radius: 99px; padding: 6px 6px 6px 22px; font-weight: 500; font-size: 14px; transition: transform .4s var(--ease); }
 .pill { will-change: transform; }
 .pill i { font-style: normal; width: 38px; height: 38px; border-radius: 50%; background: var(--white); color: var(--black); display: grid; place-items: center; transition: transform .5s var(--ease); }
-.pill:hover i { transform: rotate(-45deg); background: var(--accent); color: var(--black); }
+.pill:hover i { transform: rotate(-45deg); background: var(--accent); color: var(--white); }
 .pill--light { background: var(--white); color: var(--black); }
 .pill--light i { background: var(--black); color: var(--white); }
 .round { width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--line-d); color: var(--white); font-size: 18px; transition: background .3s, color .3s; }
@@ -118,7 +118,7 @@ details[open] .acc__n { color: var(--accent-ink); }
 .acc__icon { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line); position: relative; flex: none; transition: transform .4s var(--ease), background .3s; }
 .acc__icon::before, .acc__icon::after { content: ""; position: absolute; left: 50%; top: 50%; width: 10px; height: 1.5px; background: currentColor; transform: translate(-50%, -50%); }
 .acc__icon::after { transform: translate(-50%, -50%) rotate(90deg); transition: transform .4s var(--ease); }
-details[open] > summary .acc__icon { background: var(--accent); color: var(--black); border-color: var(--accent); }
+details[open] > summary .acc__icon { background: var(--accent); color: var(--white); border-color: var(--accent); }
 details[open] > summary .acc__icon::after { transform: translate(-50%, -50%) rotate(0); }
 .acc__body { padding: 0 0 26px 44px; animation: open .5s var(--ease); }
 .acc__body p { margin: 0 0 16px; max-width: 520px; color: #444; }
@@ -270,7 +270,7 @@ details[open] > summary .acc__icon::after { transform: translate(-50%, -50%) rot
 .cursor { position: fixed; left: 0; top: 0; z-index: 125; pointer-events: none; opacity: 0; transition: opacity .3s; }
 .cursor i { position: absolute; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: var(--accent); }
 .cursor b { position: absolute; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; border: 1px solid var(--accent); display: grid; place-items: center; font: 600 10px var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--black); transition: width .4s var(--ease), height .4s var(--ease), margin .4s var(--ease), background .3s; }
-.cursor.is-big b { width: 84px; height: 84px; margin: -42px 0 0 -42px; background: var(--accent); }
+.cursor.is-big b { width: 84px; height: 84px; margin: -42px 0 0 -42px; background: var(--accent); color: var(--white); }
 @media (hover: hover) and (pointer: fine) { .cursor.is-on { opacity: 1; } body.has-cursor, body.has-cursor a, body.has-cursor button, body.has-cursor summary, body.has-cursor label { cursor: none; } }
 
 /* titres : lettres qui montent */

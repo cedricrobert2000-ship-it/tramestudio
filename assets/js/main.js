@@ -82,7 +82,7 @@
 
   /* ---------- Texte qui s'allume au scroll ---------- */
   $$(".js-lit").forEach((el) => {
-    const KEYS = ["histoires", "sincères,", "sport,", "scroll,", "partir."];
+    const KEYS = ["histoires", "sport,", "partir."];
     el.innerHTML = el.textContent.trim().split(/\s+/).map((w) => `<span class="w${KEYS.includes(w) ? " is-key" : ""}">${w}</span>`).join(" ");
     const words = $$(".w", el);
     const update = () => {
