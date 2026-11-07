@@ -9,7 +9,7 @@
   const REELS = window.TRAME_REELS || [];
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
-  const CAT_LABEL = { mariage: "Mariage", createurs: "Créateurs", marques: "Marques", lieux: "Lieux" };
+  const CAT_LABEL = { mariage: "Mariage", sport: "Sport", createurs: "Créateurs", marques: "Marques", lieux: "Lieux" };
 
   /* ---------- Médias : aplat neutre si le fichier n'existe pas encore ---------- */
   function guard(el, wrap) {
@@ -60,7 +60,19 @@
     v.addEventListener("loadeddata", () => { heroMedia.classList.remove("is-empty"); $("img", heroMedia)?.remove(); });
     heroMedia.prepend(v);
   }
-  requestAnimationFrame(() => setTimeout(() => document.body.classList.add("is-ready"), 60));
+  /* ---------- Rideau d'ouverture ---------- */
+  const curtain = $(".curtain");
+  let opened = false;
+  const openCurtain = () => {
+    if (opened) return; opened = true;
+    curtain.classList.add("is-done");
+    setTimeout(() => document.body.classList.add("is-ready"), 250);
+    setTimeout(() => { curtain.hidden = true; }, 1100);
+  };
+  let seen = false;
+  try { seen = sessionStorage.getItem("trame-seen"); sessionStorage.setItem("trame-seen", "1"); } catch {}
+  if (reduced || seen) { curtain.hidden = true; document.body.classList.add("is-ready"); }
+  else { addEventListener("load", () => setTimeout(openCurtain, 700), { once: true }); setTimeout(openCurtain, 2600); }
 
   /* ---------- Navigation mobile ---------- */
   const nav = $(".nav"), burger = $(".nav__burger");
@@ -70,7 +82,8 @@
 
   /* ---------- Texte qui s'allume au scroll ---------- */
   $$(".js-lit").forEach((el) => {
-    el.innerHTML = el.textContent.trim().split(/\s+/).map((w) => `<span class="w">${w}</span>`).join(" ");
+    const KEYS = ["histoires", "sincères,", "sport,", "scroll,", "partir."];
+    el.innerHTML = el.textContent.trim().split(/\s+/).map((w) => `<span class="w${KEYS.includes(w) ? " is-key" : ""}">${w}</span>`).join(" ");
     const words = $$(".w", el);
     const update = () => {
       const r = el.getBoundingClientRect();
@@ -256,12 +269,79 @@
   $$("[data-step]").forEach((b) => b.addEventListener("click", () => { showStep(cur + +b.dataset.step); auto(); }));
   new IntersectionObserver(([e]) => { e.isIntersecting ? auto() : clearInterval(timer); }, { threshold: .4 }).observe($(".method"));
 
+  /* ---------- Titres : découpage en lettres ---------- */
+  $$("[data-split]").forEach((h) => {
+    let i = 0;
+    const label = h.textContent.replace(/\s+/g, " ").trim();
+    h.innerHTML = h.innerHTML.split(/<br\s*\/?>/i).map((line) =>
+      line.trim().split(/\s+/).map((word) => `<span class="wd">${[...word].map((c) => `<span class="ch" style="--i:${i++}">${c}</span>`).join("")}</span>`).join(" ")
+    ).join("<br>");
+    h.setAttribute("aria-label", label);
+  });
+
+  /* ---------- Barre de progression + parallaxe ---------- */
+  const bar = $(".progress"), heroTitle = $(".hero__title"), bigImg = $(".bigword__img");
+  let ticking = false;
+  const onScroll = () => {
+    const y = scrollY, max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
+    if (!reduced && y < innerHeight * 1.2) {
+      heroMedia.style.transform = `translateY(${y * .35}px) scale(${1 + y * .0002})`;
+      heroTitle.style.transform = `translateY(${y * -.12}px)`;
+    }
+    if (!reduced && bigImg) {
+      const r = bigImg.getBoundingClientRect();
+      const p = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
+      bigImg.style.transform = `rotate(${-4 + p * 14}deg) scale(${1.05 - Math.min(.15, Math.abs(p) * .15)})`;
+    }
+    ticking = false;
+  };
+  addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  onScroll();
+
+  /* ---------- Curseur, boutons magnétiques, cartes inclinables ---------- */
+  if (finePointer && !reduced) {
+    const cur = $(".cursor"), dot = $("i", cur), ring = $("b", cur);
+    document.body.classList.add("has-cursor");
+    let mx = -100, my = -100, rx = mx, ry = my;
+    addEventListener("mousemove", (e) => { mx = e.clientX; my = e.clientY; cur.classList.add("is-on"); }, { passive: true });
+    document.addEventListener("mouseleave", () => cur.classList.remove("is-on"));
+    (function loop() {
+      rx += (mx - rx) * .18; ry += (my - ry) * .18;
+      dot.style.transform = `translate(${mx}px, ${my}px)`;
+      ring.style.transform = `translate(${rx}px, ${ry}px)`;
+      requestAnimationFrame(loop);
+    })();
+    const LABELS = [[".card", "Voir"], [".reel", "Lire"], [".bigword", "Voir"]];
+    document.addEventListener("mouseover", (e) => {
+      const hit = LABELS.find(([sel]) => e.target.closest(sel));
+      cur.classList.toggle("is-big", !!hit);
+      ring.textContent = hit ? hit[1] : "";
+    });
+    $$("[data-magnetic], .round, .nav__pills a").forEach((el) => {
+      el.addEventListener("mousemove", (e) => {
+        const r = el.getBoundingClientRect();
+        el.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .25}px, ${(e.clientY - r.top - r.height / 2) * .35}px)`;
+      });
+      el.addEventListener("mouseleave", () => { el.style.transform = ""; });
+    });
+    $$(".stat").forEach((el) => {
+      el.addEventListener("mousemove", (e) => {
+        const r = el.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+        el.style.transform = `perspective(700px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateY(-4px)`;
+        el.style.boxShadow = "0 24px 50px rgba(0,0,0,.12)";
+      });
+      el.addEventListener("mouseleave", () => { el.style.transform = ""; el.style.boxShadow = ""; });
+    });
+  }
+
   /* ---------- Apparitions au scroll ---------- */
   $$(".head, .about__cards, .acc, .services__img, .bigword, .ring, .faq__list, .faq__img, .form").forEach((el) => el.classList.add("reveal"));
   const io = new IntersectionObserver((entries) => entries.forEach((e) => {
     if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
   }), { threshold: .1, rootMargin: "0px 0px -6% 0px" });
-  $$(".reveal, .card").forEach((el) => io.observe(el));
+  $$(".reveal, .card, [data-split]").forEach((el) => io.observe(el));
 
   /* ---------- Formulaire ---------- */
   const form = $("#contact-form"), status = $(".form__status", form);

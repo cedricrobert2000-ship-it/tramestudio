@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Trame Studio — Photo & Vidéo · Mariages, Créateurs, Marques, Lieux</title>
-  <meta name="description" content="Trame Studio, studio photo et vidéo : mariages, reels et contenus pour créateurs, images professionnelles pour les marques, photos et vidéos de logements et hôtels.">
+  <meta name="description" content="Trame Studio, studio photo et vidéo : mariages, sport, reels et contenus pour créateurs, images professionnelles pour les marques, photos et vidéos de logements et hôtels.">
   <meta property="og:title" content="Trame Studio — Photo & Vidéo">
-  <meta property="og:description" content="Nous tissons vos histoires en images. Mariages · Créateurs · Marques · Lieux.">
+  <meta property="og:description" content="Nous tissons vos histoires en images. Mariages · Sport · Créateurs · Marques · Lieux.">
   <meta property="og:image" content="images/hero/hero.jpg">
   <meta name="theme-color" content="#0b0b0b">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
@@ -16,6 +16,9 @@
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+  <div class="progress" aria-hidden="true"></div>
+  <div class="curtain" aria-hidden="true"><span>Trame Studio</span></div>
+  <div class="cursor" aria-hidden="true"><i></i><b></b></div>
 
   <!-- ============ HERO : la photo / vidéo donne le mood ============ -->
   <header class="hero" id="top">
@@ -38,8 +41,8 @@
     </nav>
 
     <div class="hero__intro">
-      <p>Photo & vidéo pour les mariages, les créateurs, les marques et les lieux. Des images qui racontent, qui durent et qui performent.</p>
-      <a class="pill pill--light" href="#contact"><span>Réserver une date</span><i>→</i></a>
+      <p>Photo & vidéo pour les mariages, le sport, les créateurs, les marques et les lieux. Des images qui racontent, qui durent et qui performent.</p>
+      <a class="pill pill--light" data-magnetic href="#contact"><span>Réserver une date</span><i>→</i></a>
     </div>
 
     <h1 class="hero__title" aria-label="Trame Studio">
@@ -58,14 +61,14 @@
     <!-- ============ À PROPOS ============ -->
     <section class="about" id="apropos">
       <p class="label">À propos</p>
-      <p class="about__text js-lit">Trame Studio est un studio photo et vidéo qui tisse vos histoires en images&nbsp;: des mariages sincères, des reels qui arrêtent le scroll, des visuels pros pour les marques et des lieux qui donnent envie de partir.</p>
+      <p class="about__text js-lit">Trame Studio est un studio photo et vidéo qui tisse vos histoires en images&nbsp;: des mariages sincères, l'énergie du sport, des reels qui arrêtent le scroll, des visuels pros pour les marques et des lieux qui donnent envie de partir.</p>
 
       <div class="about__cards">
-        <div class="stat"><strong>04<small>univers</small></strong><p>Mariages, créateurs, marques et lieux : un même regard, quatre façons de raconter.</p></div>
+        <div class="stat"><strong data-count="5">05<small>univers</small></strong><p>Mariages, sport, créateurs, marques et lieux : un même regard, cinq façons de raconter.</p></div>
         <div class="stat stat--dark"><strong>2<small>en 1</small></strong><p>Photo et vidéo réunies : une seule équipe, une seule direction artistique.</p></div>
         <div class="stat"><strong>9:16<small>natif</small></strong><p>Des formats pensés pour Instagram, TikTok, Airbnb et votre site.</p></div>
       </div>
-      <a class="pill" href="#contact"><span>Démarrer un projet</span><i>→</i></a>
+      <a class="pill" data-magnetic href="#contact"><span>Démarrer un projet</span><i>→</i></a>
     </section>
 
     <!-- ============ SERVICES ============ -->
@@ -73,8 +76,8 @@
       <div class="head">
         <p class="label">Services</p>
         <div class="head__row">
-          <h2>Ce que<br>nous faisons</h2>
-          <p class="head__aside">Quatre univers, une même exigence : des images justes, livrées dans les formats dont vous avez besoin.</p>
+          <h2 data-split>Ce que<br>nous faisons</h2>
+          <p class="head__aside">Cinq univers, une même exigence : des images justes, livrées dans les formats dont vous avez besoin.</p>
         </div>
       </div>
 
@@ -87,22 +90,29 @@
               <ul><li>Reportage photo</li><li>Film & teaser</li><li>Séance couple</li><li>Galerie privée</li></ul>
             </div>
           </details>
+          <details class="acc__item" data-img="images/hero/sport.jpg" data-cat="sport">
+            <summary><span class="acc__n">02</span><span class="acc__t">Sport</span><i class="acc__icon"></i></summary>
+            <div class="acc__body">
+              <p>L'intensité d'un match, l'effort d'un athlète, l'ambiance d'un événement : photos d'action et vidéos dynamiques pour les clubs, les sportifs et les marques.</p>
+              <ul><li>Photo d'action</li><li>Highlights vidéo</li><li>Portraits d'athlètes</li><li>Événements & clubs</li></ul>
+            </div>
+          </details>
           <details class="acc__item" data-img="images/hero/createurs.jpg" data-cat="createurs">
-            <summary><span class="acc__n">02</span><span class="acc__t">Créateurs & influenceurs</span><i class="acc__icon"></i></summary>
+            <summary><span class="acc__n">03</span><span class="acc__t">Créateurs & influenceurs</span><i class="acc__icon"></i></summary>
             <div class="acc__body">
               <p>Des reels qui arrêtent le scroll et des photos qui gardent votre identité. Tournage, montage rythmé, formats natifs pour Instagram et TikTok.</p>
               <ul><li>Reels & TikTok</li><li>Shooting lifestyle</li><li>Packs mensuels</li><li>Montage vertical</li></ul>
             </div>
           </details>
           <details class="acc__item" data-img="images/hero/marques.jpg" data-cat="marques">
-            <summary><span class="acc__n">03</span><span class="acc__t">Marques & pros</span><i class="acc__icon"></i></summary>
+            <summary><span class="acc__n">04</span><span class="acc__t">Marques & pros</span><i class="acc__icon"></i></summary>
             <div class="acc__body">
               <p>Portraits d'équipe, photos produit, vidéos de marque : des images professionnelles pour votre site, vos réseaux et vos campagnes.</p>
               <ul><li>Portrait corporate</li><li>Produit</li><li>Vidéo de marque</li><li>Événementiel</li></ul>
             </div>
           </details>
           <details class="acc__item" data-img="images/hero/lieux.jpg" data-cat="lieux">
-            <summary><span class="acc__n">04</span><span class="acc__t">Lieux & voyage</span><i class="acc__icon"></i></summary>
+            <summary><span class="acc__n">05</span><span class="acc__t">Lieux & voyage</span><i class="acc__icon"></i></summary>
             <div class="acc__body">
               <p>Logements, gîtes, hôtels et villas : des photos lumineuses et des visites vidéo qui donnent envie de réserver, pensées pour Airbnb, Booking et vos réseaux.</p>
               <ul><li>Location saisonnière</li><li>Hôtellerie</li><li>Visite vidéo</li><li>Contenu voyage</li></ul>
@@ -117,7 +127,7 @@
     <section class="work" id="travaux">
       <div class="head">
         <p class="label">Travaux</p>
-        <h2>Nos images</h2>
+        <h2 data-split>Nos images</h2>
       </div>
 
       <div class="bigword" aria-hidden="true">
@@ -129,6 +139,7 @@
       <div class="filters" role="tablist" aria-label="Filtrer les travaux">
         <button class="filter is-active" data-filter="all" role="tab" aria-selected="true">Tout<sup></sup></button>
         <button class="filter" data-filter="mariage" role="tab" aria-selected="false">Mariages<sup></sup></button>
+        <button class="filter" data-filter="sport" role="tab" aria-selected="false">Sport<sup></sup></button>
         <button class="filter" data-filter="createurs" role="tab" aria-selected="false">Créateurs<sup></sup></button>
         <button class="filter" data-filter="marques" role="tab" aria-selected="false">Marques<sup></sup></button>
         <button class="filter" data-filter="lieux" role="tab" aria-selected="false">Lieux<sup></sup></button>
@@ -141,7 +152,7 @@
       <div class="head">
         <p class="label">Reels</p>
         <div class="head__row">
-          <h2>Pensé pour<br>le vertical</h2>
+          <h2 data-split>Pensé pour<br>le vertical</h2>
           <p class="head__aside">Survolez pour lancer la lecture, glissez pour parcourir.</p>
         </div>
       </div>
@@ -172,9 +183,9 @@
     <section class="faq" id="faq">
       <div class="faq__left">
         <p class="label">FAQ</p>
-        <h2>Tout ce qu'il<br>faut savoir</h2>
+        <h2 data-split>Tout ce qu'il<br>faut savoir</h2>
         <div class="faq__list">
-          <details><summary>Où intervenez-vous ?<i class="acc__icon"></i></summary><p>Partout en France et à l'étranger pour les mariages et les lieux. Les frais de déplacement sont indiqués clairement dans le devis.</p></details>
+          <details><summary>Où intervenez-vous ?<i class="acc__icon"></i></summary><p>Partout en France et à l'étranger pour les mariages, le sport et les lieux. Les frais de déplacement sont indiqués clairement dans le devis.</p></details>
           <details><summary>Faites-vous la photo et la vidéo ensemble ?<i class="acc__icon"></i></summary><p>Oui, c'est notre spécialité. Un seul interlocuteur, une direction artistique cohérente et des contenus prêts pour chaque support.</p></details>
           <details><summary>Quand vais-je recevoir mes images ?<i class="acc__icon"></i></summary><p>Le délai est fixé dans le devis selon le projet. Pour les créateurs et les réseaux, un aperçu rapide peut être livré très vite.</p></details>
           <details><summary>Proposez-vous des formules sur mesure ?<i class="acc__icon"></i></summary><p>Toujours. Chaque devis est construit selon votre projet : durée, nombre d'images, formats vidéo, déplacement.</p></details>
@@ -188,12 +199,12 @@
     <section class="contact" id="contact">
       <div class="contact__head">
         <p class="label label--light">Contact</p>
-        <h2>Créons<br>ensemble</h2>
+        <h2 data-split>Créons<br>ensemble</h2>
       </div>
       <div class="contact__stage">
         <div class="marquee" aria-hidden="true"><div class="marquee__track">
-          <span>Mariages</span><b>✦</b><span>Reels</span><b>✦</b><span>Créateurs</span><b>✦</b><span>Marques</span><b>✦</b><span>Hôtels & logements</span><b>✦</b>
-          <span>Mariages</span><b>✦</b><span>Reels</span><b>✦</b><span>Créateurs</span><b>✦</b><span>Marques</span><b>✦</b><span>Hôtels & logements</span><b>✦</b>
+          <span>Mariages</span><b>✦</b><span>Sport</span><b>✦</b><span>Reels</span><b>✦</b><span>Créateurs</span><b>✦</b><span>Marques</span><b>✦</b><span>Hôtels & logements</span><b>✦</b>
+          <span>Mariages</span><b>✦</b><span>Sport</span><b>✦</b><span>Reels</span><b>✦</b><span>Créateurs</span><b>✦</b><span>Marques</span><b>✦</b><span>Hôtels & logements</span><b>✦</b>
         </div></div>
         <div class="contact__img media" data-cat="mariage" data-label="images/hero/contact.jpg"><img src="images/hero/contact.jpg" alt=""></div>
       </div>
@@ -202,6 +213,7 @@
         <fieldset class="form__types">
           <legend>Votre projet</legend>
           <label><input type="radio" name="type" value="Mariage" checked><span>Mariage</span></label>
+          <label><input type="radio" name="type" value="Sport"><span>Sport</span></label>
           <label><input type="radio" name="type" value="Créateur / influenceur"><span>Créateur</span></label>
           <label><input type="radio" name="type" value="Marque / professionnel"><span>Marque</span></label>
           <label><input type="radio" name="type" value="Logement / hôtel"><span>Lieu</span></label>

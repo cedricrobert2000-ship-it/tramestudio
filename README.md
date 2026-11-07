@@ -1,6 +1,6 @@
 # Trame Studio — portfolio photo & vidéo
 
-Site vitrine du studio : **mariages**, **créateurs & influenceurs** (reels, photos réseaux sociaux), **marques & professionnels**, **lieux & voyage** (logements, hôtels).
+Site vitrine du studio : **mariages**, **sport**, **créateurs & influenceurs** (reels, photos réseaux sociaux), **marques & professionnels**, **lieux & voyage** (logements, hôtels).
 
 Site statique (HTML / CSS / JS, sans dépendance) hébergé gratuitement avec GitHub Pages.
 
@@ -10,9 +10,9 @@ Les emplacements vides affichent un aplat coloré avec le chemin attendu : il su
 
 | Dossier | Contenu |
 |---|---|
-| `images/hero/` | `hero.jpg` (grande photo du header, elle donne le mood du site), `mariage.jpg`, `createurs.jpg`, `marques.jpg`, `lieux.jpg` (section Services), `faq.jpg`, `contact.jpg` |
+| `images/hero/` | `hero.jpg` (grande photo du header, elle donne le mood du site), `mariage.jpg`, `createurs.jpg`, `sport.jpg`, `marques.jpg`, `lieux.jpg` (section Services), `faq.jpg`, `contact.jpg` |
 | `videos/hero.mp4` | (optionnel) vidéo d'ambiance du header, à activer dans `assets/js/config.js` |
-| `images/mariage/`, `images/createurs/`, `images/marques/`, `images/lieux/` | Photos du portfolio : `01.jpg`, `02.jpg`, `03.jpg`… |
+| `images/mariage/`, `images/sport/`, `images/createurs/`, `images/marques/`, `images/lieux/` | Photos du portfolio : `01.jpg`, `02.jpg`, `03.jpg`… |
 | `images/reels/` | Image d'aperçu de chaque reel : `01.jpg`… |
 | `videos/reels/` | Reels verticaux en `.mp4` : `01.mp4`… |
 
