@@ -7,6 +7,7 @@
   const CONFIG = window.TRAME_CONFIG || {};
   const PORTFOLIO = window.TRAME_PORTFOLIO || [];
   const REELS = window.TRAME_REELS || [];
+  const FILMS = window.TRAME_FILMS || [];
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
   const CAT_LABEL = { mariage: "Mariage", sport: "Sport", createurs: "Créateurs", marques: "Marques", lieux: "Lieux" };
@@ -135,7 +136,10 @@
     card.insertAdjacentHTML("beforeend", `<span class="card__meta"><span class="card__title"></span><span class="card__cat"></span></span>`);
     $(".card__title", card).textContent = item.title;
     $(".card__cat", card).textContent = CAT_LABEL[item.cat] || "";
-    card.addEventListener("click", () => openLightbox(i));
+    card.addEventListener("click", () => {
+      const list = PORTFOLIO.filter((p) => activeFilter === "all" || p.cat === activeFilter);
+      openLightbox(list, list.indexOf(item));
+    });
     grid.append(card);
   });
   $$(".filter").forEach((f) => {
@@ -157,8 +161,7 @@
 
   /* ---------- Visionneuse ---------- */
   const lb = $("#lightbox"), lbMedia = $(".lightbox__media", lb), lbCap = $(".lightbox__caption", lb);
-  let lbIndex = 0, lastFocus;
-  const visible = () => PORTFOLIO.map((_, i) => i).filter((i) => activeFilter === "all" || PORTFOLIO[i].cat === activeFilter);
+  let lbList = [], lbIndex = 0, lastFocus;
   const embedUrl = (url) => {
     const yt = url.match(/(?:youtu\.be\/|v=|shorts\/)([\w-]{11})/);
     if (yt) return `https://www.youtube-nocookie.com/embed/${yt[1]}?autoplay=1&rel=0`;
@@ -167,15 +170,17 @@
   };
   const emptyBox = (item) => { const m = makeMedia({ src: "", cat: item.cat, label: item.video || item.src }); m.classList.add("is-empty"); m.style.aspectRatio = item.ratio || "4/5"; return m; };
   function renderLightbox() {
-    const item = PORTFOLIO[lbIndex];
+    const item = lbList[lbIndex];
     lbMedia.innerHTML = "";
+    lb.classList.toggle("is-vertical", !!item.vertical);
     if (item.embed) {
       const f = document.createElement("iframe");
       Object.assign(f, { src: embedUrl(item.embed), allow: "autoplay; fullscreen; picture-in-picture", allowFullscreen: true, title: item.title });
+      if (item.vertical) f.className = "is-vertical";
       lbMedia.append(f);
     } else if (item.video) {
       const v = document.createElement("video");
-      Object.assign(v, { src: item.video, poster: item.src || "", controls: true, autoplay: true, playsInline: true });
+      Object.assign(v, { src: item.video, poster: item.src || item.poster || "", controls: true, autoplay: true, playsInline: true });
       v.onerror = () => v.replaceWith(emptyBox(item));
       lbMedia.append(v);
     } else {
@@ -183,12 +188,12 @@
       img.onerror = () => img.replaceWith(emptyBox(item));
       lbMedia.append(img);
     }
-    const list = visible();
-    lbCap.textContent = `${item.title} — ${CAT_LABEL[item.cat] || ""} · ${list.indexOf(lbIndex) + 1}/${list.length}`;
+    lbCap.textContent = `${item.title} — ${item.kind || item.client || CAT_LABEL[item.cat] || ""}` + (lbList.length > 1 ? ` · ${lbIndex + 1}/${lbList.length}` : "");
+    $$(".lightbox__nav", lb).forEach((b) => (b.style.visibility = lbList.length > 1 ? "" : "hidden"));
   }
-  function openLightbox(i) { lastFocus = document.activeElement; lbIndex = i; renderLightbox(); lb.hidden = false; document.body.style.overflow = "hidden"; $(".lightbox__close", lb).focus(); }
+  function openLightbox(list, i) { lastFocus = document.activeElement; lbList = list; lbIndex = i; renderLightbox(); lb.hidden = false; document.body.style.overflow = "hidden"; $(".lightbox__close", lb).focus(); }
   function closeLightbox() { lb.hidden = true; lbMedia.innerHTML = ""; document.body.style.overflow = ""; lastFocus && lastFocus.focus(); }
-  function step(d) { const list = visible(); lbIndex = list[(list.indexOf(lbIndex) + d + list.length) % list.length]; renderLightbox(); }
+  function step(d) { lbIndex = (lbIndex + d + lbList.length) % lbList.length; renderLightbox(); }
   $(".lightbox__close", lb).addEventListener("click", closeLightbox);
   $(".lightbox__prev", lb).addEventListener("click", () => step(-1));
   $(".lightbox__next", lb).addEventListener("click", () => step(1));
@@ -203,31 +208,59 @@
   lb.addEventListener("touchstart", (e) => { sx = e.touches[0].clientX; }, { passive: true });
   lb.addEventListener("touchend", (e) => { const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1); });
 
-  /* ---------- Reels (section affichée seulement s'il y en a) ---------- */
+  /* ---------- Reels ---------- */
   const rail = $("#reels-rail");
-  $("#reels").hidden = !REELS.length;
-  $$("[data-reels-link]").forEach((a) => { a.hidden = !REELS.length; if (!REELS.length) a.style.display = "none"; });
+  const playable = (m) => !!(m.embed || m.video);
+  const reelList = REELS.filter(playable).map((r) => ({ ...r, vertical: true }));
   REELS.forEach((r) => {
     const el = document.createElement("article");
-    el.className = "reel";
+    el.className = "reel" + (playable(r) ? "" : " is-soon");
+    el.dataset.cat = r.cat;
     const phone = document.createElement("div"); phone.className = "reel__phone";
-    const media = makeMedia({ src: r.poster, video: r.video, cat: r.cat, label: r.video });
-    phone.append(media);
-    phone.insertAdjacentHTML("beforeend", `<div class="reel__ui"><div class="reel__progress"><i></i></div><div class="reel__top"><span>@${CONFIG.instagram || "tramestudio"}</span><span>9:16</span></div></div>`);
+    if (r.poster || r.video) {
+      phone.append(makeMedia({ src: r.poster, video: r.video, cat: r.cat }));
+    } else {
+      phone.insertAdjacentHTML("beforeend", `<div class="reel__typo"><span></span></div>`);
+      $(".reel__typo span", phone).textContent = r.title;
+    }
+    phone.insertAdjacentHTML("beforeend", `<div class="reel__ui"><div class="reel__progress"><i></i></div><div class="reel__top"><span>@${CONFIG.instagram || "tramestudio"}</span><span>9:16</span></div></div><span class="play" aria-hidden="true">${playable(r) ? "▶" : "Bientôt"}</span>`);
     el.append(phone);
     el.insertAdjacentHTML("beforeend", `<h3 class="reel__title"></h3><p class="reel__client"></p>`);
     $(".reel__title", el).textContent = r.title;
     $(".reel__client", el).textContent = r.client || "";
-    const v = $("video", media), bar = $(".reel__progress i", el);
+    const v = $("video", phone), bar = $(".reel__progress i", el);
     if (v) {
       const play = () => v.play().catch(() => {});
       el.addEventListener("mouseenter", play);
       el.addEventListener("mouseleave", () => v.pause());
-      el.addEventListener("click", () => (v.paused ? play() : v.pause()));
       v.addEventListener("timeupdate", () => { if (v.duration) bar.style.width = (v.currentTime / v.duration) * 100 + "%"; });
+    }
+    if (r.embed) {
+      el.tabIndex = 0; el.setAttribute("role", "button"); el.setAttribute("aria-label", `Lire ${r.title}`);
+      const open = () => openLightbox(reelList, reelList.findIndex((x) => x.title === r.title && x.embed === r.embed));
+      el.addEventListener("click", open);
+      el.addEventListener("keydown", (e) => { if (e.key === "Enter") open(); });
     }
     rail.append(el);
   });
+
+  /* ---------- Films ---------- */
+  const filmsGrid = $("#films-grid");
+  const filmList = FILMS.filter(playable);
+  FILMS.forEach((f, i) => {
+    const el = document.createElement(playable(f) ? "button" : "article");
+    el.className = "film" + (i === 0 ? " film--featured" : "") + (playable(f) ? "" : " is-soon");
+    if (f.poster) el.append(makeMedia({ src: f.poster, cat: f.cat }));
+    el.insertAdjacentHTML("beforeend", `<span class="film__n">${String(i + 1).padStart(2, "0")}</span><div class="film__body"><span class="film__kind"></span><h3 class="film__title"></h3></div><span class="play" aria-hidden="true">${playable(f) ? "▶" : "Bientôt"}</span>`);
+    $(".film__kind", el).textContent = f.kind || CAT_LABEL[f.cat] || "";
+    $(".film__title", el).textContent = f.title;
+    if (playable(f)) {
+      el.setAttribute("aria-label", `Lire ${f.title}`);
+      el.addEventListener("click", () => openLightbox(filmList, filmList.indexOf(f)));
+    }
+    filmsGrid.append(el);
+  });
+
   let down = false, startX = 0, startScroll = 0, moved = false;
   rail.addEventListener("mousedown", (e) => { down = true; moved = false; startX = e.pageX; startScroll = rail.scrollLeft; });
   addEventListener("mouseup", () => { down = false; rail.classList.remove("is-dragging"); });
@@ -313,7 +346,7 @@
       ring.style.transform = `translate(${rx}px, ${ry}px)`;
       requestAnimationFrame(loop);
     })();
-    const LABELS = [[".card", "Voir"], [".reel", "Lire"], [".bigword", "Voir"]];
+    const LABELS = [[".card", "Voir"], [".reel:not(.is-soon)", "Lire"], [".film:not(.is-soon)", "Lire"], [".bigword", "Voir"]];
     document.addEventListener("mouseover", (e) => {
       const hit = LABELS.find(([sel]) => e.target.closest(sel));
       cur.classList.toggle("is-big", !!hit);
@@ -342,6 +375,7 @@
   const io = new IntersectionObserver((entries) => entries.forEach((e) => {
     if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
   }), { threshold: .1, rootMargin: "0px 0px -6% 0px" });
+  $$(".film, .reel").forEach((el) => el.classList.add("reveal"));
   $$(".reveal, .card, [data-split]").forEach((el) => io.observe(el));
 
   /* ---------- Formulaire ---------- */

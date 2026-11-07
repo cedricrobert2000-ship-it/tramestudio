@@ -20,6 +20,14 @@ Pour ajouter **plus** de photos, ajoutez une ligne dans `assets/js/portfolio.js`
 
 **Conseils** : JPG de 2000 px maximum sur le grand côté (~300–500 Ko), vidéos de 15–30 s en 1080×1920 sans son, moins de 8 Mo.
 
+## Ajouter vos vidéos (Reels & Films)
+
+Dans `assets/js/portfolio.js` :
+- **Reels** (`TRAME_REELS`) et **Films** (`TRAME_FILMS`) sont déjà listés avec leurs titres.
+- Mettez votre vidéo sur YouTube ou Vimeo (en « non répertorié » si vous voulez), puis collez le lien dans `embed: ""`.
+- Dès qu'un lien est présent, la pastille « Bientôt » devient un bouton ▶ qui ouvre la vidéo en plein écran.
+- Alternative pour les reels : un fichier `.mp4` léger (< 8 Mo, 10–15 s) dans `videos/reels/` via `video: "videos/reels/01.mp4"`, joué au survol.
+
 ## Design system
 
 - `assets/css/tokens.css` : toutes les valeurs (couleurs, typo, espacements, rayons, ombres, animations). Changez `--red-500` pour changer l'accent du site entier.

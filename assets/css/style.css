@@ -297,9 +297,47 @@ details[open] .acc__n { color: var(--color-accent); }
 .reveal.is-in { opacity: 1; transform: none; }
 
 /* ==========================================================================
+   REELS & FILMS — états, cartes typographiques, bouton lecture
+   ========================================================================== */
+.play { position: absolute; z-index: 3; left: 50%; top: 50%; display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: var(--color-accent); color: var(--color-on-accent); font-size: 18px; transform: translate(-50%, -50%) scale(.9); transition: transform var(--dur-base) var(--ease-out); pointer-events: none; }
+.is-soon .play { left: auto; top: auto; right: var(--space-4); bottom: var(--space-4); transform: none; width: auto; height: auto; padding: 8px var(--space-4); border-radius: var(--radius-pill); background: rgba(255,255,255,.92); color: var(--color-ink); font-size: var(--fs-2xs); font-weight: var(--fw-semibold); letter-spacing: var(--tracking-caps); text-transform: uppercase; }
+.reel:not(.is-soon):hover .play, .film:not(.is-soon):hover .play { transform: translate(-50%, -50%) scale(1.06); }
+.film.is-soon .play { right: var(--space-5); bottom: var(--space-5); }
+.film--featured.is-soon .play { right: var(--space-7); bottom: var(--space-7); }
+.reel:not(.is-soon), .film:not(.is-soon) { cursor: pointer; }
+
+/* poster vivant : léger travelling en attendant la vidéo */
+.reel__phone .media img { animation: kenburns 14s var(--ease-in-out) infinite alternate; }
+.reel:nth-child(2n) .reel__phone .media img { animation-direction: alternate-reverse; }
+@keyframes kenburns { from { transform: scale(1.04) translate(0, 0); } to { transform: scale(1.16) translate(-3%, -2%); } }
+.reel__typo { position: absolute; inset: 0; display: grid; place-items: end start; padding: var(--space-5); background: radial-gradient(120% 80% at 80% 0%, var(--grey-800), var(--black)); }
+.reel__typo span { font-family: var(--font-display); font-size: 64px; line-height: .85; text-transform: uppercase; color: var(--white); }
+.reel__typo::before { content: ""; position: absolute; top: 48px; right: var(--space-5); width: 10px; height: 10px; border-radius: 50%; background: var(--color-accent); }
+
+.films { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); }
+.film { position: relative; isolation: isolate; display: block; width: 100%; aspect-ratio: 16/10; text-align: left; border-radius: var(--radius-lg); overflow: hidden; color: var(--white); background: radial-gradient(120% 90% at 85% 10%, var(--grey-800), var(--black) 70%); }
+.film--featured { grid-column: 1 / -1; aspect-ratio: 21/9; }
+.film .media { position: absolute; inset: 0; z-index: -1; }
+.film .media::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(0,0,0,.7), transparent 60%); }
+.film .media img { transition: transform var(--dur-xslow) var(--ease-out); }
+.film:hover .media img { transform: scale(1.04); }
+.film::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 0 var(--color-accent); transition: box-shadow var(--dur-base) var(--ease-out); pointer-events: none; }
+.film:not(.is-soon):hover::after { box-shadow: inset 0 0 0 3px var(--color-accent); }
+.film__n { position: absolute; top: var(--space-5); left: var(--space-5); font-size: var(--fs-xs); font-weight: var(--fw-semibold); color: var(--color-accent); }
+.film__body { position: absolute; left: var(--space-5); right: var(--space-5); bottom: var(--space-5); }
+.film__kind { display: block; margin-bottom: var(--space-2); font-size: var(--fs-xs); font-weight: var(--fw-semibold); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--color-inverse-muted); }
+.film__title { font-size: var(--fs-xl); }
+.film--featured .film__title { font-size: var(--fs-3xl); }
+.film--featured .film__n, .film--featured .film__body { left: var(--space-7); }
+.film--featured .film__body { bottom: var(--space-7); }
+.lightbox__media iframe.is-vertical { width: auto; height: min(100%, 86svh); aspect-ratio: 9/16; }
+
+/* ==========================================================================
    RESPONSIVE
    ========================================================================== */
 @media (max-width: 1000px) {
+  .films { grid-template-columns: 1fr 1fr; }
+  .film--featured { aspect-ratio: 16/9; }
   .about__grid, .services__grid, .faq, .method { grid-template-columns: 1fr; gap: var(--space-8); }
   .services__img { position: relative; top: 0; order: -1; aspect-ratio: 4/3; }
   .faq__img { order: -1; min-height: 340px; }
@@ -327,6 +365,11 @@ details[open] .acc__n { color: var(--color-accent); }
   .footer__cols { flex-direction: column; }
   .footer__right { text-align: left; }
   .lightbox { grid-template-columns: 44px 1fr 44px; }
+  .films { grid-template-columns: 1fr; }
+  .film__title { font-size: 40px; }
+  .film--featured .film__title { font-size: 56px; }
+  .film--featured .film__n, .film--featured .film__body { left: var(--space-5); }
+  .film--featured .film__body { bottom: var(--space-5); }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; transition-delay: 0s !important; }

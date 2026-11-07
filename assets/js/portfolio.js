@@ -53,8 +53,28 @@ window.TRAME_PORTFOLIO = [
      poster : image affichée avant lecture
    ========================================================================== */
 
-// La section Reels s'affiche automatiquement dès qu'il y a au moins un reel ici.
+/* ==========================================================================
+   REELS — vidéos verticales 9:16
+     poster : image de couverture (obligatoire pour un beau rendu)
+     embed  : lien YouTube Shorts / YouTube / Vimeo   → ouvert dans la visionneuse
+     video  : OU fichier .mp4 léger (< 8 Mo) dans videos/reels/ → joué au survol
+   Sans embed ni video, la carte affiche « Bientôt ».
+   ========================================================================== */
 window.TRAME_REELS = [
-  // { cat: "sport", video: "videos/reels/01.mp4", poster: "images/reels/01.jpg", title: "Diagonale des Fous", client: "Trail" },
-  // { cat: "createurs", video: "videos/reels/02.mp4", poster: "images/reels/02.jpg", title: "Anne", client: "Créatrice" },
+  { cat: "sport",     title: "Diagonale des Fous", client: "Trail · La Réunion", poster: "images/reels/01.jpg", embed: "" }, // Papa 1
+  { cat: "sport",     title: "La nuit",            client: "Trail · La Réunion", poster: "images/reels/02.jpg", embed: "" }, // Papa 2
+  { cat: "sport",     title: "Jusqu'au bout",      client: "Trail · La Réunion", poster: "images/reels/03.jpg", embed: "" }, // Papa 3
+  { cat: "createurs", title: "Anne",               client: "Créatrice",          poster: "",                    embed: "" }, // Anne reel 1
+];
+
+/* ==========================================================================
+   FILMS — vidéos horizontales 16:9 (films de marque, mariage, sport…)
+     embed  : lien YouTube ou Vimeo (conseillé : « non répertorié »)
+     poster : image de couverture (facultatif : sinon carte typographique)
+   ========================================================================== */
+window.TRAME_FILMS = [
+  { cat: "sport",   title: "Diagonale des Fous", kind: "Film sport · La Réunion", poster: "images/sport/06.jpg", embed: "" },
+  { cat: "marques", title: "Sauvage",            kind: "Film parfum",             poster: "", embed: "" },
+  { cat: "marques", title: "MYSLF",              kind: "Film parfum",             poster: "", embed: "" },
+  { cat: "marques", title: "Paradigme",          kind: "Film parfum",             poster: "", embed: "" },
 ];
