@@ -72,14 +72,14 @@
   if (footBg && !document.body.classList.contains("theme-light")) {
     const foot = footBg.parentElement;
     foot.classList.add("footer--video");
-    footBg.innerHTML = '<img src="images/films/footer-alone.jpg" alt="" loading="lazy" decoding="async"><span class="footer__grain"></span>';
+    footBg.innerHTML = '<img src="images/films/footer-alone-v2.jpg" alt="" loading="lazy" decoding="async"><span class="footer__grain"></span>';
     if (!reduced && !(navigator.connection && navigator.connection.saveData)) {
       let v = null;
       new IntersectionObserver(([en]) => {
         if (en.isIntersecting) {
           if (!v) {
             v = document.createElement("video");
-            Object.assign(v, { muted: true, loop: true, playsInline: true, preload: "auto", src: "videos/footer-alone.mp4" });
+            Object.assign(v, { muted: true, loop: true, playsInline: true, preload: "auto", src: "videos/footer-alone-v2.mp4" });
             v.setAttribute("muted", "");
             v.addEventListener("playing", () => foot.classList.add("is-playing"), { once: true });
             footBg.prepend(v);

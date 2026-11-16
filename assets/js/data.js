@@ -78,7 +78,7 @@ window.TRAME = {
   influence: {
     // Vidéos hébergées sur le site (dossier videos/) : lues directement, sans Instagram ni TikTok
     reels: [
-      { title: "Sauvage",   client: "Yayha · Dior", poster: "influence/sauvage.jpg",   video: "videos/sauvage.mp4",   preview: "videos/sauvage-preview.mp4" },
+      { title: "Sauvage",   client: "Yayha · Dior", poster: "influence/sauvage-parfum.jpg",   video: "videos/sauvage.mp4",   preview: "videos/sauvage-preview.mp4" },
       { title: "MYSLF",     client: "Yayha · YSL",  poster: "influence/myslf.jpg",     video: "videos/myslf.mp4",     preview: "videos/myslf-preview.mp4" },
       { title: "Paradigme", client: "Yayha · Prada", poster: "influence/paradigme.jpg", video: "videos/paradigme.mp4", preview: "videos/paradigme-preview.mp4" },
     ],
@@ -161,7 +161,7 @@ window.TRAME = {
   /* Films & reels mis en avant sur l'accueil */
   films: [
     { format: "film", title: "Alone",     tag: "Marque · Film",       poster: "films/alone.jpg",         video: "videos/alone-film.mp4", preview: "videos/alone-film-preview.mp4" },
-    { format: "reel", title: "Sauvage",   tag: "Influence · Yayha",   poster: "influence/sauvage.jpg",   video: "videos/sauvage.mp4",    preview: "videos/sauvage-preview.mp4" },
+    { format: "reel", title: "Sauvage",   tag: "Influence · Yayha",   poster: "influence/sauvage-parfum.jpg",   video: "videos/sauvage.mp4",    preview: "videos/sauvage-preview.mp4" },
     { format: "reel", title: "MYSLF",     tag: "Influence · Yayha",   poster: "influence/myslf.jpg",     video: "videos/myslf.mp4",      preview: "videos/myslf-preview.mp4" },
     { format: "reel", title: "Paradigme", tag: "Influence · Yayha",   poster: "influence/paradigme.jpg", video: "videos/paradigme.mp4",  preview: "videos/paradigme-preview.mp4" },
     { format: "film", title: "Diagonale des Fous", tag: "Sport · Film", poster: "films/diagonale.jpg", embed: "", video: "" },
