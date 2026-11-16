@@ -574,8 +574,6 @@
       const idx = Math.min(items.length - 1, Math.floor(pos));
       show(idx);
       bars.forEach((b, i) => { b.style.transform = `scaleX(${i < idx ? 1 : i === idx ? clamp01(pos - idx).toFixed(3) : 0})`; });
-      // bandes noires : entrent dès que le carrousel est fixé à l'écran
-      cine.classList.toggle("is-on", r.top <= 1 && r.bottom >= innerHeight - 1);
     };
     // timecode qui défile en continu (24 images / seconde)
     const tick = (now) => {

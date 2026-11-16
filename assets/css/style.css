@@ -826,29 +826,17 @@ html.smooth { scroll-behavior: auto; }
 .cine__sticky .cine__stage { max-height: 88vh; }
 /* bandes noires : absentes au repos, elles entrent quand le carrousel se fixe à l'écran */
 .cine__stage::before, .cine__stage::after { height: 0; transition: height 1s cubic-bezier(.7, 0, .2, 1); }
-.cine__stage.is-on::before, .cine__stage.is-on::after { height: 11%; }
 .cine__stage:hover::before, .cine__stage:hover::after { height: 0; }
-.cine__stage.is-on:hover::before, .cine__stage.is-on:hover::after { height: 11%; }
 .cine__hud { top: 16px; transition: top 1s cubic-bezier(.7, 0, .2, 1); }
-.cine__stage.is-on .cine__hud { top: calc(11% + 16px); }
 .cine__bars { top: 12px; transition: top 1s cubic-bezier(.7, 0, .2, 1); }
-.cine__stage.is-on .cine__bars { top: calc(11% - 14px); }
 .cine__count { top: 16px; transition: top 1s cubic-bezier(.7, 0, .2, 1); }
-.cine__stage.is-on .cine__count { top: calc(11% + 16px); }
 .cine__caption { bottom: clamp(20px, 3vw, 40px); transition: bottom 1s cubic-bezier(.7, 0, .2, 1); }
-.cine__stage.is-on .cine__caption { bottom: calc(11% + clamp(20px, 3vw, 40px)); }
 .cine__nav { bottom: 24px; transition: bottom 1s cubic-bezier(.7, 0, .2, 1), background .3s, color .3s; }
-.cine__stage.is-on .cine__nav { bottom: calc(11% + 24px); }
 .cine__bars span { background: rgba(255,255,255,.3); }
 @media (max-width: 767px) {
   .cine__pin { height: calc(100vh + var(--slides, 6) * 45vh); }
-  .cine__stage.is-on::before, .cine__stage.is-on::after { height: 8%; }
-  .cine__stage.is-on .cine__hud { top: calc(8% + 14px); }
-  .cine__stage.is-on .cine__bars { top: calc(8% - 10px); }
   .cine__caption { bottom: 84px; }
-  .cine__stage.is-on .cine__caption { bottom: calc(8% + 84px); }
   .cine__nav { bottom: 16px; }
-  .cine__stage.is-on .cine__nav { bottom: calc(8% + 16px); }
 }
 /* aperçu vidéo muet au survol des cartes */
 .film__preview { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .5s; }
@@ -886,3 +874,4 @@ html.smooth { scroll-behavior: auto; }
 .footer--video .footer__marquee { color: rgba(255,255,255,.14); }
 .footer--video .footer__bar { position: relative; background: transparent; border-top: 1px solid rgba(255,255,255,.18); }
 @media (prefers-reduced-motion: reduce) { .footer__grain { animation: none; } }
+.cine__stage::before, .cine__stage::after { display: none; }
