@@ -460,7 +460,6 @@
   const cine = $("#cine-carousel");
   if (cine && D.cinema && D.cinema.slides && D.cinema.slides.length) {
     const slides = D.cinema.slides;
-    const DUR = 6500;
     const safeHref = (h = "") => (/^[\w\-./#]+$/.test(h) ? h : "cinema.html");
     cine.innerHTML = `
       <div class="cine__track">
@@ -484,55 +483,68 @@
       <button class="cine__nav cine__next" type="button" aria-label="Film suivant">→</button>
       <p class="cine__count" aria-live="polite"><span>01</span> / ${String(slides.length).padStart(2, "0")}</p>`;
     const items = $$(".cine__slide", cine), bars = $$(".cine__bars i", cine), tcs = $$(".cine__tc", cine);
-    let cur = 0, started = performance.now(), paused = false, pausedAt = 0, visible = false;
+    // le carrousel est « épinglé » : il reste fixé à l'écran et le défilement fait avancer les plans
+    const pin = document.createElement("div");
+    pin.className = "cine__pin";
+    pin.style.setProperty("--slides", items.length);
+    const sticky = document.createElement("div");
+    sticky.className = "cine__sticky";
+    cine.before(pin); pin.append(sticky); sticky.append(cine);
+    let cur = -1, clock = performance.now();
     const show = (n) => {
-      cur = (n + items.length) % items.length;
+      if (n === cur) return;
+      cur = n; clock = performance.now();
       items.forEach((el, i) => {
         const on = i === cur;
         el.classList.toggle("is-active", on);
         el.toggleAttribute("aria-hidden", !on);
         el.tabIndex = on ? 0 : -1;
       });
-      bars.forEach((b, i) => { b.style.transform = `scaleX(${i < cur ? 1 : 0})`; });
       $(".cine__count span", cine).textContent = String(cur + 1).padStart(2, "0");
-      started = performance.now();
     };
-    const frame = (now) => {
-      if (!paused && visible) {
-        const p = Math.min(1, (now - started) / DUR);
-        bars[cur].style.transform = `scaleX(${p})`;
-        // timecode qui défile (24 images / seconde)
-        const t = (now - started) / 1000, f = Math.floor((t % 1) * 24), sec = Math.floor(t);
-        tcs[cur].textContent = `00:00:${String(sec).padStart(2, "0")}:${String(f).padStart(2, "0")}`;
-        if (p >= 1 && !reduced) show(cur + 1);
-      }
-      requestAnimationFrame(frame);
+    const clamp01 = (v) => Math.min(1, Math.max(0, v));
+    const geometry = () => {
+      const r = pin.getBoundingClientRect();
+      const run = pin.offsetHeight - innerHeight;
+      return { r, run, top: r.top + scrollY };
     };
-    requestAnimationFrame(frame);
-    const pause = (v) => {
-      if (v && !paused) { paused = true; pausedAt = performance.now(); }
-      else if (!v && paused) { paused = false; started += performance.now() - pausedAt; }
+    const update = () => {
+      const { r, run } = geometry();
+      const prog = clamp01(-r.top / run);
+      const pos = prog * items.length;
+      const idx = Math.min(items.length - 1, Math.floor(pos));
+      show(idx);
+      bars.forEach((b, i) => { b.style.transform = `scaleX(${i < idx ? 1 : i === idx ? clamp01(pos - idx).toFixed(3) : 0})`; });
+      // bandes noires : entrent dès que le carrousel est fixé à l'écran
+      cine.classList.toggle("is-on", r.top <= 1 && r.bottom >= innerHeight - 1);
     };
-    $(".cine__prev", cine).addEventListener("click", () => show(cur - 1));
-    $(".cine__next", cine).addEventListener("click", () => show(cur + 1));
-    cine.addEventListener("mouseenter", () => pause(true));
-    cine.addEventListener("mouseleave", () => pause(false));
-    cine.addEventListener("focusin", () => pause(true));
-    cine.addEventListener("focusout", () => pause(false));
-    cine.addEventListener("keydown", (e) => { if (e.key === "ArrowRight") show(cur + 1); if (e.key === "ArrowLeft") show(cur - 1); });
-    // glissé au doigt
+    // timecode qui défile en continu (24 images / seconde)
+    const tick = (now) => {
+      const t = (now - clock) / 1000, f = Math.floor((t % 1) * 24), sec = Math.floor(t);
+      if (tcs[cur]) tcs[cur].textContent = `00:00:${String(sec).padStart(2, "0")}:${String(f).padStart(2, "0")}`;
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    let queued = false;
+    addEventListener("scroll", () => { if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; update(); }); } }, { passive: true });
+    addEventListener("resize", update);
+    update();
+    // flèches, clavier, glissé : on fait défiler la page jusqu'au plan voulu
+    const goTo = (n) => {
+      const { run, top } = geometry();
+      const i = Math.max(0, Math.min(items.length - 1, n));
+      window.scrollTo({ top: top + run * ((i + 0.5) / items.length), behavior: reduced ? "auto" : "smooth" });
+    };
+    $(".cine__prev", cine).addEventListener("click", () => goTo(cur - 1));
+    $(".cine__next", cine).addEventListener("click", () => goTo(cur + 1));
+    cine.addEventListener("keydown", (e) => { if (e.key === "ArrowRight") goTo(cur + 1); if (e.key === "ArrowLeft") goTo(cur - 1); });
     let sx = 0, sy = 0, swiped = false;
     cine.addEventListener("touchstart", (e) => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; swiped = false; }, { passive: true });
     cine.addEventListener("touchend", (e) => {
       const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
-      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) { swiped = true; show(cur + (dx < 0 ? 1 : -1)); }
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) { swiped = true; goTo(cur + (dx < 0 ? 1 : -1)); }
     });
     cine.addEventListener("click", (e) => { if (swiped) { e.preventDefault(); swiped = false; } }, true);
-    // ne tourne que lorsqu'il est visible
-    new IntersectionObserver(([en]) => {
-      if (en.isIntersecting && !visible) started = performance.now();
-      visible = en.isIntersecting;
-    }, { threshold: 0.3 }).observe(cine);
   }
 
   // page Cinéma : films, voyage, acting

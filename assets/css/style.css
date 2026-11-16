@@ -819,3 +819,34 @@ html.smooth { scroll-behavior: auto; }
 .films--cinema .film--film { aspect-ratio: 16 / 9; height: auto; }
 .films--cinema .film__word { font-size: clamp(40px, 5vw, 80px); }
 @media (max-width: 767px) { .films--cinema { grid-template-columns: 1fr; overflow: visible; } }
+
+/* ---------- Carrousel cinéma piloté par le défilement ---------- */
+.cine__pin { position: relative; height: calc(100vh + var(--slides, 6) * 55vh); }
+.cine__sticky { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; align-items: center; }
+.cine__sticky .cine__stage { max-height: 88vh; }
+/* bandes noires : absentes au repos, elles entrent quand le carrousel se fixe à l'écran */
+.cine__stage::before, .cine__stage::after { height: 0; transition: height 1s cubic-bezier(.7, 0, .2, 1); }
+.cine__stage.is-on::before, .cine__stage.is-on::after { height: 11%; }
+.cine__stage:hover::before, .cine__stage:hover::after { height: 0; }
+.cine__stage.is-on:hover::before, .cine__stage.is-on:hover::after { height: 11%; }
+.cine__hud { top: 16px; transition: top 1s cubic-bezier(.7, 0, .2, 1); }
+.cine__stage.is-on .cine__hud { top: calc(11% + 16px); }
+.cine__bars { top: 12px; transition: top 1s cubic-bezier(.7, 0, .2, 1); }
+.cine__stage.is-on .cine__bars { top: calc(11% - 14px); }
+.cine__count { top: 16px; transition: top 1s cubic-bezier(.7, 0, .2, 1); }
+.cine__stage.is-on .cine__count { top: calc(11% + 16px); }
+.cine__caption { bottom: clamp(20px, 3vw, 40px); transition: bottom 1s cubic-bezier(.7, 0, .2, 1); }
+.cine__stage.is-on .cine__caption { bottom: calc(11% + clamp(20px, 3vw, 40px)); }
+.cine__nav { bottom: 24px; transition: bottom 1s cubic-bezier(.7, 0, .2, 1), background .3s, color .3s; }
+.cine__stage.is-on .cine__nav { bottom: calc(11% + 24px); }
+.cine__bars span { background: rgba(255,255,255,.3); }
+@media (max-width: 767px) {
+  .cine__pin { height: calc(100vh + var(--slides, 6) * 45vh); }
+  .cine__stage.is-on::before, .cine__stage.is-on::after { height: 8%; }
+  .cine__stage.is-on .cine__hud { top: calc(8% + 14px); }
+  .cine__stage.is-on .cine__bars { top: calc(8% - 10px); }
+  .cine__caption { bottom: 84px; }
+  .cine__stage.is-on .cine__caption { bottom: calc(8% + 84px); }
+  .cine__nav { bottom: 16px; }
+  .cine__stage.is-on .cine__nav { bottom: calc(8% + 16px); }
+}
