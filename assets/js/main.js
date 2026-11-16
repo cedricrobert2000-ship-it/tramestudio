@@ -13,22 +13,26 @@
   const roll = (t) => `<span class="roll"><span>${t}</span><span>${t}</span></span>`;
 
   /* ---------- Menu et pied de page (communs à toutes les pages) ---------- */
+  const LOGO = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 775 680" fill="currentColor"><g transform="translate(0 680) scale(1 -1)"><path transform="translate(-24 0)" d="M235 0V549H24V680H607V549H396V0Z"/><path transform="translate(567 0)" d="M48 0V161H208V0Z"/></g></svg>`;
   const navSlot = $("[data-nav]");
   if (navSlot) {
-    const links = [
-      { label: "Accueil", href: "index.html", key: "home" },
-      ...D.categories.map((c) => ({ label: c.label, href: c.href, key: c.key })),
-      { label: "Contact", href: "#contact", key: "contact" },
-    ];
+    const cats = D.categories || [];
+    const onCat = cats.some((c) => c.key === page);
     navSlot.outerHTML = `
       <header class="nav">
-        <a class="nav__logo" href="index.html" aria-label="Trame Studio, accueil">T.</a>
+        <a class="nav__logo" href="index.html" aria-label="Trame Studio, accueil">${LOGO}</a>
         <nav class="nav__links" aria-label="Navigation principale">
-          ${links.map((l, i) => `<a href="${l.href}"${l.key === page ? ' aria-current="page"' : ""}>${roll(l.label + (i < links.length - 1 ? "," : ""))}</a>`).join("")}
+          <a class="nav__home" href="index.html"${page === "home" ? ' aria-current="page"' : ""}>${roll("Accueil,")}</a>
+          <div class="nav__drop">
+            <button class="nav__trigger" aria-expanded="false" aria-controls="nav-panel"${onCat ? ' data-current="true"' : ""}>${roll("Travaux,")}</button>
+            <div class="nav__panel" id="nav-panel">
+              ${cats.map((c, i) => `<a href="${c.href}"${c.key === page ? ' aria-current="page"' : ""}><span class="nav__n">0${i + 1}</span><span class="nav__label">${c.label}</span><span class="nav__arrow" aria-hidden="true">↗</span></a>`).join("")}
+            </div>
+          </div>
+          <a href="index.html#studio">${roll("Studio,")}</a>
+          <a href="#contact">${roll("Contact")}</a>
         </nav>
-        <button class="nav__menu" aria-expanded="false" aria-controls="menu">Menu</button>
-      </header>
-      <div class="menu" id="menu" hidden>${links.map((l) => `<a href="${l.href}">${l.label}</a>`).join("")}</div>`;
+      </header>`;
   }
   const footSlot = $("[data-footer]");
   if (footSlot) {
@@ -207,12 +211,14 @@
   const reels = $("#reels-grid");
   if (reels && D.influence) videoCards(reels, D.influence.reels.map((r) => ({ ...r, format: "reel", tag: r.client })));
 
-  /* ---------- Menu mobile ---------- */
-  const menuBtn = $(".nav__menu"), menu = $("#menu");
-  if (menuBtn && menu) {
-    const set = (o) => { menu.hidden = !o; menuBtn.setAttribute("aria-expanded", o); menuBtn.textContent = o ? "Fermer" : "Menu"; document.body.style.overflow = o ? "hidden" : ""; };
-    menuBtn.addEventListener("click", () => set(menu.hidden));
-    $$("a", menu).forEach((a) => a.addEventListener("click", () => set(false)));
+  /* ---------- Menu : liste déroulante « Travaux » ---------- */
+  const drop = $(".nav__drop"), trigger = $(".nav__trigger");
+  if (drop && trigger) {
+    const set = (o) => { drop.classList.toggle("is-open", o); trigger.setAttribute("aria-expanded", o); };
+    trigger.addEventListener("click", (e) => { e.stopPropagation(); set(!drop.classList.contains("is-open")); });
+    document.addEventListener("click", (e) => { if (!drop.contains(e.target)) set(false); });
+    addEventListener("keydown", (e) => { if (e.key === "Escape") set(false); });
+    addEventListener("scroll", () => { if (drop.classList.contains("is-open") && !drop.matches(":hover")) set(false); }, { passive: true });
   }
 
   /* ---------- Découpage en lettres ---------- */
