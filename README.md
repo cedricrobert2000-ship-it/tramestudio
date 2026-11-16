@@ -9,6 +9,8 @@ Site statique (HTML, CSS, JS), sans dépendance, prêt pour GitHub Pages.
 - `mariage.html` : page dédiée au mariage (offre, galerie, déroulé, FAQ)
 - `sport.html` : les sessions sport (Session 01 : Diagonale des Fous), une section par session
 - `influence.html` : reels et contenus pour influenceurs
+- `mentions-legales.html` : mentions légales et confidentialité (**à compléter**)
+- `404.html` : page « introuvable », servie automatiquement par GitHub Pages
 
 Le menu et le pied de page sont communs à toutes les pages (générés par `assets/js/main.js`).
 
@@ -33,3 +35,19 @@ Photos conseillées : JPG de 1800 à 2400 px sur le grand côté, environ 200 Ko
 ## Mise en ligne
 
 Dans le repo GitHub : Settings → Pages → Deploy from a branch → `main` / `(root)`.
+
+## Sécurité
+
+- Politique de sécurité du contenu (CSP) sur chaque page : seuls les scripts, styles, polices et images du site lui-même sont autorisés ; les vidéos intégrées ne peuvent venir que de YouTube, Vimeo, Instagram ou TikTok.
+- Aucun script, aucune police ni aucun traceur externe : pas de cookies, pas de bandeau RGPD nécessaire.
+- Les contenus de `data.js` sont échappés avant affichage ; les liens vidéo et chemins d'images sont filtrés.
+- Photos publiées sans métadonnées (ni GPS, ni appareil).
+- Sans JavaScript, le site reste lisible (menu de secours, contenu visible).
+
+## Avant la mise en ligne
+
+1. Compléter `mentions-legales.html` (nom, statut, SIRET, adresse, directeur de la publication).
+2. Mettre votre e-mail et votre Instagram dans `assets/js/data.js`.
+3. Vérifier que vous avez l'accord des personnes photographiées pour publier leurs images.
+4. Activer GitHub Pages : Settings → Pages → Deploy from a branch → `main` / `(root)`.
+5. Avec un nom de domaine : ajouter un fichier `CNAME`, configurer les DNS, puis cocher **Enforce HTTPS**.

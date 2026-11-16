@@ -1,0 +1,7 @@
+/* Sans JavaScript : pas d'écran d'ouverture, tout le contenu reste visible */
+.loader { display: none !important; }
+body.is-loading { overflow: auto !important; }
+.blur-in, .rise, [data-chars] .c { opacity: 1 !important; filter: none !important; transform: none !important; }
+.hero__img img { transform: none !important; }
+.about__text .w, .about__text { color: #fff !important; }
+.nav--static { display: flex; gap: 20px; justify-content: flex-end; }

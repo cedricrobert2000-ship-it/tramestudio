@@ -6,11 +6,18 @@
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const D = window.TRAME || {};
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const img = (path) => `images/${path}${/\.\w+$/.test(path) ? "" : ".jpg"}`;
-  const esc = (t = "") => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const esc = (t = "") => String(t).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  // chemin d'image local uniquement (lettres, chiffres, / . - _), sinon image vide
+  const img = (path = "") => {
+    const p = String(path);
+    if (!/^[\w\-/]+(\.(jpe?g|png|webp|avif))?$/i.test(p) || p.includes("..")) return "";
+    return esc(`images/${p}${/\.\w+$/.test(p) ? "" : ".jpg"}`);
+  };
+  // vidéo hébergée sur le site : fichier local .mp4/.webm du dossier videos/ uniquement
+  const safeVideo = (v = "") => (/^videos\/[\w\-/]+\.(mp4|webm)$/i.test(v) && !v.includes("..") ? v : "");
   const cat = (key) => (D.categories || []).find((c) => c.key === key) || { label: key, href: "#" };
   const page = document.body.dataset.page || "home";
-  const roll = (t) => `<span class="roll"><span>${t}</span><span>${t}</span></span>`;
+  const roll = (t) => `<span class="roll"><span>${esc(t)}</span><span aria-hidden="true">${esc(t)}</span></span>`;
 
   /* ---------- Menu et pied de page (communs à toutes les pages) ---------- */
   const LOGO = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 775 680" fill="currentColor"><g transform="translate(0 680) scale(1 -1)"><path transform="translate(-24 0)" d="M235 0V549H24V680H607V549H396V0Z"/><path transform="translate(567 0)" d="M48 0V161H208V0Z"/></g></svg>`;
@@ -26,7 +33,7 @@
           <div class="nav__drop">
             <button class="nav__trigger" aria-expanded="false" aria-controls="nav-panel"${onCat ? ' data-current="true"' : ""}>${roll("Travaux,")}</button>
             <div class="nav__panel" id="nav-panel">
-              ${cats.map((c, i) => `<a href="${c.href}"${c.key === page ? ' aria-current="page"' : ""}><span class="nav__n">0${i + 1}</span><span class="nav__label">${c.label}</span><span class="nav__arrow" aria-hidden="true">↗</span></a>`).join("")}
+              ${cats.map((c, i) => `<a href="${esc(c.href)}"${c.key === page ? ' aria-current="page"' : ""}><span class="nav__n">0${i + 1}</span><span class="nav__label">${esc(c.label)}</span><span class="nav__arrow" aria-hidden="true">↗</span></a>`).join("")}
             </div>
           </div>
           <a href="index.html#studio">${roll("Studio,")}</a>
@@ -45,16 +52,16 @@
             <a class="btn blur-in" data-mail href="#">${roll("Nous contacter")}</a>
           </div>
           <div class="footer__cols">
-            <div><p>Travaux</p>${D.categories.map((c) => `<a href="${c.href}">${c.label}</a>`).join("")}</div>
+            <div><p>Travaux</p>${D.categories.map((c) => `<a href="${esc(c.href)}">${esc(c.label)}</a>`).join("")}</div>
             <div><p>Studio</p><a href="index.html#services">Services</a><a href="index.html#films">Films & reels</a><a href="index.html#faq">FAQ</a></div>
-            <div><p>Réseaux</p><a data-insta href="#" target="_blank" rel="noopener">Instagram</a><a data-mail href="#">E-mail</a></div>
+            <div><p>Réseaux</p><a data-insta href="#" target="_blank" rel="noopener noreferrer">Instagram</a><a data-mail href="#">E-mail</a></div>
           </div>
         </div>
         <div class="container footer__bar">
           <span>Trame ${new Date().getFullYear()}. Tous droits réservés.</span>
           <span data-zone></span>
           <span data-clock>--:--:--</span>
-          <span>Photo · Vidéo · Reels</span>
+          <a href="mentions-legales.html">Mentions légales</a>
         </div>
         <div class="footer__marquee" aria-hidden="true"><div><span>Trame Creative Studio</span><span>Trame Creative Studio</span><span>Trame Creative Studio</span><span>Trame Creative Studio</span></div></div>
       </footer>`;
@@ -71,8 +78,9 @@
   }
 
   /* ---------- Coordonnées ---------- */
-  $$("[data-mail]").forEach((a) => (a.href = `mailto:${D.email}?subject=${encodeURIComponent(a.dataset.mail || "Projet avec Trame Studio")}`));
-  $$("[data-insta]").forEach((a) => (a.href = `https://instagram.com/${D.instagram}`));
+  $$("[data-mail]").forEach((a) => (a.href = `mailto:${encodeURIComponent(D.email || "").replace("%40", "@")}?subject=${encodeURIComponent(a.dataset.mail || "Projet avec Trame Studio")}`));
+  $$("[data-insta]").forEach((a) => (a.href = `https://instagram.com/${encodeURIComponent(D.instagram || "")}`));
+  $$("[data-mail-text]").forEach((a) => (a.textContent = D.email || ""));
   $$("[data-zone]").forEach((el) => (el.textContent = D.zone));
 
   /* ---------- Horloge en direct ---------- */
@@ -84,7 +92,8 @@
   /* ---------- Visionneuse ---------- */
   const lb = $("#lightbox");
   let list = [], idx = 0, lastFocus;
-  const embedUrl = (url) => {
+  const embedUrl = (url = "") => {
+    if (!/^https:\/\/(www\.|m\.)?(youtube\.com|youtu\.be|vimeo\.com|player\.vimeo\.com|instagram\.com|tiktok\.com)\//i.test(url)) return "";
     const yt = url.match(/(?:youtu\.be\/|v=|shorts\/)([\w-]{11})/);
     if (yt) return `https://www.youtube-nocookie.com/embed/${yt[1]}?autoplay=1&rel=0`;
     const vm = url.match(/vimeo\.com\/(\d+)/);
@@ -93,19 +102,19 @@
     if (ig) return `https://www.instagram.com/reel/${ig[1]}/embed`;
     const tt = url.match(/tiktok\.com\/.*video\/(\d+)/);
     if (tt) return `https://www.tiktok.com/embed/v2/${tt[1]}`;
-    return url;
+    return "";
   };
   const render = () => {
     const it = list[idx], box = $(".lightbox__media", lb);
     box.innerHTML = "";
-    if (it.embed) {
+    if (it.embed && embedUrl(it.embed)) {
       const f = document.createElement("iframe");
-      Object.assign(f, { src: embedUrl(it.embed), allow: "autoplay; fullscreen; picture-in-picture", allowFullscreen: true, title: it.title });
+      Object.assign(f, { src: embedUrl(it.embed), allow: "autoplay; fullscreen; picture-in-picture; encrypted-media", allowFullscreen: true, title: it.title || "Vidéo", referrerPolicy: "strict-origin-when-cross-origin" });
       if (it.vertical) f.className = "is-vertical";
       box.append(f);
-    } else if (it.video) {
+    } else if (safeVideo(it.video)) {
       const v = document.createElement("video");
-      Object.assign(v, { src: it.video, poster: it.poster || "", controls: true, autoplay: true, playsInline: true });
+      Object.assign(v, { src: safeVideo(it.video), poster: it.poster || "", controls: true, autoplay: true, playsInline: true });
       box.append(v);
     } else {
       const i = new Image(); i.src = it.src; i.alt = it.title || ""; box.append(i);
@@ -123,6 +132,14 @@
     lb.addEventListener("click", (e) => { if (e.target === lb || e.target.classList.contains("lightbox__media")) close(); });
     addEventListener("keydown", (e) => {
       if (lb.hidden) return;
+      if (e.key === "Tab") {
+        const f = $$("button, iframe, video", lb).filter((el) => el.offsetParent !== null);
+        if (f.length) {
+          const first = f[0], last = f[f.length - 1];
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+      }
       if (e.key === "Escape") close();
       if (e.key === "ArrowRight") step(1);
       if (e.key === "ArrowLeft") step(-1);
@@ -133,7 +150,7 @@
   }
 
   /* ---------- Composants générés ---------- */
-  const playable = (f) => !!(f.embed || f.video);
+  const playable = (f) => !!(embedUrl(f.embed) || safeVideo(f.video));
 
   // Galerie photo (mosaïque) → visionneuse
   const gallery = (el, photos, title) => {
@@ -150,16 +167,18 @@
 
   // Cartes vidéo (film 16:9 ou reel 9:16)
   const videoCards = (el, films) => {
-    const playList = films.filter(playable).map((f) => ({ ...f, vertical: f.format === "reel", poster: f.poster && img(f.poster) }));
+    const playList = films.filter(playable).map((f) => ({ ...f, vertical: f.format === "reel", poster: f.poster ? img(f.poster) : "" }));
+    let n = 0;
     films.forEach((f) => {
       const card = document.createElement(playable(f) ? "button" : "div");
-      card.className = `film film--${f.format || "reel"} rise${f.poster ? "" : " film--typo"}`;
+      card.className = `film film--${f.format === "film" ? "film" : "reel"} rise${f.poster ? "" : " film--typo"}`;
       card.innerHTML = `${f.poster ? `<img src="${img(f.poster)}" alt="" loading="lazy">` : `<span class="film__word">${esc(f.client || f.title)}</span>`}
         ${playable(f) ? `<span class="film__play" aria-hidden="true">▶</span>` : `<span class="film__state">Bientôt</span>`}
         <span class="film__meta"><span class="film__tag">${esc(f.tag || f.client || "")}</span><span class="film__title">${esc(f.title)}</span></span>`;
       if (playable(f)) {
         card.setAttribute("aria-label", `Lire ${f.title}`);
-        card.addEventListener("click", () => open(playList, playList.findIndex((p) => p.title === f.title)));
+        const at = n++;
+        card.addEventListener("click", () => open(playList, at));
       }
       el.append(card);
     });
@@ -170,7 +189,7 @@
   if (track && D.works) {
     const card = (w, hidden) => {
       const c = cat(w.cat);
-      return `<a class="work" href="${c.href}"${hidden ? ' tabindex="-1" aria-hidden="true"' : ` aria-label="${esc(c.label)}, ${w.year}"`}>
+      return `<a class="work" href="${esc(c.href)}"${hidden ? ' tabindex="-1" aria-hidden="true"' : ` aria-label="${esc(c.label)}, ${w.year}"`}>
         <img src="${img(w.img)}" alt="" loading="lazy">
         <span class="work__meta"><span class="work__tag">${esc(w.year)}</span><span class="work__title">${esc(c.label)}</span></span>
       </a>`;
@@ -214,10 +233,20 @@
   /* ---------- Menu : liste déroulante « Travaux » ---------- */
   const drop = $(".nav__drop"), trigger = $(".nav__trigger");
   if (drop && trigger) {
-    const set = (o) => { drop.classList.toggle("is-open", o); trigger.setAttribute("aria-expanded", o); };
-    trigger.addEventListener("click", (e) => { e.stopPropagation(); set(!drop.classList.contains("is-open")); });
+    const isOpen = () => drop.classList.contains("is-open");
+    const set = (o) => {
+      drop.classList.toggle("is-open", o);
+      trigger.setAttribute("aria-expanded", o);
+      // fermeture explicite : on neutralise le survol jusqu'à ce que la souris quitte le menu
+      if (!o) drop.classList.add("is-closing");
+    };
+    drop.addEventListener("mouseleave", () => drop.classList.remove("is-closing"));
+    trigger.addEventListener("click", (e) => { e.stopPropagation(); drop.classList.remove("is-closing"); set(!isOpen()); });
     document.addEventListener("click", (e) => { if (!drop.contains(e.target)) set(false); });
-    addEventListener("keydown", (e) => { if (e.key === "Escape") set(false); });
+    // clavier : ouverture quand un lien de la liste reçoit le focus, fermeture quand il le perd
+    drop.addEventListener("focusin", (e) => { if (e.target !== trigger) { drop.classList.remove("is-closing"); set(true); } });
+    drop.addEventListener("focusout", (e) => { if (!drop.contains(e.relatedTarget)) set(false); });
+    addEventListener("keydown", (e) => { if (e.key === "Escape" && (isOpen() || drop.matches(":hover"))) { set(false); trigger.focus(); } });
     addEventListener("scroll", () => { if (drop.classList.contains("is-open") && !drop.matches(":hover")) set(false); }, { passive: true });
   }
 
@@ -225,7 +254,14 @@
   $$("[data-chars]").forEach((el) => {
     const text = el.textContent;
     el.setAttribute("aria-label", text);
-    el.innerHTML = [...text].map((ch, i) => `<span class="c" aria-hidden="true" style="--i:${i}">${ch === " " ? "&nbsp;" : ch}</span>`).join("");
+    el.textContent = "";
+    [...text].forEach((ch, i) => {
+      const c = document.createElement("span");
+      c.className = "c"; c.setAttribute("aria-hidden", "true");
+      c.style.setProperty("--i", i);
+      c.textContent = ch === " " ? "\u00a0" : ch;
+      el.append(c);
+    });
   });
 
   /* ---------- Écran d'ouverture (accueil) et entrée des titres ---------- */
@@ -256,7 +292,12 @@
 
   /* ---------- Texte qui s'allume mot à mot au scroll ---------- */
   $$("[data-words]").forEach((el) => {
-    el.innerHTML = el.textContent.trim().split(/\s+/).map((w) => `<span class="w">${w}</span>`).join(" ");
+    const words0 = el.textContent.trim().split(/\s+/);
+    el.textContent = "";
+    words0.forEach((w, i) => {
+      const sp = document.createElement("span"); sp.className = "w"; sp.textContent = w;
+      el.append(sp, i < words0.length - 1 ? " " : "");
+    });
     const words = $$(".w", el);
     if (reduced) { words.forEach((w) => w.classList.add("is-on")); return; }
     const update = () => {
@@ -277,7 +318,14 @@
   $$(".stats, .steps, .faq__list, .service, .films, .gallery, .offer, .points").forEach((group) => {
     $$(".rise", group).forEach((el, i) => (el.style.transitionDelay = `${Math.min(i, 8) * 80}ms`));
   });
-  $$(".blur-in, .rise").forEach((el) => { if (!el.closest(".hero")) io.observe(el); });
+  // les rangées qui défilent horizontalement (films sur mobile) apparaissent d'un bloc
+  const rowIo = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (!e.isIntersecting) return;
+    $$(".rise", e.target).forEach((el) => el.classList.add("is-in"));
+    rowIo.unobserve(e.target);
+  }), { threshold: .1 });
+  $$(".films").forEach((row) => rowIo.observe(row));
+  $$(".blur-in, .rise").forEach((el) => { if (!el.closest(".hero") && !el.closest(".films")) io.observe(el); });
 
   /* ---------- Parallaxe légère du header ---------- */
   const heroImg = $(".hero__img img");

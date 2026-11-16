@@ -1,11 +1,14 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Trame Studio — Studio photo & vidéo</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; frame-src https://www.youtube-nocookie.com https://player.vimeo.com https://www.instagram.com https://www.tiktok.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="format-detection" content="telephone=no">
+  <title>Trame Studio — Studio photo &amp; vidéo</title>
   <meta name="description" content="Trame Studio, studio photo et vidéo : mariages, sport, créateurs, marques et lieux. Des images qui racontent ce qu'on ressent.">
-  <meta property="og:title" content="Trame Studio — Studio photo & vidéo">
+  <meta property="og:title" content="Trame Studio — Studio photo &amp; vidéo">
   <meta property="og:description" content="Des images qui racontent ce qu'on ressent. Mariage · Sport · Créateurs · Marques.">
   <meta property="og:image" content="images/hero/hero.jpg">
   <meta name="theme-color" content="#000000">
@@ -14,6 +17,7 @@
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/switzer-500.woff2" crossorigin>
   <link rel="preload" as="image" href="images/hero/hero.jpg" media="(min-width: 768px)">
   <link rel="stylesheet" href="assets/css/style.css">
+  <noscript><link rel="stylesheet" href="assets/css/noscript.css"></noscript>
 </head>
 <body class="is-loading" data-page="home">
 
@@ -24,6 +28,7 @@
   </div>
 
   <div data-nav></div>
+  <noscript><nav class="nav nav--static" aria-label="Navigation principale"><a href="index.html">Accueil</a> <a href="mariage.html">Mariage</a> <a href="sport.html">Sport</a> <a href="influence.html">Influence</a> <a href="mentions-legales.html">Mentions légales</a></nav></noscript>
 
   <main id="top">
     <!-- HERO -->
@@ -43,8 +48,8 @@
     <div class="intro">
     <div class="infobar">
       <div class="container infobar__row">
-        <span>Studio photo & vidéo</span>
-        <span data-zone>France & destination</span>
+        <span>Studio photo &amp; vidéo</span>
+        <span data-zone>France &amp; destination</span>
         <span data-clock>--:--:--</span>
         <span>Mariage · Sport · Influence</span>
       </div>
@@ -54,7 +59,7 @@
     <section class="about container" id="studio">
       <p class="about__text" data-words>On ne fige pas des instants, on raconte ce qu'ils font ressentir. Un oui sous les sabres, un dossard trempé au cœur de la nuit, une marque qui prend vie : chaque projet est une histoire tissée image par image, avec sincérité et sans mise en scène inutile.</p>
       <div class="stats">
-        <div class="stat rise"><strong>05</strong><span>Univers</span></div>
+        <div class="stat rise"><strong>04</strong><span>Univers</span></div>
         <div class="stat rise"><strong>Photo + Vidéo</strong><span>Une seule équipe</span></div>
         <div class="stat rise"><strong>9:16</strong><span>Formats prêts à publier</span></div>
         <div class="stat rise"><strong>Sur mesure</strong><span>Chaque projet, chaque devis</span></div>
@@ -70,9 +75,9 @@
           <p class="head__sub blur-in">Nos derniers projets, du trail le plus fou au plus beau des oui.</p>
         </div>
         <div class="chips blur-in">
-          <a class="chip" href="mariage.html"><span class="roll"><span>Mariage</span><span>Mariage</span></span></a>
-          <a class="chip" href="sport.html"><span class="roll"><span>Sport</span><span>Sport</span></span></a>
-          <a class="chip" href="influence.html"><span class="roll"><span>Influence</span><span>Influence</span></span></a>
+          <a class="chip" href="mariage.html"><span class="roll"><span>Mariage</span><span aria-hidden="true">Mariage</span></span></a>
+          <a class="chip" href="sport.html"><span class="roll"><span>Sport</span><span aria-hidden="true">Sport</span></span></a>
+          <a class="chip" href="influence.html"><span class="roll"><span>Influence</span><span aria-hidden="true">Influence</span></span></a>
         </div>
       </div>
       <div class="marquee" data-marquee>
@@ -80,14 +85,14 @@
       </div>
     </section>
 
-    <!-- FILMS & REELS -->
+    <!-- FILMS &amp; REELS -->
     <section class="section" id="films">
       <div class="container head">
         <div>
-          <h2 class="blur-in">Films & reels</h2>
+          <h2 class="blur-in">Films &amp; reels</h2>
           <p class="head__sub blur-in">Le mouvement en plus : films de sport, reels d'influenceurs, teasers de mariage.</p>
         </div>
-        <a class="btn blur-in" href="#contact"><span class="roll"><span>Un projet vidéo ?</span><span>Un projet vidéo ?</span></span></a>
+        <a class="btn blur-in" href="#contact"><span class="roll"><span>Un projet vidéo ?</span><span aria-hidden="true">Un projet vidéo ?</span></span></a>
       </div>
       <div class="container films" id="films-grid"></div>
     </section>
@@ -99,7 +104,7 @@
           <h2 class="blur-in">Nos services</h2>
           <p class="head__sub blur-in">Un même regard, posé sur des terrains très différents.</p>
         </div>
-        <a class="btn blur-in" href="#contact"><span class="roll"><span>Travaillons ensemble</span><span>Travaillons ensemble</span></span></a>
+        <a class="btn blur-in" href="#contact"><span class="roll"><span>Travaillons ensemble</span><span aria-hidden="true">Travaillons ensemble</span></span></a>
       </div>
       <div class="container services">
         <article class="service">
@@ -112,7 +117,7 @@
         <article class="service">
           <h3 class="service__title blur-in"><a href="sport.html">2. Sport <i>↗</i></a></h3>
           <div class="service__body">
-            <ul class="service__tags rise"><li>Trail & course</li><li>Athlètes</li><li>Événements</li><li>Highlights</li></ul>
+            <ul class="service__tags rise"><li>Trail &amp; course</li><li>Athlètes</li><li>Événements</li><li>Highlights</li></ul>
             <p class="rise">L'effort, la fatigue, la ligne d'arrivée. Nous suivons les sportifs au plus près pour raconter ce que les chronos ne disent pas.</p>
           </div>
         </article>
@@ -124,9 +129,9 @@
           </div>
         </article>
         <article class="service">
-          <h3 class="service__title blur-in">4. Marques & lieux</h3>
+          <h3 class="service__title blur-in">4. Marques &amp; lieux</h3>
           <div class="service__body">
-            <ul class="service__tags rise"><li>Film de marque</li><li>Portraits</li><li>Produit</li><li>Hôtels & logements</li></ul>
+            <ul class="service__tags rise"><li>Film de marque</li><li>Portraits</li><li>Produit</li><li>Hôtels &amp; logements</li></ul>
             <p class="rise">Films de marque, portraits, produits, logements et hôtels : des images professionnelles qui donnent envie d'acheter ou de réserver.</p>
           </div>
         </article>

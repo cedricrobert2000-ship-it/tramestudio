@@ -1,9 +1,12 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Photographe & vidéaste de mariage — Trame Studio</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; frame-src https://www.youtube-nocookie.com https://player.vimeo.com https://www.instagram.com https://www.tiktok.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="format-detection" content="telephone=no">
+  <title>Photographe &amp; vidéaste de mariage — Trame Studio</title>
   <meta name="description" content="Photo et film de mariage par Trame Studio : un reportage sincère, sans mise en scène, un film qui raconte votre journée et un teaser à partager.">
   <meta property="og:title" content="Mariage — Trame Studio">
   <meta property="og:image" content="images/pages/mariage-hero.jpg">
@@ -11,9 +14,11 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/switzer-600.woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/style.css">
+  <noscript><link rel="stylesheet" href="assets/css/noscript.css"></noscript>
 </head>
 <body data-page="mariage">
   <div data-nav></div>
+  <noscript><nav class="nav nav--static" aria-label="Navigation principale"><a href="index.html">Accueil</a> <a href="mariage.html">Mariage</a> <a href="sport.html">Sport</a> <a href="influence.html">Influence</a> <a href="mentions-legales.html">Mentions légales</a></nav></noscript>
 
   <main>
     <section class="hero hero--page">
@@ -23,10 +28,10 @@
       </picture>
       <div class="hero__shade"></div>
       <div class="container hero__content">
-        <p class="hero__kicker blur-in">Photo & film de mariage</p>
+        <p class="hero__kicker blur-in">Photo &amp; film de mariage</p>
         <h1 class="page-title" data-chars>MARIAGE</h1>
         <p class="hero__text blur-in">Votre journée, telle que vous l'avez vécue. Sans pose forcée, sans mise en scène, juste vous.</p>
-        <a class="btn blur-in" data-mail="Mariage : disponibilité de ma date" href="#"><span class="roll"><span>Vérifier ma date</span><span>Vérifier ma date</span></span></a>
+        <a class="btn blur-in" data-mail="Mariage : disponibilité de ma date" href="#"><span class="roll"><span>Vérifier ma date</span><span aria-hidden="true">Vérifier ma date</span></span></a>
       </div>
     </section>
 
@@ -112,7 +117,7 @@
     <section class="section">
       <div class="container cta-band">
         <h2 class="blur-in">Votre date est-elle encore libre ?</h2>
-        <a class="btn blur-in" data-mail="Mariage : disponibilité de ma date" href="#"><span class="roll"><span>Vérifier ma date</span><span>Vérifier ma date</span></span></a>
+        <a class="btn blur-in" data-mail="Mariage : disponibilité de ma date" href="#"><span class="roll"><span>Vérifier ma date</span><span aria-hidden="true">Vérifier ma date</span></span></a>
       </div>
     </section>
   </main>

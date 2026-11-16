@@ -113,7 +113,7 @@ h2 { font-size: var(--fs-h2); font-weight: 600; line-height: 1.2; letter-spacing
 .nav__panel { position: absolute; top: calc(100% + 14px); left: -16px; width: 260px; padding: 8px; border: 1px solid var(--line); border-radius: var(--radius-card); background: rgba(10,10,10,.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); opacity: 0; visibility: hidden; filter: blur(6px); transform: translateY(-6px); transition: opacity .4s var(--ease), transform .45s var(--ease), filter .4s var(--ease), visibility 0s .45s; }
 .nav__panel::before { content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 16px; }
 .nav__drop.is-open .nav__panel { opacity: 1; visibility: visible; filter: none; transform: none; transition-delay: 0s; }
-@media (hover: hover) { .nav__drop:hover .nav__panel, .nav__drop:focus-within .nav__panel { opacity: 1; visibility: visible; filter: none; transform: none; transition-delay: 0s; } }
+@media (hover: hover) { .nav__drop:not(.is-closing):hover .nav__panel { opacity: 1; visibility: visible; filter: none; transform: none; transition-delay: 0s; } }
 .nav__panel a { display: grid; grid-template-columns: 28px 1fr auto; align-items: center; padding: 12px 10px; border-radius: var(--radius); font-weight: 600; text-transform: uppercase; transition: background .3s; }
 .nav__panel a + a { border-top: 1px solid var(--line); }
 .nav__panel a:hover { background: rgba(255,255,255,.06); }
@@ -125,7 +125,7 @@ h2 { font-size: var(--fs-h2); font-weight: 600; line-height: 1.2; letter-spacing
 /* ==========================================================================
    HERO
    ========================================================================== */
-.hero { position: relative; display: grid; place-items: center; height: 100svh; min-height: 560px; overflow: hidden; }
+.hero { position: relative; display: grid; place-items: center; height: 100vh; height: 100svh; min-height: 560px; overflow: hidden; }
 .hero__img, .hero__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .hero__img img { object-position: 50% 35%; transform: scale(1.12); transition: transform 2.2s var(--ease); will-change: transform; }
 .is-ready .hero__img img { transform: scale(1); }
@@ -275,12 +275,12 @@ h2 { font-size: var(--fs-h2); font-weight: 600; line-height: 1.2; letter-spacing
 /* ==========================================================================
    PAGES CATÉGORIES (mariage, sport, influence)
    ========================================================================== */
-.hero--page { place-items: end start; height: 92svh; }
+.hero--page { place-items: end start; height: 92vh; height: 92svh; }
 .hero--page .hero__content { width: 100%; padding-bottom: clamp(48px, 8vh, 96px); text-align: left; }
 .hero--page .hero__shade { background: linear-gradient(to bottom, rgba(0,0,0,.45), transparent 30%, rgba(0,0,0,.15) 55%, rgba(0,0,0,.75)); }
 .hero--page .hero__text, .hero--type .hero__text { margin: 18px 0 32px; max-width: 460px; }
 .hero__kicker { margin-bottom: 14px; font-size: var(--fs-small); font-weight: 600; text-transform: uppercase; color: rgba(255,255,255,.8); }
-.hero--type { place-items: center start; height: auto; min-height: 92svh; padding-top: 120px; }
+.hero--type { place-items: center start; height: auto; min-height: 92vh; min-height: 92svh; padding-top: 120px; }
 .hero--type .hero__content { width: 100%; text-align: left; }
 .hero__ticker { position: absolute; left: 0; right: 0; bottom: 32px; overflow: hidden; color: var(--ghost); font-size: clamp(48px, 7vw, 110px); font-weight: 600; line-height: 1; letter-spacing: -.03em; text-transform: uppercase; white-space: nowrap; }
 .hero__ticker div { display: flex; gap: .8em; width: max-content; animation: slide 40s linear infinite; }
@@ -383,3 +383,14 @@ h2 { font-size: var(--fs-h2); font-weight: 600; line-height: 1.2; letter-spacing
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
   html { scroll-behavior: auto; }
 }
+
+/* ---------- Mentions légales & 404 ---------- */
+.legal { padding-top: 160px; max-width: calc(820px + 2 * var(--gutter)); }
+.legal .page-title { font-size: clamp(40px, 7vw, 96px); margin-bottom: 56px; }
+.legal section { padding-block: 28px; border-top: 1px solid var(--line); }
+.legal h2 { margin-bottom: 14px; font-size: var(--fs-h3); }
+.legal p { color: var(--ink-soft); line-height: 1.6; }
+.legal p + p { margin-top: 12px; }
+.legal a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.notfound { display: grid; align-content: center; justify-items: start; gap: 24px; min-height: 100vh; min-height: 100svh; }
+.notfound .chips { align-items: center; }

@@ -1,9 +1,12 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Photo & vidéo de sport — Trame Studio</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; frame-src https://www.youtube-nocookie.com https://player.vimeo.com https://www.instagram.com https://www.tiktok.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="format-detection" content="telephone=no">
+  <title>Photo &amp; vidéo de sport — Trame Studio</title>
   <meta name="description" content="Photo et vidéo de sport par Trame Studio : trail, course, athlètes et événements. Session 01 : la Diagonale des Fous.">
   <meta property="og:title" content="Sport — Trame Studio">
   <meta property="og:image" content="images/pages/sport-hero.jpg">
@@ -11,9 +14,11 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/switzer-600.woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/style.css">
+  <noscript><link rel="stylesheet" href="assets/css/noscript.css"></noscript>
 </head>
 <body data-page="sport">
   <div data-nav></div>
+  <noscript><nav class="nav nav--static" aria-label="Navigation principale"><a href="index.html">Accueil</a> <a href="mariage.html">Mariage</a> <a href="sport.html">Sport</a> <a href="influence.html">Influence</a> <a href="mentions-legales.html">Mentions légales</a></nav></noscript>
 
   <main>
     <section class="hero hero--page">
@@ -26,7 +31,7 @@
         <p class="hero__kicker blur-in">Trail · Course · Athlètes · Événements</p>
         <h1 class="page-title" data-chars>SPORT</h1>
         <p class="hero__text blur-in">Des heures d'effort pour quelques secondes de gloire. Nous racontons tout ce qui se passe entre les deux.</p>
-        <a class="btn blur-in" href="#sessions"><span class="roll"><span>Voir les sessions</span><span>Voir les sessions</span></span></a>
+        <a class="btn blur-in" href="#sessions"><span class="roll"><span>Voir les sessions</span><span aria-hidden="true">Voir les sessions</span></span></a>
       </div>
     </section>
 
@@ -58,7 +63,7 @@
         <span class="session__n blur-in">Session 02</span>
         <h2 class="blur-in">Prochaine session à venir</h2>
         <p class="head__sub blur-in">Vous organisez une course ou vous préparez un défi ? Votre histoire pourrait être la prochaine.</p>
-        <a class="btn blur-in" data-mail="Sport : projet de session" href="#"><span class="roll"><span>Proposer une session</span><span>Proposer une session</span></span></a>
+        <a class="btn blur-in" data-mail="Sport : projet de session" href="#"><span class="roll"><span>Proposer une session</span><span aria-hidden="true">Proposer une session</span></span></a>
       </div>
     </section>
   </main>
