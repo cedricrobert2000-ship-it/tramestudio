@@ -9,7 +9,7 @@ window.TRAME = {
   // aléatoire fourni par FormSubmit, pour que l'adresse e-mail n'apparaisse plus dans le code.
   formAlias: "",
   instagram: "trame_studioraw",      // ← votre pseudo Instagram (sans @)
-  zone: "France et étranger",      // ← votre zone d'intervention
+  zone: "Paris · France et étranger",      // ← votre zone d'intervention
   timezone: "Europe/Paris",
 
   /* Vidéo d'ambiance du hero de l'accueil (muette, en boucle).
