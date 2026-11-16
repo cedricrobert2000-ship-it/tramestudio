@@ -9,7 +9,7 @@ window.TRAME = {
   // aléatoire fourni par FormSubmit, pour que l'adresse e-mail n'apparaisse plus dans le code.
   formAlias: "",
   instagram: "trame_studioraw",      // ← votre pseudo Instagram (sans @)
-  zone: "France & destination",      // ← votre zone d'intervention
+  zone: "France et étranger",      // ← votre zone d'intervention
   timezone: "Europe/Paris",
 
   /* Vidéo d'ambiance du hero de l'accueil (muette, en boucle).
@@ -60,7 +60,7 @@ window.TRAME = {
         title: "Diagonale des Fous",
         place: "Grand Raid · La Réunion",
         date: "Octobre 2026",
-        text: "Plus de 160 km à travers l'île, de jour comme de nuit. Nous avons suivi un coureur au plus près : la préparation du sac, les ravitaillements, la fatigue, et cette ligne d'arrivée qu'on attend pendant des heures.",
+        text: "Plus de 160 km à travers La Réunion, de jour comme de nuit. Nous avons suivi un coureur du début à la fin : la préparation, les ravitaillements, la nuit et l'arrivée.",
         photos: ["sport/02", "sport/01", "sport/03", "sport/04", "sport/05", "sport/06", "sport/07", "sport/08", "sport/09", "sport/10"],
         films: [
           { format: "film", title: "Diagonale des Fous", tag: "Film", poster: "films/diagonale.jpg", embed: "", video: "" },
@@ -102,7 +102,7 @@ window.TRAME = {
         type: "Think tank européen",
         url: "https://europanova.eu/",
         domain: "europanova.eu",
-        desc: "Un site institutionnel clair et engagé pour un think tank européen indépendant : projets, publications, événements et appel au soutien, au service d'un message fort.",
+        desc: "Le site d'un think tank européen indépendant : ses projets, ses publications, ses événements et une page pour le soutenir.",
         tags: ["Site institutionnel", "Webdesign", "Framer"],
         color: "#0a1f4d",
         grain: true,          // grain + dégradé vers le noir sur le fond
@@ -113,8 +113,8 @@ window.TRAME = {
         name: "AlbA Convoyages",
         type: "Convoyage de véhicules",
         url: "https://cedricrobert2000-ship-it.github.io/Albaconvoyage/index.html",
-        domain: "cedricrobert2000-ship-it.github.io/Albaconvoyage",
-        desc: "Un site pensé pour convertir : devis en 30 minutes mis en avant dès l'arrivée, services lisibles, prix affichés et un ton humain qui rassure les professionnels.",
+        domain: "albaconvoyage (site de démonstration)",
+        desc: "Un site vitrine pour une entreprise de convoyage de véhicules : devis en 30 minutes, services et prix affichés clairement.",
         tags: ["Site vitrine", "Devis en ligne", "Responsive"],
         color: "#0e285d",
         grain: true,
@@ -126,7 +126,7 @@ window.TRAME = {
         type: "Portfolio photo & vidéo",
         url: "https://trameraw.com/",
         domain: "trameraw.com",
-        desc: "Notre propre portfolio : direction artistique sombre, animations au scroll, galeries, reels Instagram intégrés et pages dédiées à chaque univers.",
+        desc: "Notre propre site : une page par activité, des galeries photo et des films lus directement sur le site.",
         tags: ["Portfolio", "Design sur mesure", "Animations"],
         color: "#0b0b0b",
         desktop: "projects/trame-desktop.jpg",
@@ -145,12 +145,12 @@ window.TRAME = {
       { img: "cinema/sauvage.jpg",     video: "videos/loop-sauvage.mp4", title: "Sauvage",            tag: "Film · Parfum",    year: "2026", href: "influence.html#reels" },
       { img: "cinema/diagonale.jpg",   title: "Diagonale des Fous", tag: "Film · Sport",     year: "2026", href: "cinema.html#films" },
       { img: "cinema/mariage.jpg",     title: "Un mariage",         tag: "Film · Mariage",   year: "2026", href: "cinema.html#films" },
-      { img: "cinema/parfum.jpg",      title: "Voyage",             tag: "Carnets de route", year: "Bientôt", href: "cinema.html#voyage" },
+      { img: "cinema/parfum.jpg",      title: "Voyage",             tag: "Films de voyage", year: "Bientôt", href: "cinema.html#voyage" },
       { img: "cinema/preparation.jpg", title: "Acting",             tag: "Courts-métrages",  year: "Bientôt", href: "cinema.html#acting" },
     ],
     voyage: [
-      { format: "film", title: "Carnet de voyage 01", tag: "Voyage", poster: "", embed: "" },
-      { format: "film", title: "Carnet de voyage 02", tag: "Voyage", poster: "", embed: "" },
+      { format: "film", title: "Voyage 01", tag: "Voyage", poster: "", embed: "" },
+      { format: "film", title: "Voyage 02", tag: "Voyage", poster: "", embed: "" },
     ],
     acting: [
       { format: "film", title: "Showreel acting", tag: "Acting", poster: "", embed: "" },

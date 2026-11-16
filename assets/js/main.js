@@ -48,8 +48,8 @@
         <div class="footer__bg" aria-hidden="true"></div>
         <div class="container footer__top">
           <div class="footer__cta">
-            <p class="footer__brand blur-in">Trame Studio®</p>
-            <h2 class="footer__title blur-in">Vous avez une histoire à raconter ? Mariage, course, marque ou site web : parlons de votre projet.</h2>
+            <p class="footer__brand blur-in">Trame Studio</p>
+            <h2 class="footer__title blur-in">Un projet photo, vidéo ou web ? Parlons-en.</h2>
             <a class="btn blur-in" data-mail href="#">${roll("Nous contacter")}</a>
           </div>
           <div class="footer__cols">
@@ -59,7 +59,7 @@
           </div>
         </div>
         <div class="container footer__bar">
-          <span>Trame ${new Date().getFullYear()}. Tous droits réservés.</span>
+          <span>© ${new Date().getFullYear()} Trame Studio</span>
           <span data-zone></span>
           <span data-clock>--:--:--</span>
           <a href="mentions-legales.html">Mentions légales</a>
@@ -282,7 +282,7 @@
       const b = document.createElement("button");
       b.className = "shot rise";
       b.setAttribute("aria-label", `Agrandir ${items[i].title}`);
-      b.innerHTML = `<img src="${img(p)}" alt="" loading="lazy">`;
+      b.innerHTML = `<img src="${img(p)}" alt="${esc(title)} : photo ${i + 1}, Trame Studio" loading="lazy">`;
       b.addEventListener("click", () => open(items, i));
       el.append(b);
     });
@@ -295,7 +295,7 @@
     films.forEach((f) => {
       const card = document.createElement(playable(f) ? "button" : "div");
       card.className = `film film--${f.format === "film" ? "film" : "reel"} rise${f.poster ? "" : " film--typo"}`;
-      card.innerHTML = `${f.poster ? `<img src="${img(f.poster)}" alt="" loading="lazy">` : `<span class="film__word">${esc(f.client || f.title)}</span>`}
+      card.innerHTML = `${f.poster ? `<img src="${img(f.poster)}" alt="${esc(f.title)} : ${esc(f.tag || f.client || "vidéo")}" loading="lazy">` : `<span class="film__word">${esc(f.client || f.title)}</span>`}
         ${playable(f) ? `<span class="film__play" aria-hidden="true">▶</span>` : `<span class="film__state">Bientôt</span>`}
         <span class="film__meta"><span class="film__tag">${esc(f.tag || f.client || "")}</span><span class="film__title">${esc(f.title)}</span></span>`;
       if (playable(f)) {
@@ -324,7 +324,7 @@
     const card = (w, hidden) => {
       const c = cat(w.cat);
       return `<a class="work" href="${esc(c.href)}"${hidden ? ' tabindex="-1" aria-hidden="true"' : ` aria-label="${esc(c.label)}, ${w.year}"`}>
-        <img src="${img(w.img)}" alt="" loading="lazy">
+        <img src="${img(w.img)}" alt="${hidden ? "" : `Projet ${esc(c.label.toLowerCase())}, ${esc(w.year)}`}" loading="lazy">
         <span class="work__meta"><span class="work__tag">${esc(w.year)}</span><span class="work__title">${esc(c.label)}</span></span>
       </a>`;
     };
