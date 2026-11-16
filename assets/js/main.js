@@ -327,7 +327,7 @@
       const url = /^https:\/\//.test(p.url || "") ? p.url : "";
       const color = /^#[0-9a-f]{3,8}$/i.test(p.color || "") ? p.color : "#0b0b0b";
       return `
-      <article class="case-x" data-color="${color}" aria-label="${esc(p.name)}">
+      <article class="case-x${p.grain ? " case-x--grain" : ""}" data-color="${color}" aria-label="${esc(p.name)}">
         <div class="case-x__sticky">
           <div class="container case-x__grid">
             <div class="case-x__info">

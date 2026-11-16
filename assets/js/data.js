@@ -85,6 +85,7 @@ window.TRAME = {
         desc: "Un site institutionnel clair et engagé pour un think tank européen indépendant : projets, publications, événements et appel au soutien, au service d'un message fort.",
         tags: ["Site institutionnel", "Webdesign", "Framer"],
         color: "#0a1f4d",
+        grain: true,          // grain + dégradé vers le noir sur le fond
         desktop: "projects/europanova-desktop.jpg",
         mobile: "projects/europanova-mobile.jpg",
       },
