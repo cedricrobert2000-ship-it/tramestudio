@@ -72,6 +72,47 @@ window.TRAME = {
     ],
   },
 
+  /* DIGITAL — réalisations web présentées en plein écran sur digital.html.
+     desktop / mobile : captures pleine page (le site défile dans l'écran au scroll)
+     color : couleur d'ambiance de la section quand on arrive sur le projet */
+  digital: {
+    projects: [
+      {
+        name: "EuropaNova",
+        type: "Think tank européen",
+        url: "https://europanova.eu/",
+        domain: "europanova.eu",
+        desc: "Un site institutionnel clair et engagé pour un think tank européen indépendant : projets, publications, événements et appel au soutien, au service d'un message fort.",
+        tags: ["Site institutionnel", "Webdesign", "Framer"],
+        color: "#0a1f4d",
+        desktop: "projects/europanova-desktop.jpg",
+        mobile: "projects/europanova-mobile.jpg",
+      },
+      {
+        name: "AlbA Convoyages",
+        type: "Convoyage de véhicules",
+        url: "https://cedricrobert2000-ship-it.github.io/Albaconvoyage/index.html",
+        domain: "cedricrobert2000-ship-it.github.io/Albaconvoyage",
+        desc: "Un site pensé pour convertir : devis en 30 minutes mis en avant dès l'arrivée, services lisibles, prix affichés et un ton humain qui rassure les professionnels.",
+        tags: ["Site vitrine", "Devis en ligne", "Responsive"],
+        color: "#0e285d",
+        desktop: "projects/alba-desktop.jpg",
+        mobile: "projects/alba-mobile.jpg",
+      },
+      {
+        name: "Trame Studio",
+        type: "Portfolio photo & vidéo",
+        url: "https://trameraw.com/",
+        domain: "trameraw.com",
+        desc: "Notre propre portfolio : direction artistique sombre, animations au scroll, galeries, reels Instagram intégrés et pages dédiées à chaque univers.",
+        tags: ["Portfolio", "Design sur mesure", "Animations"],
+        color: "#0b0b0b",
+        desktop: "projects/trame-desktop.jpg",
+        mobile: "projects/trame-mobile.jpg",
+      },
+    ],
+  },
+
   /* Films & reels mis en avant sur l'accueil */
   films: [
     { format: "film", title: "Diagonale des Fous", tag: "Sport · Film",       poster: "films/diagonale.jpg", embed: "", video: "" },

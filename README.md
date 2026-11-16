@@ -24,6 +24,7 @@ Tout se passe dans `assets/js/data.js` :
 - **Mariage** (`mariage.photos`) : photos dans `images/mariage/`.
 - **Sport** (`sport.sessions`) : une entrée par session ; pour en ajouter une, copiez le bloc de la Diagonale.
 - **Influence** (`influence.reels`) : collez un lien Instagram, TikTok, YouTube ou Vimeo dans `embed`.
+- **Réalisations digitales** (`digital.projects`) : nom, description, lien, couleur d'ambiance et deux captures pleine page (`images/projects/`). Sur `digital.html`, chaque site défile dans un navigateur et un téléphone au scroll.
 - **Films & reels** de l'accueil (`films`) : même principe. Sans lien, la carte affiche « Bientôt ».
 - **Services** (accueil) : au survol, une traînée de photos suit la souris. Les images (480×320) sont dans `images/trail/` et listées dans l'attribut `data-trail` de chaque service dans `index.html`.
 

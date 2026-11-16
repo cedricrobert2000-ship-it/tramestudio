@@ -318,6 +318,79 @@
     addEventListener("scroll", update, { passive: true }); update();
   });
 
+  /* ---------- Digital : réalisations immersives (le site défile dans l'écran) ---------- */
+  const casesWrap = $("#cases");
+  if (casesWrap && D.digital && D.digital.projects) {
+    const projects = D.digital.projects;
+    const total = String(projects.length).padStart(2, "0");
+    casesWrap.innerHTML = projects.map((p, i) => {
+      const url = /^https:\/\//.test(p.url || "") ? p.url : "";
+      const color = /^#[0-9a-f]{3,8}$/i.test(p.color || "") ? p.color : "#0b0b0b";
+      return `
+      <article class="case-x" data-color="${color}" aria-label="${esc(p.name)}">
+        <div class="case-x__sticky">
+          <div class="container case-x__grid">
+            <div class="case-x__info">
+              <span class="case-x__n">${String(i + 1).padStart(2, "0")} / ${total}</span>
+              <p class="case-x__type">${esc(p.type)}</p>
+              <h3 class="case-x__name">${esc(p.name)}</h3>
+              <p class="case-x__desc">${esc(p.desc)}</p>
+              <ul class="case-x__tags">${(p.tags || []).map((t) => `<li>${esc(t)}</li>`).join("")}</ul>
+              ${url ? `<a class="btn btn--light" href="${esc(url)}" target="_blank" rel="noopener noreferrer"><span class="roll"><span>Voir le site ↗</span><span aria-hidden="true">Voir le site ↗</span></span></a>` : ""}
+            </div>
+            <div class="case-x__stage">
+              <div class="case-x__browser">
+                <div class="browser__bar" aria-hidden="true"><i></i><i></i><i></i><span>${esc(p.domain || "")}</span></div>
+                <div class="case-x__screen"><img class="case-x__shot" src="${img(p.desktop)}" alt="Capture du site ${esc(p.name)} sur ordinateur" loading="lazy" decoding="async"></div>
+              </div>
+              <div class="case-x__phone">
+                <div class="case-x__screen"><img class="case-x__shot" src="${img(p.mobile)}" alt="Capture du site ${esc(p.name)} sur mobile" loading="lazy" decoding="async"></div>
+              </div>
+            </div>
+          </div>
+          <div class="case-x__progress" aria-hidden="true"><i></i></div>
+        </div>
+      </article>`;
+    }).join("");
+
+    const cases = $$(".case-x", casesWrap);
+    const section = $(".cases");
+    const clamp = (v) => Math.min(1, Math.max(0, v));
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const vh = innerHeight;
+      let active = null;
+      cases.forEach((c) => {
+        const r = c.getBoundingClientRect();
+        const run = r.height - vh;                       // distance de défilement « collée »
+        const p = clamp(-r.top / run);                   // 0 → 1 pendant que la section est collée
+        const enter = clamp((vh - r.top) / vh);          // 0 → 1 à l'arrivée de la section
+        if (r.top < vh * .5 && r.bottom > vh * .5) active = c;
+        c.style.setProperty("--enter", enter.toFixed(3));
+        $(".case-x__progress i", c).style.transform = `scaleX(${p.toFixed(3)})`;
+        $$(".case-x__screen", c).forEach((screen) => {
+          const shot = $(".case-x__shot", screen);
+          const max = shot.offsetHeight - screen.clientHeight;
+          if (max > 0) shot.style.transform = `translate3d(0, ${(-p * max).toFixed(1)}px, 0)`;
+        });
+        c.classList.toggle("is-active", c === active);
+      });
+      // menu en blanc tant que le haut de l'écran est sur un projet (fond sombre)
+      const atTop = cases.some((c) => { const r = c.getBoundingClientRect(); return r.top <= 60 && r.bottom > 60; });
+      document.body.classList.toggle("nav-on-dark", atTop);
+      if (section) {
+        section.classList.toggle("is-on", !!active);
+        if (active) section.style.setProperty("--case-bg", active.dataset.color);
+      }
+    };
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+    addEventListener("scroll", onScroll, { passive: true });
+    addEventListener("resize", onScroll);
+    $$(".case-x__shot", casesWrap).forEach((im) => im.addEventListener("load", onScroll));
+    update();
+  }
+
   /* ---------- Services : traînée de photos qui suit la souris ---------- */
   const trailRows = $$("[data-trail]");
   if (trailRows.length && matchMedia("(hover: hover) and (pointer: fine)").matches && !reduced) {

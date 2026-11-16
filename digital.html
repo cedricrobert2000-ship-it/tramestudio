@@ -36,7 +36,7 @@
         <p class="hero__text blur-in">Des sites et des applications beaux, rapides et pensés pour vendre. Avec un avantage rare : les photos et les vidéos sont faites par notre propre studio.</p>
         <div class="chips blur-in">
           <a class="btn" data-mail="Projet digital : site web / app / branding" href="#"><span class="roll"><span>Lancer un projet</span><span aria-hidden="true">Lancer un projet</span></span></a>
-          <a class="chip" href="#realisations">Voir une réalisation</a>
+          <a class="chip" href="#realisations">Voir les réalisations</a>
         </div>
       </div>
       <div class="container">
@@ -61,7 +61,7 @@
         <a class="btn blur-in" data-mail="Projet digital" href="#"><span class="roll"><span>Parlons-en</span><span aria-hidden="true">Parlons-en</span></span></a>
       </div>
       <div class="container services">
-        <article class="service" data-trail="web-home,web-mariage,web-sport,web-influence">
+        <article class="service" data-trail="web-europanova,web-alba,web-home,web-mariage,web-influence">
           <h3 class="service__title blur-in">1. Sites web</h3>
           <div class="service__body">
             <ul class="service__tags rise"><li>Sites vitrines</li><li>Portfolios</li><li>Landing pages</li><li>Refonte</li></ul>
@@ -92,37 +92,14 @@
       </div>
     </section>
 
-    <!-- RÉALISATION -->
-    <section class="section" id="realisations">
-      <div class="container head">
-        <div>
-          <h2 class="blur-in">Réalisation</h2>
-          <p class="head__sub blur-in">trameraw.com : notre propre site, conçu, designé et développé de A à Z.</p>
-        </div>
+    <!-- RÉALISATIONS : section immersive, générée depuis assets/js/data.js (digital.projects) -->
+    <section class="cases" id="realisations">
+      <div class="container cases__head">
+        <p class="cases__kicker blur-in">Réalisations</p>
+        <h2 class="cases__title blur-in">Des sites qui<br>travaillent pour vous</h2>
+        <p class="head__sub blur-in">Faites défiler : chaque site se parcourt sous vos yeux.</p>
       </div>
-      <div class="container case">
-        <div class="case__main browser rise">
-          <div class="browser__bar" aria-hidden="true"><i></i><i></i><i></i><span>trameraw.com/mariage</span></div>
-          <img src="images/digital/case-mariage.jpg" alt="Page Mariage du site Trame Studio" loading="lazy">
-        </div>
-        <div class="case__side">
-          <div class="browser rise">
-            <div class="browser__bar" aria-hidden="true"><i></i><i></i><i></i><span>trameraw.com/influence</span></div>
-            <img src="images/digital/case-influence.jpg" alt="Page Influence du site Trame Studio" loading="lazy">
-          </div>
-          <div class="browser rise">
-            <div class="browser__bar" aria-hidden="true"><i></i><i></i><i></i><span>trameraw.com/sport</span></div>
-            <img src="images/digital/case-sport.jpg" alt="Page Sport du site Trame Studio" loading="lazy">
-          </div>
-        </div>
-      </div>
-      <div class="container case__facts">
-        <div class="stat rise"><strong>Sur mesure</strong><span>Design et code, sans modèle tout fait</span></div>
-        <div class="stat rise"><strong>Mobile</strong><span>Pensé pour le téléphone d'abord</span></div>
-        <div class="stat rise"><strong>Sécurisé</strong><span>HTTPS, sans traceur ni cookie</span></div>
-        <div class="stat rise"><strong>0 € / mois</strong><span>D'hébergement pour ce site</span></div>
-      </div>
-      <div class="container phones rise"><img src="images/digital/phones.jpg" alt="Le site Trame Studio affiché sur trois téléphones" loading="lazy"></div>
+      <div id="cases"></div>
     </section>
 
     <!-- MÉTHODE -->
