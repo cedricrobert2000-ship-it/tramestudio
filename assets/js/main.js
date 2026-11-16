@@ -48,7 +48,7 @@
         <div class="container footer__top">
           <div class="footer__cta">
             <p class="footer__brand blur-in">Trame Studio®</p>
-            <h2 class="footer__title blur-in">Vous avez une histoire à raconter ? Mariage, course, contenu ou marque : parlons de votre projet.</h2>
+            <h2 class="footer__title blur-in">Vous avez une histoire à raconter ? Mariage, course, marque ou site web : parlons de votre projet.</h2>
             <a class="btn blur-in" data-mail href="#">${roll("Nous contacter")}</a>
           </div>
           <div class="footer__cols">
@@ -308,6 +308,43 @@
     };
     addEventListener("scroll", update, { passive: true }); update();
   });
+
+  /* ---------- Services : traînée de photos qui suit la souris ---------- */
+  const trailRows = $$("[data-trail]");
+  if (trailRows.length && matchMedia("(hover: hover) and (pointer: fine)").matches && !reduced) {
+    const layer = document.createElement("div");
+    layer.className = "trail";
+    layer.setAttribute("aria-hidden", "true");
+    document.body.append(layer);
+    const MAX = 9, STEP = 90; // nombre max d'images à l'écran, distance (px) entre deux images
+    trailRows.forEach((row) => {
+      const srcs = row.dataset.trail.split(",").map((n) => img(`trail/${n.trim()}`)).filter(Boolean);
+      let i = 0, last = null, loaded = false;
+      const preload = () => { if (loaded) return; loaded = true; srcs.forEach((u) => { const im = new Image(); im.src = u; }); };
+      row.addEventListener("mouseenter", preload);
+      row.addEventListener("mouseleave", () => (last = null));
+      row.addEventListener("mousemove", (e) => {
+        const x = e.clientX, y = e.clientY;
+        if (last && Math.hypot(x - last.x, y - last.y) < STEP) return;
+        last = { x, y };
+        const pic = document.createElement("img");
+        pic.className = "trail__img";
+        pic.alt = "";
+        pic.src = srcs[i++ % srcs.length];
+        pic.style.left = `${x}px`;
+        pic.style.top = `${y}px`;
+        const rot = (Math.random() * 14 - 7).toFixed(1);
+        layer.append(pic);
+        while (layer.children.length > MAX) layer.firstElementChild.remove();
+        pic.animate([
+          { opacity: 0, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(.6)` },
+          { opacity: 1, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(1)`, offset: .18 },
+          { opacity: 1, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(1)`, offset: .62 },
+          { opacity: 0, transform: `translate(-50%, -40%) rotate(${rot}deg) scale(.92)` },
+        ], { duration: 1100, easing: "cubic-bezier(.22, 1, .36, 1)" }).onfinish = () => pic.remove();
+      });
+    });
+  }
 
   /* ---------- Apparitions au scroll (flou → net, montée) ---------- */
   const io = new IntersectionObserver((entries) => entries.forEach((e) => {

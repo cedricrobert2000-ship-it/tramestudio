@@ -24,6 +24,7 @@ Tout se passe dans `assets/js/data.js` :
 - **Sport** (`sport.sessions`) : une entrée par session ; pour en ajouter une, copiez le bloc de la Diagonale.
 - **Influence** (`influence.reels`) : collez un lien Instagram, TikTok, YouTube ou Vimeo dans `embed`.
 - **Films & reels** de l'accueil (`films`) : même principe. Sans lien, la carte affiche « Bientôt ».
+- **Services** (accueil) : au survol, une traînée de photos suit la souris. Les images (480×320) sont dans `images/trail/` et listées dans l'attribut `data-trail` de chaque service dans `index.html`.
 
 Photos conseillées : JPG de 1800 à 2400 px sur le grand côté, environ 200 Ko.
 
