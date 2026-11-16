@@ -295,16 +295,17 @@
     document.body.classList.add("is-ready");
     heroChars.forEach((el) => el.classList.add("is-in"));
     setTimeout(() => $$(".hero .blur-in, .hero .rise").forEach((el) => el.classList.add("is-in")), 500);
-    // effet « flash » sur le titre principal : éclair blanc + stroboscope façon campagne sport
+    // titre principal « pris en photo » : viseur qui cadre, mise au point, déclenchement
     if (!reduced) {
       const h1 = $("h1");
       if (h1) {
-        h1.classList.add("flash-title");
-        const flash = document.createElement("div");
-        flash.className = "flashbang";
-        flash.setAttribute("aria-hidden", "true");
-        document.body.append(flash);
-        setTimeout(() => flash.remove(), 1400);
+        const vf = document.createElement("span");
+        vf.className = "vf";
+        vf.setAttribute("aria-hidden", "true");
+        vf.innerHTML = "<i></i><i></i><i></i><i></i>";
+        h1.append(vf);
+        h1.classList.add("shot-title");
+        setTimeout(() => vf.remove(), 2600);
       }
     }
   };
