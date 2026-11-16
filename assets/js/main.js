@@ -45,6 +45,7 @@
   if (footSlot) {
     footSlot.outerHTML = `
       <footer class="footer" id="contact">
+        <div class="footer__bg" aria-hidden="true"></div>
         <div class="container footer__top">
           <div class="footer__cta">
             <p class="footer__brand blur-in">Trame Studio®</p>
@@ -66,6 +67,29 @@
         <div class="footer__marquee" aria-hidden="true"><div><span>Trame Creative Studio</span><span>Trame Creative Studio</span><span>Trame Creative Studio</span><span>Trame Creative Studio</span></div></div>
       </footer>`;
   }
+  // footer : vidéo Alone en fond (côté photo & vidéo uniquement), chargée quand le footer arrive à l'écran
+  const footBg = $(".footer__bg");
+  if (footBg && !document.body.classList.contains("theme-light")) {
+    const foot = footBg.parentElement;
+    foot.classList.add("footer--video");
+    footBg.innerHTML = '<img src="images/films/footer-alone.jpg" alt="" loading="lazy" decoding="async"><span class="footer__grain"></span>';
+    if (!reduced && !(navigator.connection && navigator.connection.saveData)) {
+      let v = null;
+      new IntersectionObserver(([en]) => {
+        if (en.isIntersecting) {
+          if (!v) {
+            v = document.createElement("video");
+            Object.assign(v, { muted: true, loop: true, playsInline: true, preload: "auto", src: "videos/footer-alone.mp4" });
+            v.setAttribute("muted", "");
+            v.addEventListener("playing", () => foot.classList.add("is-playing"), { once: true });
+            footBg.prepend(v);
+          }
+          v.play().catch(() => {});
+        } else if (v) v.pause();
+      }, { rootMargin: "200px 0px" }).observe(foot);
+    }
+  }
+
   const lbSlot = $("[data-lightbox]");
   if (lbSlot) {
     lbSlot.outerHTML = `

@@ -42,7 +42,7 @@ window.TRAME = {
     { img: "works/diag-arrivee.jpg",   year: "2026", cat: "sport" },
     { img: "works/influence-parfum.jpg", year: "2026", cat: "influence" },
     { img: "works/mariage-main.jpg",   year: "2026", cat: "mariage" },
-    { img: "works/diag-reglages.jpg",  year: "2026", cat: "sport" },
+    { img: "works/alone-2.jpg",         year: "2026", cat: "influence" },
     { img: "works/mariage-retour.jpg", year: "2026", cat: "mariage" },
   ],
 
