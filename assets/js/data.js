@@ -14,6 +14,7 @@ window.TRAME = {
     { key: "mariage",   label: "Mariage",   href: "mariage.html" },
     { key: "sport",     label: "Sport",     href: "sport.html" },
     { key: "influence", label: "Influence", href: "influence.html" },
+    { key: "hotels",    label: "Hôtels & lieux", href: "hotels.html" },
   ],
 
   /* Cartes du bandeau « Travaux » sur l'accueil.

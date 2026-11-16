@@ -584,3 +584,18 @@ html.smooth { scroll-behavior: auto; }
   .theme-light, .theme-light * { cursor: url("../cursor-arrow.png") 0 0, default; }
   .theme-light a, .theme-light a *, .theme-light button, .theme-light button *, .theme-light summary, .theme-light summary *, .theme-light label { cursor: url("../cursor-hand.png") 16 0, pointer; }
 }
+
+/* ---------- Hôtels : cadres des formats livrés ---------- */
+.formats { display: grid; grid-template-columns: 2fr 1.5fr .8fr 1fr; gap: 16px; align-items: end; }
+.format { position: relative; display: flex; flex-direction: column; justify-content: flex-end; gap: 4px; padding: 16px; border: 1px solid var(--line); border-radius: var(--radius-card); background: radial-gradient(120% 90% at 80% 0%, #1a1a1a, #070707 70%); overflow: hidden; transition: border-color .4s, transform .6s var(--ease); }
+.format:hover { border-color: rgba(255,255,255,.4); transform: translateY(-4px); }
+.format--wide { aspect-ratio: 16 / 9; }
+.format--land { aspect-ratio: 3 / 2; }
+.format--tall { aspect-ratio: 9 / 16; }
+.format--square { aspect-ratio: 4 / 5; }
+.format__ratio { position: absolute; top: 12px; left: 16px; font-size: clamp(28px, 3vw, 48px); font-weight: 700; letter-spacing: -.04em; color: rgba(255,255,255,.12); }
+.format__name { font-size: var(--fs-small); font-weight: 600; text-transform: uppercase; }
+.format__use { font-size: 13px; color: var(--ink-soft); }
+@media (max-width: 900px) { .formats { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 767px) { .formats { grid-template-columns: 1fr 1fr; gap: 8px; } .format { padding: 12px; } .format__use { display: none; } }
+@media (max-width: 767px) { .hero--type .hero__ticker { position: relative; bottom: auto; margin-top: 56px; font-size: 56px; } .hero--type { padding-bottom: 32px; } }
