@@ -428,6 +428,11 @@
     });
     sync();
     document.body.append(btn);
+    // au-dessus du bandeau d'infos tant que le hero de l'accueil est visible
+    if (page === "home") {
+      const raise = () => btn.classList.toggle("is-raised", scrollY < innerHeight * 0.75);
+      addEventListener("scroll", raise, { passive: true }); raise();
+    }
 
     // survol : liens du menu et boutons principaux uniquement (comme le site de référence)
     document.addEventListener("pointerover", (e) => {
@@ -482,6 +487,7 @@
         ${slides.map((s, i) => `
           <a class="cine__slide${i === 0 ? " is-active" : ""}" href="${esc(safeHref(s.href))}" aria-label="${esc(s.title)} — ${esc(s.tag)}" ${i ? 'tabindex="-1" aria-hidden="true"' : ""}>
             <img src="${img(s.img)}" alt="" ${i ? 'loading="lazy"' : ""} decoding="async">
+            ${safeVideo(s.video || "") ? `<video class="cine__video" muted loop playsinline preload="${i ? "none" : "metadata"}" src="${esc(safeVideo(s.video))}" aria-hidden="true"></video>` : ""}
             <span class="cine__grain" aria-hidden="true"></span>
             <span class="cine__hud" aria-hidden="true">
               <span class="cine__rec"><i></i>SC ${String(i + 1).padStart(2, "0")} · TK 01</span>
@@ -507,9 +513,22 @@
     sticky.className = "cine__sticky";
     cine.before(pin); pin.append(sticky); sticky.append(cine);
     let cur = -1, clock = performance.now();
+    let onScreen = false;
+    const playActive = () => {
+      items.forEach((el, i) => {
+        const v = $(".cine__video", el);
+        if (!v) return;
+        if (i === cur && onScreen && !reduced) {
+          v.preload = "auto";
+          v.play().then(() => el.classList.add("is-playing")).catch(() => {});
+        } else { v.pause(); }
+      });
+    };
+    new IntersectionObserver(([en]) => { onScreen = en.isIntersecting; playActive(); }, { threshold: 0.25 }).observe(cine);
     const show = (n) => {
       if (n === cur) return;
       cur = n; clock = performance.now();
+      setTimeout(playActive, 0);
       items.forEach((el, i) => {
         const on = i === cur;
         el.classList.toggle("is-active", on);
@@ -842,13 +861,39 @@
     })();
   }
 
+  /* ---------- Vidéo d'ambiance du hero (accueil) ---------- */
+  const heroBox = page === "home" && $(".hero__img");
+  if (heroBox && D.heroVideo && !reduced) {
+    const mobile = matchMedia("(max-width: 767px)").matches;
+    const src = safeVideo(mobile ? D.heroVideo.mobile : D.heroVideo.desktop);
+    // pas de vidéo si l'appareil demande d'économiser les données
+    const saveData = navigator.connection && navigator.connection.saveData;
+    if (src && !saveData) {
+      const v = document.createElement("video");
+      Object.assign(v, { muted: true, loop: true, playsInline: true, autoplay: true, preload: "auto", className: "hero__video" });
+      v.setAttribute("aria-hidden", "true");
+      v.setAttribute("muted", "");
+      v.src = src;
+      v.addEventListener("playing", () => heroBox.classList.add("has-video"), { once: true });
+      heroBox.append(v);
+      v.play().catch(() => {});
+      // pause quand le hero n'est plus visible (économie de batterie)
+      new IntersectionObserver(([en]) => { en.isIntersecting ? v.play().catch(() => {}) : v.pause(); }).observe(heroBox);
+    }
+  }
+
   /* ---------- Parallaxe légère du header ---------- */
   const heroImg = $(".hero__img img");
   if (heroImg && !reduced) {
     let raf = 0;
     addEventListener("scroll", () => {
       if (raf) return;
-      raf = requestAnimationFrame(() => { raf = 0; heroImg.style.translate = `0 ${Math.min(scrollY, innerHeight) * .3}px`; });
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        const t = `0 ${Math.min(scrollY, innerHeight) * .3}px`;
+        heroImg.style.translate = t;
+        const hv = $(".hero__video"); if (hv) hv.style.translate = t;
+      });
     }, { passive: true });
   }
 })();

@@ -10,7 +10,14 @@ window.TRAME = {
   formAlias: "",
   instagram: "trame_studioraw",      // ← votre pseudo Instagram (sans @)
   zone: "France & destination",      // ← votre zone d'intervention
-  timezone: "Europe/Paris",          // ← fuseau de l'horloge du bandeau
+  timezone: "Europe/Paris",
+
+  /* Vidéo d'ambiance du hero de l'accueil (muette, en boucle).
+     Pour passer à Alone : desktop "videos/loop-alone.mp4", poster "cinema/alone.jpg". */
+  heroVideo: {
+    desktop: "videos/hero-myslf.mp4",        poster: "hero/hero-myslf.jpg",
+    mobile:  "videos/hero-myslf-mobile.mp4", posterMobile: "hero/hero-myslf-mobile.jpg",
+  },          // ← fuseau de l'horloge du bandeau
 
   /* Les catégories de travail : menu, pied de page, cartes de l'accueil */
   categories: [
@@ -133,11 +140,11 @@ window.TRAME = {
      voyage / acting : films (embed = lien YouTube ou Vimeo). Sans lien → « Prochainement ». */
   cinema: {
     slides: [
+      { img: "cinema/alone.jpg",       video: "videos/loop-alone.mp4",   title: "Alone",              tag: "Film · Marque",    year: "2026", href: "influence.html#alone" },
+      { img: "hero/hero-myslf.jpg",    video: "videos/hero-myslf.mp4",   title: "MYSLF",              tag: "Film · Parfum",    year: "2026", href: "influence.html#reels" },
+      { img: "cinema/sauvage.jpg",     video: "videos/loop-sauvage.mp4", title: "Sauvage",            tag: "Film · Parfum",    year: "2026", href: "influence.html#reels" },
       { img: "cinema/diagonale.jpg",   title: "Diagonale des Fous", tag: "Film · Sport",     year: "2026", href: "cinema.html#films" },
-      { img: "cinema/alone.jpg",       title: "Alone",              tag: "Film · Marque",    year: "2026", href: "cinema.html#films" },
-      { img: "cinema/myslf.jpg",       title: "MYSLF",              tag: "Film · Parfum",    year: "2026", href: "cinema.html#films" },
       { img: "cinema/mariage.jpg",     title: "Un mariage",         tag: "Film · Mariage",   year: "2026", href: "cinema.html#films" },
-      { img: "cinema/nuit.jpg",        title: "La nuit",            tag: "Film · Trail",     year: "2026", href: "cinema.html#films" },
       { img: "cinema/parfum.jpg",      title: "Voyage",             tag: "Carnets de route", year: "Bientôt", href: "cinema.html#voyage" },
       { img: "cinema/preparation.jpg", title: "Acting",             tag: "Courts-métrages",  year: "Bientôt", href: "cinema.html#acting" },
     ],
