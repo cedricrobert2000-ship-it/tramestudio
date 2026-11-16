@@ -118,20 +118,18 @@
       get on() { return on; },
       unlock: () => { if (on) init(); },
       set(v) { on = v; try { localStorage.setItem("trame-sound", v ? "on" : "off"); } catch {} if (v) init(); },
-      // survol menu / boutons : tick doux
-      tick(soft) {
-        if (!ready()) return; const now = ctx.currentTime; if (now - lastTick < 0.05) return; lastTick = now;
-        tone(now, { freq: soft ? 1500 : 2100, to: soft ? 1100 : 1500, peak: soft ? 0.025 : 0.04, decay: 0.05 });
-        burst(now, { freq: 4500, q: 0.8, peak: soft ? 0.015 : 0.025, decay: 0.025, type: "highpass" });
+      // survol du menu et des boutons : déclencheur enfoncé à mi-course (petit « tick » mécanique)
+      tick() {
+        if (!ready()) return; const t = ctx.currentTime; if (t - lastTick < 0.06) return; lastTick = t;
+        burst(t, { freq: 5200, q: 2.5, peak: 0.05, decay: 0.012 });
+        burst(t + 0.018, { freq: 3400, q: 2, peak: 0.022, decay: 0.015 });
       },
-      // ouverture de la liste « Photo & vidéo »
-      open() { if (!ready()) return; const t = ctx.currentTime; tone(t, { freq: 600, to: 1200, peak: 0.03, attack: 0.01, decay: 0.12 }); },
-      // arrivée sur une section : double clic mécanique, comme le cran d'une molette d'appareil
+      // section « Photo & vidéo » : déclic d'obturateur (miroir + rideau)
       section() {
-        if (!ready()) return; const t = ctx.currentTime; if (t - lastSection < 0.6) return; lastSection = t;
-        burst(t, { freq: 1400, q: 1.2, peak: 0.07, decay: 0.045 });
-        tone(t, { freq: 180, to: 90, peak: 0.05, decay: 0.05 });
-        burst(t + 0.11, { freq: 1100, q: 1.2, peak: 0.05, decay: 0.05 });
+        if (!ready()) return; const t = ctx.currentTime; if (t - lastSection < 1.5) return; lastSection = t;
+        burst(t, { freq: 2400, q: 0.9, peak: 0.13, decay: 0.03 });
+        tone(t, { freq: 140, to: 70, peak: 0.07, decay: 0.06 });
+        burst(t + 0.07, { freq: 1700, q: 1, peak: 0.09, decay: 0.045 });
       },
       // mise au point du titre : moteur d'autofocus qui cherche, bips de confirmation, déclic
       focus(delay = 0) {
@@ -337,7 +335,6 @@
   if (drop && trigger) {
     const isOpen = () => drop.classList.contains("is-open");
     const set = (o) => {
-      if (o && !drop.classList.contains("is-open")) Sound.open();
       drop.classList.toggle("is-open", o);
       trigger.setAttribute("aria-expanded", o);
       // fermeture explicite : on neutralise le survol jusqu'à ce que la souris quitte le menu
@@ -423,20 +420,20 @@
     sync();
     document.body.append(btn);
 
-    // survol du menu et des boutons
+    // survol : liens du menu et boutons principaux uniquement (comme le site de référence)
     document.addEventListener("pointerover", (e) => {
       if (e.pointerType !== "mouse") return;
-      const t = e.target.closest(".nav__links > a, .nav__trigger, .nav__panel a, .nav__logo");
-      if (t && !t.contains(e.relatedTarget)) return Sound.tick();
-      const b = e.target.closest(".btn, .chip, .filter, .cform__types label, .cform__universe label, .work, .film, .switch");
-      if (b && !b.contains(e.relatedTarget)) Sound.tick(true);
+      const t = e.target.closest(".nav__links > a, .nav__trigger, .nav__panel a, .btn");
+      if (t && !t.contains(e.relatedTarget)) Sound.tick();
     });
-    // arrivée sur une section au défilement
-    const loadedAt = Date.now();
-    const secIo = new IntersectionObserver((entries) => entries.forEach((en) => {
-      if (en.isIntersecting && Date.now() - loadedAt > 1500) Sound.section();
-    }), { threshold: 0, rootMargin: "-45% 0px -45% 0px" });
-    $$("main > section, main > div > section, .case-x, .footer").forEach((s) => secIo.observe(s));
+    // défilement : un seul déclic, à l'arrivée sur la section « Photo & vidéo » de l'accueil
+    const services = page === "home" && $("#services");
+    if (services) {
+      const loadedAt = Date.now();
+      new IntersectionObserver((entries) => entries.forEach((en) => {
+        if (en.isIntersecting && Date.now() - loadedAt > 1500) Sound.section();
+      }), { threshold: 0, rootMargin: "-45% 0px -45% 0px" }).observe(services);
+    }
   }
   let seen = false;
   try { seen = sessionStorage.getItem("trame-intro"); sessionStorage.setItem("trame-intro", "1"); } catch {}
@@ -644,18 +641,15 @@
         pic.src = srcs[i++ % srcs.length];
         pic.style.left = `${x}px`;
         pic.style.top = `${y}px`;
-        const rot = (Math.random() * 10 - 5).toFixed(1);       // inclinaison au moment où l'image se pose
-        const spin = (rot * 2.2 + (Math.random() * 16 - 8)).toFixed(1); // rotation pendant la chute
-        const drift = Math.round(Math.random() * 80 - 40);     // léger décalage latéral en tombant
+        const rot = (Math.random() * 12 - 6).toFixed(1);
         layer.append(pic);
         while (layer.children.length > MAX) layer.firstElementChild.remove();
-        // apparition → pose → chute avec gravité (accélère vers le bas) en s'effaçant
         pic.animate([
-          { opacity: 0, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(.7)`, easing: "cubic-bezier(.2, 1.4, .4, 1)" },
-          { opacity: 1, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(1)`, offset: .16 },
-          { opacity: 1, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(1)`, offset: .4, easing: "cubic-bezier(.55, 0, 1, .45)" },
-          { opacity: 0, transform: `translate(calc(-50% + ${drift}px), calc(-50% + 55vh)) rotate(${spin}deg) scale(.92)` },
-        ], { duration: 1900, fill: "forwards" }).onfinish = () => pic.remove();
+          { opacity: 0, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(.6)` },
+          { opacity: 1, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(1)`, offset: .12 },
+          { opacity: 1, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(1)`, offset: .72 },
+          { opacity: 0, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(.94)` },
+        ], { duration: 2400, easing: "cubic-bezier(.22, 1, .36, 1)" }).onfinish = () => pic.remove();
       });
     });
   }
