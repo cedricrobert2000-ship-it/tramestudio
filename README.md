@@ -9,6 +9,8 @@ Site statique (HTML, CSS, JS), sans dépendance, prêt pour GitHub Pages.
 - `mariage.html` : page dédiée au mariage (offre, galerie, déroulé, FAQ)
 - `sport.html` : les sessions sport (Session 01 : Diagonale des Fous), une section par session
 - `influence.html` : reels et contenus pour influenceurs (Yayha)
+- `contact.html` : formulaire de contact (envoi par e-mail via FormSubmit, anti-spam, consentement RGPD)
+- `hotels.html` : photo & vidéo pour hôtels et logements (page de démarchage)
 - `digital.html` : Trame Digital, l'agence de création de sites web, d'applications et de branding (thème clair)
 - `mentions-legales.html` : mentions légales et confidentialité (**à compléter**)
 - `404.html` : page « introuvable », servie automatiquement par GitHub Pages
@@ -58,3 +60,10 @@ Dans le repo GitHub : Settings → Pages → Deploy from a branch → `main` / `
    - 4 enregistrements **AAAA** sur `@` : `2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153`, `2606:50c0:8003::153`
    - 1 enregistrement **CNAME** sur `www` : `cedricrobert2000-ship-it.github.io.`
    Puis dans Settings → Pages : Custom domain = `trameraw.com`, et cocher **Enforce HTTPS** dès que possible.
+
+## Formulaire de contact
+
+Les demandes sont envoyées à l'adresse `email` de `assets/js/data.js` via FormSubmit (gratuit, sans compte).
+1. Au premier envoi, FormSubmit envoie un e-mail d'activation à cette adresse : cliquez sur « Activate Form ».
+2. Pour masquer l'adresse dans le code, copiez l'identifiant aléatoire fourni par FormSubmit dans `formAlias`.
+Protections : champ piège anti-robots, délai minimal avant envoi, un envoi par minute, longueurs limitées, HTTPS, CSP limitée à formsubmit.co.

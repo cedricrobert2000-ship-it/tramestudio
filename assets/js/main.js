@@ -37,7 +37,7 @@
             </div>
           </div>
           <a href="digital.html"${page === "digital" ? ' aria-current="page"' : ""}>${roll("Digital,")}</a>
-          <a href="#contact">${roll("Contact")}</a>
+          <a href="contact.html"${page === "contact" ? ' aria-current="page"' : ""}>${roll("Contact")}</a>
         </nav>
       </header>`;
   }
@@ -78,7 +78,20 @@
   }
 
   /* ---------- Coordonnées ---------- */
-  $$("[data-mail]").forEach((a) => (a.href = `mailto:${encodeURIComponent(D.email || "").replace("%40", "@")}?subject=${encodeURIComponent(a.dataset.mail || "Projet avec Trame Studio")}`));
+  // tous les boutons « contact » mènent au formulaire, avec le type de projet pré-sélectionné
+  const projectFrom = (t = "") => {
+    t = t.toLowerCase();
+    if (t.includes("mariage")) return "Mariage";
+    if (t.includes("sport")) return "Sport";
+    if (t.includes("influence")) return "Influence";
+    if (t.includes("hôtel") || t.includes("logement")) return "Hôtel / logement";
+    if (t.includes("digital") || t.includes("site")) return "Site web / app";
+    return "";
+  };
+  $$("[data-mail]").forEach((a) => {
+    const p = projectFrom(a.dataset.mail);
+    a.href = "contact.html" + (p ? `?projet=${encodeURIComponent(p)}` : "");
+  });
   $$("[data-insta]").forEach((a) => (a.href = `https://instagram.com/${encodeURIComponent(D.instagram || "")}`));
   $$("[data-mail-text]").forEach((a) => (a.textContent = D.email || ""));
   $$("[data-zone]").forEach((el) => (el.textContent = D.zone));
@@ -282,6 +295,18 @@
     document.body.classList.add("is-ready");
     heroChars.forEach((el) => el.classList.add("is-in"));
     setTimeout(() => $$(".hero .blur-in, .hero .rise").forEach((el) => el.classList.add("is-in")), 500);
+    // effet « flash » sur le titre principal : éclair blanc + stroboscope façon campagne sport
+    if (!reduced) {
+      const h1 = $("h1");
+      if (h1) {
+        h1.classList.add("flash-title");
+        const flash = document.createElement("div");
+        flash.className = "flashbang";
+        flash.setAttribute("aria-hidden", "true");
+        document.body.append(flash);
+        setTimeout(() => flash.remove(), 1400);
+      }
+    }
   };
   let seen = false;
   try { seen = sessionStorage.getItem("trame-intro"); sessionStorage.setItem("trame-intro", "1"); } catch {}
@@ -317,6 +342,64 @@
     };
     addEventListener("scroll", update, { passive: true }); update();
   });
+
+  /* ---------- Formulaire de contact (envoi via FormSubmit, sans serveur) ---------- */
+  const form = $("#contact-form");
+  if (form) {
+    const status = $(".cform__status", form), btn = $(".cform__submit", form);
+    const opened = Date.now();
+    // type de projet pré-sélectionné depuis l'URL (?projet=…)
+    const wanted = new URLSearchParams(location.search).get("projet");
+    if (wanted) $$('input[name="projet"]', form).forEach((r) => { if (r.value === wanted) r.checked = true; });
+    // nettoyage : caractères de contrôle retirés, longueur limitée
+    const clean = (v, max) => String(v || "").replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "").trim().slice(0, max);
+    const say = (msg, bad) => { status.textContent = msg; status.classList.toggle("is-error", !!bad); };
+    const done = () => { form.hidden = true; const d = $(".cform__done"); d.hidden = false; d.scrollIntoView({ block: "center" }); };
+    form.addEventListener("input", (e) => { const c = e.target.closest(".cfield"); if (c) c.classList.remove("is-error"); });
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const f = new FormData(form);
+      // robots : champ piège rempli ou envoi en moins de 3 s → on simule un succès sans rien envoyer
+      if (f.get("_honey") || Date.now() - opened < 3000) { done(); return; }
+      // anti-spam : un envoi par minute et par onglet
+      try {
+        const last = +sessionStorage.getItem("trame-sent") || 0;
+        if (Date.now() - last < 60000) { say("Votre message vient d'être envoyé. Patientez une minute avant d'en envoyer un autre.", true); return; }
+      } catch {}
+      const data = {
+        nom: clean(f.get("nom"), 80), email: clean(f.get("email"), 120), telephone: clean(f.get("telephone"), 30),
+        projet: clean(f.get("projet"), 40), date: clean(f.get("date"), 60), budget: clean(f.get("budget"), 40), message: clean(f.get("message"), 3000),
+      };
+      let ok = true;
+      const mark = (name, bad) => { const c = form.elements[name].closest(".cfield"); if (c) c.classList.toggle("is-error", bad); if (bad) ok = false; };
+      mark("nom", data.nom.length < 2);
+      mark("email", !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(data.email));
+      mark("message", data.message.length < 10);
+      if (!ok) { say("Merci de vérifier les champs en rouge.", true); return; }
+      if (!form.elements.consentement.checked) { say("Merci de cocher la case de consentement.", true); return; }
+      const target = D.formAlias ? encodeURIComponent(D.formAlias) : D.email;
+      btn.disabled = true; say("Envoi en cours…");
+      try {
+        const res = await fetch(`https://formsubmit.co/ajax/${target}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            _subject: `Nouvelle demande — ${data.projet} — ${data.nom}`,
+            _template: "table", _captcha: "false", _replyto: data.email,
+            "Projet": data.projet, "Nom": data.nom, "E-mail": data.email, "Téléphone": data.telephone || "—",
+            "Date / période": data.date || "—", "Budget": data.budget, "Message": data.message,
+          }),
+        });
+        const json = await res.json().catch(() => ({}));
+        if (!res.ok || String(json.success) !== "true") throw new Error(json.message || "Envoi refusé");
+        try { sessionStorage.setItem("trame-sent", String(Date.now())); } catch {}
+        done();
+      } catch (err) {
+        btn.disabled = false;
+        say("L'envoi n'a pas abouti. Réessayez dans un instant, ou écrivez-nous sur Instagram.", true);
+      }
+    });
+  }
 
   /* ---------- Digital : réalisations immersives (le site défile dans l'écran) ---------- */
   const casesWrap = $("#cases");

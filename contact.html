@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; frame-src 'none'; connect-src 'self' https://formsubmit.co; object-src 'none'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="format-detection" content="telephone=no">
+  <title>Contact — Trame Studio</title>
+  <meta name="description" content="Parlez-nous de votre projet : mariage, sport, influence, hôtel, site web ou branding. Réponse personnalisée et devis sur mesure, sans engagement.">
+  <link rel="canonical" href="https://trameraw.com/contact.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Trame Studio">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:url" content="https://trameraw.com/contact.html">
+  <meta property="og:title" content="Contact — Trame Studio">
+  <meta property="og:description" content="Parlez-nous de votre projet.">
+  <meta property="og:image" content="https://trameraw.com/images/hero/hero.jpg">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/switzer-600.woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <noscript><link rel="stylesheet" href="assets/css/noscript.css"></noscript>
+</head>
+<body data-page="contact">
+  <div data-nav></div>
+  <noscript><nav class="nav nav--static" aria-label="Navigation principale"><a href="index.html">Accueil</a> <a href="mariage.html">Mariage</a> <a href="sport.html">Sport</a> <a href="influence.html">Influence</a> <a href="hotels.html">Hôtels</a> <a href="digital.html">Digital</a> <a href="contact.html">Contact</a> <a href="mentions-legales.html">Mentions légales</a></nav></noscript>
+
+  <main class="contact-page">
+    <div class="contact-page__bg" aria-hidden="true"><img src="images/works/diag-capuche.jpg" alt=""></div>
+
+    <section class="container contact-grid">
+      <!-- Colonne gauche : l'envie -->
+      <div class="contact-intro">
+        <p class="hero__kicker blur-in">Contact · Devis sur mesure</p>
+        <h1 class="page-title"><span data-chars>PARLONS DE</span> <span class="hero__soft" data-chars>VOTRE PROJET</span></h1>
+        <p class="contact-intro__lead blur-in">Une date, une course, une marque, un hôtel ou un site à créer ? Racontez-nous tout. On revient vers vous avec une proposition pensée pour votre projet, pas un tarif copié-collé.</p>
+
+        <ul class="contact-promises">
+          <li class="rise"><span>01</span><p><strong>Une vraie réponse</strong>Un humain lit chaque message et vous répond personnellement.</p></li>
+          <li class="rise"><span>02</span><p><strong>Sans engagement</strong>On échange, on vous conseille, vous décidez ensuite.</p></li>
+          <li class="rise"><span>03</span><p><strong>Photo, vidéo &amp; digital</strong>Une seule équipe pour tout votre univers visuel.</p></li>
+        </ul>
+
+        <div class="contact-direct blur-in">
+          <p>Vous préférez Instagram ?</p>
+          <a data-insta href="#" target="_blank" rel="noopener noreferrer">@trame_studioraw ↗</a>
+        </div>
+      </div>
+
+      <!-- Colonne droite : le formulaire -->
+      <div class="contact-card rise">
+        <form id="contact-form" class="cform" novalidate>
+          <fieldset class="cform__types">
+            <legend>Votre projet</legend>
+            <label><input type="radio" name="projet" value="Mariage" checked><span>Mariage</span></label>
+            <label><input type="radio" name="projet" value="Sport"><span>Sport</span></label>
+            <label><input type="radio" name="projet" value="Influence"><span>Influence</span></label>
+            <label><input type="radio" name="projet" value="Hôtel / logement"><span>Hôtel &amp; lieu</span></label>
+            <label><input type="radio" name="projet" value="Site web / app"><span>Site web &amp; app</span></label>
+            <label><input type="radio" name="projet" value="Branding"><span>Branding</span></label>
+            <label><input type="radio" name="projet" value="Autre"><span>Autre</span></label>
+          </fieldset>
+
+          <div class="cform__row">
+            <label class="cfield"><span>Nom *</span><input type="text" name="nom" required maxlength="80" autocomplete="name" placeholder="Votre nom"></label>
+            <label class="cfield"><span>E-mail *</span><input name="email" type="email" required maxlength="120" autocomplete="email" placeholder="vous@exemple.fr"></label>
+          </div>
+          <div class="cform__row">
+            <label class="cfield"><span>Téléphone</span><input name="telephone" type="tel" maxlength="30" autocomplete="tel" placeholder="Facultatif"></label>
+            <label class="cfield"><span>Date ou période</span><input type="text" name="date" maxlength="60" placeholder="Ex. juin 2027"></label>
+          </div>
+          <label class="cfield"><span>Budget envisagé</span>
+            <select name="budget">
+              <option value="Non précisé">Je ne sais pas encore</option>
+              <option>Moins de 500 €</option>
+              <option>500 – 1 500 €</option>
+              <option>1 500 – 3 000 €</option>
+              <option>Plus de 3 000 €</option>
+            </select>
+          </label>
+          <label class="cfield"><span>Votre projet en quelques mots *</span><textarea name="message" required minlength="10" maxlength="3000" rows="5" placeholder="Le lieu, l'ambiance, ce que vous imaginez…"></textarea></label>
+
+          <!-- Piège à robots : invisible pour les humains -->
+          <div class="cform__trap" aria-hidden="true"><label>Ne pas remplir <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
+
+          <label class="cform__consent"><input type="checkbox" name="consentement" value="oui" required><span>J'accepte que mes informations soient utilisées pour répondre à ma demande. <a href="mentions-legales.html#donnees">En savoir plus</a></span></label>
+
+          <button class="btn cform__submit" type="submit"><span class="roll"><span>Envoyer ma demande</span><span aria-hidden="true">Envoyer ma demande</span></span></button>
+          <p class="cform__status" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="cform__done" hidden>
+          <span class="cform__check" aria-hidden="true">✓</span>
+          <h2>Message envoyé</h2>
+          <p>Merci ! Votre demande est bien arrivée. On revient vers vous très vite.</p>
+          <a class="btn" href="index.html"><span class="roll"><span>Retour à l'accueil</span><span aria-hidden="true">Retour à l'accueil</span></span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div data-footer></div>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

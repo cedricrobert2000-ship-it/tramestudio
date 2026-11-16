@@ -4,7 +4,10 @@
    ========================================================================== */
 
 window.TRAME = {
-  email: "contact@tramestudio.fr",   // ← votre e-mail
+  email: "trame.studio.contact@gmail.com",   // ← votre e-mail
+  // Formulaire de contact (FormSubmit) : après activation, collez ici l'identifiant
+  // aléatoire fourni par FormSubmit, pour que l'adresse e-mail n'apparaisse plus dans le code.
+  formAlias: "",
   instagram: "trame_studioraw",      // ← votre pseudo Instagram (sans @)
   zone: "France & destination",      // ← votre zone d'intervention
   timezone: "Europe/Paris",          // ← fuseau de l'horloge du bandeau
@@ -98,6 +101,7 @@ window.TRAME = {
         desc: "Un site pensé pour convertir : devis en 30 minutes mis en avant dès l'arrivée, services lisibles, prix affichés et un ton humain qui rassure les professionnels.",
         tags: ["Site vitrine", "Devis en ligne", "Responsive"],
         color: "#0e285d",
+        grain: true,
         desktop: "projects/alba-desktop.jpg",
         mobile: "projects/alba-mobile.jpg",
       },
