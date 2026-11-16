@@ -599,3 +599,15 @@ html.smooth { scroll-behavior: auto; }
 @media (max-width: 900px) { .formats { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 767px) { .formats { grid-template-columns: 1fr 1fr; gap: 8px; } .format { padding: 12px; } .format__use { display: none; } }
 @media (max-width: 767px) { .hero--type .hero__ticker { position: relative; bottom: auto; margin-top: 56px; font-size: 56px; } .hero--type { padding-bottom: 32px; } }
+
+/* ---------- Titres de page : même style que « TRAME STUDIO® » de l'accueil ---------- */
+.page-title, .hero--digital .page-title, .legal .page-title { font-size: var(--fs-hero); font-weight: 700; line-height: 1.1; letter-spacing: -.04em; }
+.notfound .page-title { font-size: clamp(64px, 8vw, 120px); }
+.theme-light .hero__soft { color: rgba(0,0,0,.4); }
+.cta-band h2 { max-width: 22ch; font-size: clamp(30px, 3.2vw, 46px); font-weight: 700; line-height: 1.1; letter-spacing: -.03em; }
+.cases__title { font-size: var(--fs-hero); line-height: 1.05; }
+.switch__title { font-size: clamp(32px, 3.4vw, 48px); }
+@media (max-width: 767px) {
+  .page-title, .hero--digital .page-title, .legal .page-title { font-size: 40px; }
+  .cta-band h2 { font-size: 28px; }
+}

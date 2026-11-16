@@ -275,7 +275,7 @@
 
   /* ---------- Écran d'ouverture (accueil) et entrée des titres ---------- */
   const loader = $(".loader");
-  const heroChars = $$(".hero [data-chars], .page-title[data-chars]");
+  const heroChars = $$(".hero [data-chars], .page-title[data-chars], .page-title [data-chars]");
   heroChars.forEach((el, n) => el.style.setProperty("--d", `${n * 260}ms`));
   const start = () => {
     document.body.classList.remove("is-loading");
