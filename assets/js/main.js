@@ -296,7 +296,7 @@
     heroChars.forEach((el) => el.classList.add("is-in"));
     setTimeout(() => $$(".hero .blur-in, .hero .rise").forEach((el) => el.classList.add("is-in")), 500);
     // titre principal « pris en photo » : viseur qui cadre, mise au point, déclenchement
-    if (!reduced) {
+    if (!reduced && page === "home") {
       const h1 = $("h1");
       if (h1) {
         const vf = document.createElement("span");

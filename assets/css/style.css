@@ -728,3 +728,5 @@ html.smooth { scroll-behavior: auto; }
 .cform__types.is-in label:nth-of-type(6) { animation-delay: .2s; }
 @keyframes chipIn { from { opacity: 0; transform: translateY(8px); } }
 @media (max-width: 420px) { .cform__universe { grid-template-columns: 1fr; } }
+/* Numéro d'étape du formulaire : ne doit pas hériter du style des boutons de choix */
+.cform .cform__types legend span { display: grid; place-items: center; width: 22px; height: 22px; padding: 0; border: 0; border-radius: var(--radius); background: rgba(255,255,255,.12); color: #fff; font-size: 11px; line-height: 1; text-transform: none; }
