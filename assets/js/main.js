@@ -69,7 +69,9 @@
   }
   // footer : vidéo Alone en fond (côté photo & vidéo uniquement), chargée quand le footer arrive à l'écran
   const footBg = $(".footer__bg");
-  if (footBg && !document.body.classList.contains("theme-light")) {
+  // pages claires (Digital) : pas de vidéo, on retire le calque
+  if (footBg && document.body.classList.contains("theme-light")) footBg.remove();
+  else if (footBg) {
     const foot = footBg.parentElement;
     foot.classList.add("footer--video");
     footBg.innerHTML = '<img src="images/films/footer-alone-film.jpg" alt="" loading="lazy" decoding="async"><span class="footer__grain"></span>';
