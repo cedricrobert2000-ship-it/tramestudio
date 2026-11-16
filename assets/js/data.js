@@ -9,44 +9,73 @@ window.TRAME = {
   zone: "France & destination",      // ← votre zone d'intervention
   timezone: "Europe/Paris",          // ← fuseau de l'horloge du bandeau
 
-  /* Séries photo : utilisées par la page Travaux et la visionneuse */
-  series: {
-    sport: {
-      title: "Diagonale des Fous",
-      tag: "Sport · Trail",
-      text: "Le Grand Raid de La Réunion, au plus près d'un coureur : l'attente, l'effort, la nuit, l'arrivée.",
-      photos: ["sport/01", "sport/02", "sport/03", "sport/04", "sport/05", "sport/06", "sport/07", "sport/08", "sport/09", "sport/10"],
-    },
-    mariage: {
-      title: "Un mariage",
-      tag: "Mariage",
-      text: "Une journée racontée sans mise en scène, des préparatifs à la haie d'honneur.",
-      photos: ["mariage/01", "mariage/02", "mariage/03", "mariage/04", "mariage/05", "mariage/06", "mariage/07", "mariage/08", "mariage/09", "mariage/10"],
-    },
-  },
-
-  /* Cartes du bandeau « Travaux » sur l'accueil.
-     Un clic ouvre la série, sur la photo n° « at » (0 = première). */
-  works: [
-    { img: "works/diag-sac.jpg",       tag: "Sport",   title: "Préparer le sac",    series: "sport", at: 1 },
-    { img: "works/mariage-porte.jpg",  tag: "Mariage", title: "Le porté",           series: "mariage", at: 0 },
-    { img: "works/diag-capuche.jpg",   tag: "Sport",   title: "Sous la capuche",    series: "sport", at: 2 },
-    { img: "works/mariage-balcon.jpg", tag: "Mariage", title: "Au balcon",          series: "mariage", at: 1 },
-    { img: "works/diag-orange.jpg",    tag: "Sport",   title: "Ravitaillement",     series: "sport", at: 0 },
-    { img: "works/mariage-haie.jpg",   tag: "Mariage", title: "Haie d'honneur",     series: "mariage", at: 2 },
-    { img: "works/diag-arrivee.jpg",   tag: "Sport",   title: "La ligne d'arrivée", series: "sport", at: 8 },
-    { img: "works/mariage-main.jpg",   tag: "Mariage", title: "Main dans la main",  series: "mariage", at: 5 },
-    { img: "works/diag-reglages.jpg",  tag: "Sport",   title: "Derniers réglages",  series: "sport", at: 5 },
-    { img: "works/mariage-retour.jpg", tag: "Mariage", title: "Elle se retourne",   series: "mariage", at: 3 },
+  /* Les catégories de travail : menu, pied de page, cartes de l'accueil */
+  categories: [
+    { key: "mariage",   label: "Mariage",   href: "mariage.html" },
+    { key: "sport",     label: "Sport",     href: "sport.html" },
+    { key: "influence", label: "Influence", href: "influence.html" },
   ],
 
-  /* Films & reels.
-     embed : lien YouTube / Vimeo   ·   video : fichier .mp4 léger dans videos/
-     Sans embed ni video, la carte affiche « Bientôt ». */
+  /* Cartes du bandeau « Travaux » sur l'accueil.
+     year : année du projet · cat : clé de la catégorie (lien vers sa page) */
+  works: [
+    { img: "works/diag-sac.jpg",       year: "2026", cat: "sport" },
+    { img: "works/mariage-porte.jpg",  year: "2026", cat: "mariage" },
+    { img: "works/diag-capuche.jpg",   year: "2026", cat: "sport" },
+    { img: "works/mariage-balcon.jpg", year: "2026", cat: "mariage" },
+    { img: "works/diag-orange.jpg",    year: "2026", cat: "sport" },
+    { img: "works/mariage-haie.jpg",   year: "2026", cat: "mariage" },
+    { img: "works/diag-arrivee.jpg",   year: "2026", cat: "sport" },
+    { img: "works/mariage-main.jpg",   year: "2026", cat: "mariage" },
+    { img: "works/diag-reglages.jpg",  year: "2026", cat: "sport" },
+    { img: "works/mariage-retour.jpg", year: "2026", cat: "mariage" },
+    // Influence : ajoutez ici une image de couverture des reels de Yayyha, par ex.
+    // { img: "works/influence-yayyha.jpg", year: "2026", cat: "influence" },
+  ],
+
+  /* MARIAGE — la galerie de la page mariage.html */
+  mariage: {
+    photos: ["mariage/01", "mariage/03", "mariage/04", "mariage/02", "mariage/06", "mariage/07", "mariage/05", "mariage/08", "mariage/09", "mariage/10"],
+  },
+
+  /* SPORT — une « session » par événement.
+     Pour ajouter une nouvelle session : copiez le bloc et changez les valeurs. */
+  sport: {
+    sessions: [
+      {
+        n: "01",
+        title: "Diagonale des Fous",
+        place: "Grand Raid · La Réunion",
+        date: "Octobre 2026",
+        text: "Plus de 160 km à travers l'île, de jour comme de nuit. Nous avons suivi un coureur au plus près : la préparation du sac, les ravitaillements, la fatigue, et cette ligne d'arrivée qu'on attend pendant des heures.",
+        photos: ["sport/02", "sport/01", "sport/03", "sport/04", "sport/05", "sport/06", "sport/07", "sport/08", "sport/09", "sport/10"],
+        films: [
+          { format: "film", title: "Diagonale des Fous", tag: "Film", poster: "films/diagonale.jpg", embed: "", video: "" },
+          { format: "reel", title: "Dossard 1635",       tag: "Reel", poster: "reels/01.jpg",        embed: "", video: "" },
+          { format: "reel", title: "La nuit",            tag: "Reel", poster: "reels/02.jpg",        embed: "", video: "" },
+          { format: "reel", title: "Ravitaillement",     tag: "Reel", poster: "reels/03.jpg",        embed: "", video: "" },
+        ],
+      },
+    ],
+  },
+
+  /* INFLUENCE — reels et contenus pour créateurs.
+     embed : lien Instagram, TikTok, YouTube Shorts ou Vimeo · video : fichier .mp4 léger
+     poster : image de couverture (facultatif) */
+  influence: {
+    reels: [
+      { title: "Reel 01", client: "Yayyha", poster: "", embed: "", video: "" },
+      { title: "Reel 02", client: "Yayyha", poster: "", embed: "", video: "" },
+      { title: "Reel 03", client: "Yayyha", poster: "", embed: "", video: "" },
+      { title: "Reel 04", client: "Yayyha", poster: "", embed: "", video: "" },
+    ],
+  },
+
+  /* Films & reels mis en avant sur l'accueil */
   films: [
-    { format: "film", title: "Diagonale des Fous", tag: "Film sport",  poster: "films/diagonale.jpg", embed: "", video: "" },
-    { format: "reel", title: "Dossard 1635",       tag: "Reel sport",  poster: "reels/01.jpg",        embed: "", video: "" },
-    { format: "reel", title: "La nuit",            tag: "Reel sport",  poster: "reels/02.jpg",        embed: "", video: "" },
-    { format: "reel", title: "Ravitaillement",     tag: "Reel sport",  poster: "reels/03.jpg",        embed: "", video: "" },
+    { format: "film", title: "Diagonale des Fous", tag: "Sport · Film",       poster: "films/diagonale.jpg", embed: "", video: "" },
+    { format: "reel", title: "Dossard 1635",       tag: "Sport · Reel",       poster: "reels/01.jpg",        embed: "", video: "" },
+    { format: "reel", title: "Yayyha",             tag: "Influence · Reel",   poster: "",                    embed: "", video: "" },
+    { format: "reel", title: "La nuit",            tag: "Sport · Reel",       poster: "reels/02.jpg",        embed: "", video: "" },
   ],
 };

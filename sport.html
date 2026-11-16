@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Photo & vidéo de sport — Trame Studio</title>
+  <meta name="description" content="Photo et vidéo de sport par Trame Studio : trail, course, athlètes et événements. Session 01 : la Diagonale des Fous.">
+  <meta property="og:title" content="Sport — Trame Studio">
+  <meta property="og:image" content="images/pages/sport-hero.jpg">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/switzer-600.woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="sport">
+  <div data-nav></div>
+
+  <main>
+    <section class="hero hero--page">
+      <picture class="hero__img">
+        <source media="(max-width: 767px)" srcset="images/pages/sport-hero-mobile.jpg">
+        <img src="images/pages/sport-hero.jpg" alt="Coureur à la casquette rouge préparant son sac" fetchpriority="high">
+      </picture>
+      <div class="hero__shade"></div>
+      <div class="container hero__content">
+        <p class="hero__kicker blur-in">Trail · Course · Athlètes · Événements</p>
+        <h1 class="page-title" data-chars>SPORT</h1>
+        <p class="hero__text blur-in">Des heures d'effort pour quelques secondes de gloire. Nous racontons tout ce qui se passe entre les deux.</p>
+        <a class="btn blur-in" href="#sessions"><span class="roll"><span>Voir les sessions</span><span>Voir les sessions</span></span></a>
+      </div>
+    </section>
+
+    <section class="container intro-words">
+      <p class="about__text" data-words>Le chrono ne dit pas tout. Il ne montre ni le sac qu'on boucle à l'aube, ni la nuit qui n'en finit pas, ni le sourire au passage de l'arche. Nous suivons les sportifs au plus près pour garder tout ce que la course a coûté et tout ce qu'elle a donné.</p>
+    </section>
+
+    <section class="section">
+      <div class="container head">
+        <div>
+          <h2 class="blur-in">Ce que nous faisons</h2>
+          <p class="head__sub blur-in">Pour les sportifs, les clubs, les organisateurs et les marques.</p>
+        </div>
+      </div>
+      <div class="container offer">
+        <article class="offer__item rise"><span>01</span><h3>Suivi d'athlète</h3><p>On vous accompagne avant, pendant et après l'effort pour raconter votre course de l'intérieur.</p></article>
+        <article class="offer__item rise"><span>02</span><h3>Événements</h3><p>Courses, trails, compétitions : l'ambiance, les coureurs, le départ et l'arrivée.</p></article>
+        <article class="offer__item rise"><span>03</span><h3>Highlights vidéo</h3><p>Des films et des reels rythmés, prêts à publier pour les réseaux et les partenaires.</p></article>
+        <article class="offer__item rise"><span>04</span><h3>Contenus partenaires</h3><p>Des images pour vos sponsors et vos marques, pensées pour être utilisées.</p></article>
+      </div>
+    </section>
+
+    <!-- Sessions : générées depuis assets/js/data.js -->
+    <div id="sessions"></div>
+
+    <!-- Prochaine session -->
+    <section class="section">
+      <div class="container next-session">
+        <span class="session__n blur-in">Session 02</span>
+        <h2 class="blur-in">Prochaine session à venir</h2>
+        <p class="head__sub blur-in">Vous organisez une course ou vous préparez un défi ? Votre histoire pourrait être la prochaine.</p>
+        <a class="btn blur-in" data-mail="Sport : projet de session" href="#"><span class="roll"><span>Proposer une session</span><span>Proposer une session</span></span></a>
+      </div>
+    </section>
+  </main>
+
+  <div data-footer></div>
+  <div data-lightbox></div>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

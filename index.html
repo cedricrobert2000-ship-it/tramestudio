@@ -15,7 +15,7 @@
   <link rel="preload" as="image" href="images/hero/hero.jpg" media="(min-width: 768px)">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body class="is-loading">
+<body class="is-loading" data-page="home">
 
   <!-- Écran d'ouverture -->
   <div class="loader" aria-hidden="true">
@@ -23,20 +23,7 @@
     <div class="loader__cols"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
   </div>
 
-  <!-- Navigation -->
-  <header class="nav">
-    <a class="nav__logo" href="#top" aria-label="Trame Studio, accueil">T.</a>
-    <nav class="nav__links" aria-label="Navigation principale">
-      <a href="#top" class="roll"><span>Accueil,</span><span>Accueil,</span></a>
-      <a href="travaux.html" class="roll"><span>Travaux,</span><span>Travaux,</span></a>
-      <a href="#services" class="roll"><span>Services,</span><span>Services,</span></a>
-      <a href="#contact" class="roll"><span>Contact</span><span>Contact</span></a>
-    </nav>
-    <button class="nav__menu" aria-expanded="false" aria-controls="menu">Menu</button>
-  </header>
-  <div class="menu" id="menu" hidden>
-    <a href="#top">Accueil</a><a href="travaux.html">Travaux</a><a href="#services">Services</a><a href="#films">Films</a><a href="#contact">Contact</a>
-  </div>
+  <div data-nav></div>
 
   <main id="top">
     <!-- HERO -->
@@ -48,7 +35,7 @@
       <div class="hero__shade"></div>
       <div class="hero__content">
         <h1 class="hero__title"><span data-chars>TRAME</span> <span class="hero__soft" data-chars>STUDIO®</span></h1>
-        <p class="hero__text blur-in">Nous racontons ce que vos moments font ressentir. Photo et vidéo pour les mariages, le sport, les créateurs et les marques.</p>
+        <p class="hero__text blur-in">Nous racontons ce que vos moments font ressentir. Photo et vidéo pour les mariages, le sport, les influenceurs et les marques.</p>
       </div>
     </section>
 
@@ -59,7 +46,7 @@
         <span>Studio photo & vidéo</span>
         <span data-zone>France & destination</span>
         <span data-clock>--:--:--</span>
-        <span>Mariage · Sport · Marques</span>
+        <span>Mariage · Sport · Influence</span>
       </div>
     </div>
 
@@ -80,9 +67,13 @@
       <div class="container head">
         <div>
           <h2 class="blur-in">Travaux</h2>
-          <p class="head__sub blur-in">Quelques images de nos derniers projets, du trail le plus fou au plus beau des oui.</p>
+          <p class="head__sub blur-in">Nos derniers projets, du trail le plus fou au plus beau des oui.</p>
         </div>
-        <a class="btn blur-in" href="travaux.html"><span class="roll"><span>Voir tout</span><span>Voir tout</span></span></a>
+        <div class="chips blur-in">
+          <a class="chip" href="mariage.html"><span class="roll"><span>Mariage</span><span>Mariage</span></span></a>
+          <a class="chip" href="sport.html"><span class="roll"><span>Sport</span><span>Sport</span></span></a>
+          <a class="chip" href="influence.html"><span class="roll"><span>Influence</span><span>Influence</span></span></a>
+        </div>
       </div>
       <div class="marquee" data-marquee>
         <div class="marquee__track" id="works-track"></div>
@@ -94,7 +85,7 @@
       <div class="container head">
         <div>
           <h2 class="blur-in">Films & reels</h2>
-          <p class="head__sub blur-in">Le mouvement en plus : films horizontaux et formats verticaux pour les réseaux.</p>
+          <p class="head__sub blur-in">Le mouvement en plus : films de sport, reels d'influenceurs, teasers de mariage.</p>
         </div>
         <a class="btn blur-in" href="#contact"><span class="roll"><span>Un projet vidéo ?</span><span>Un projet vidéo ?</span></span></a>
       </div>
@@ -112,24 +103,24 @@
       </div>
       <div class="container services">
         <article class="service">
-          <h3 class="service__title blur-in">1. Mariage</h3>
+          <h3 class="service__title blur-in"><a href="mariage.html">1. Mariage <i>↗</i></a></h3>
           <div class="service__body">
             <ul class="service__tags rise"><li>Reportage</li><li>Film</li><li>Teaser 9:16</li><li>Galerie privée</li></ul>
             <p class="rise">Les émotions du jour J, sans mise en scène. Des préparatifs à la dernière danse, des images vraies qui traversent le temps.</p>
           </div>
         </article>
         <article class="service">
-          <h3 class="service__title blur-in">2. Sport</h3>
+          <h3 class="service__title blur-in"><a href="sport.html">2. Sport <i>↗</i></a></h3>
           <div class="service__body">
             <ul class="service__tags rise"><li>Trail & course</li><li>Athlètes</li><li>Événements</li><li>Highlights</li></ul>
             <p class="rise">L'effort, la fatigue, la ligne d'arrivée. Nous suivons les sportifs au plus près pour raconter ce que les chronos ne disent pas.</p>
           </div>
         </article>
         <article class="service">
-          <h3 class="service__title blur-in">3. Créateurs</h3>
+          <h3 class="service__title blur-in"><a href="influence.html">3. Influence <i>↗</i></a></h3>
           <div class="service__body">
-            <ul class="service__tags rise"><li>Reels</li><li>Shooting</li><li>Contenu mensuel</li><li>Montage vertical</li></ul>
-            <p class="rise">Des reels qui arrêtent le scroll et des photos qui gardent votre identité, pensés pour Instagram et TikTok.</p>
+            <ul class="service__tags rise"><li>Reels</li><li>Shooting photo</li><li>Contenu mensuel</li><li>Montage vertical</li></ul>
+            <p class="rise">Des reels qui arrêtent le scroll et des photos pro qui gardent votre identité, pensés pour Instagram et TikTok.</p>
           </div>
         </article>
         <article class="service">
@@ -188,36 +179,8 @@
     </section>
   </main>
 
-  <!-- FOOTER / CONTACT -->
-  <footer class="footer" id="contact">
-    <div class="container footer__top">
-      <div class="footer__cta">
-        <p class="footer__brand blur-in">Trame Studio®</p>
-        <h2 class="footer__title blur-in">Vous avez une histoire à raconter ? Mariage, course, marque ou contenu : parlons de votre projet.</h2>
-        <a class="btn blur-in" data-mail href="mailto:contact@tramestudio.fr"><span class="roll"><span>Nous contacter</span><span>Nous contacter</span></span></a>
-      </div>
-      <div class="footer__cols">
-        <div><p>Pages</p><a href="#top">Accueil</a><a href="travaux.html">Travaux</a><a href="#contact">Contact</a></div>
-        <div><p>Sections</p><a href="#services">Services</a><a href="#films">Films & reels</a><a href="#faq">FAQ</a></div>
-        <div><p>Réseaux</p><a data-insta href="https://instagram.com/tramestudio" target="_blank" rel="noopener">Instagram</a><a data-mail href="mailto:contact@tramestudio.fr">E-mail</a></div>
-      </div>
-    </div>
-    <div class="container footer__bar">
-      <span>Trame <span data-year></span>. Tous droits réservés.</span>
-      <span data-zone>France & destination</span>
-      <span data-clock>--:--:--</span>
-      <span>Photo · Vidéo · Reels</span>
-    </div>
-    <div class="footer__marquee" aria-hidden="true"><div><span>Trame Creative Studio</span><span>Trame Creative Studio</span><span>Trame Creative Studio</span><span>Trame Creative Studio</span></div></div>
-  </footer>
-
-  <!-- Visionneuse -->
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visionneuse" hidden>
-    <button class="lightbox__close">Fermer</button>
-    <button class="lightbox__nav lightbox__prev" aria-label="Image précédente">←</button>
-    <figure class="lightbox__stage"><div class="lightbox__media"></div><figcaption class="lightbox__cap"></figcaption></figure>
-    <button class="lightbox__nav lightbox__next" aria-label="Image suivante">→</button>
-  </div>
+  <div data-footer></div>
+  <div data-lightbox></div>
 
   <script src="assets/js/data.js"></script>
   <script src="assets/js/main.js"></script>
