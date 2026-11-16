@@ -72,16 +72,22 @@
   if (footBg && !document.body.classList.contains("theme-light")) {
     const foot = footBg.parentElement;
     foot.classList.add("footer--video");
-    footBg.innerHTML = '<img src="images/films/footer-alone-v2.jpg" alt="" loading="lazy" decoding="async"><span class="footer__grain"></span>';
+    footBg.innerHTML = '<img src="images/films/footer-alone-film.jpg" alt="" loading="lazy" decoding="async"><span class="footer__grain"></span>';
     if (!reduced && !(navigator.connection && navigator.connection.saveData)) {
-      let v = null;
+      let v = null, inView = false;
       new IntersectionObserver(([en]) => {
+        inView = en.isIntersecting;
         if (en.isIntersecting) {
           if (!v) {
             v = document.createElement("video");
-            Object.assign(v, { muted: true, loop: true, playsInline: true, preload: "auto", src: "videos/footer-alone-v2.mp4" });
-            v.setAttribute("muted", "");
+            // attributs posés avant la source : indispensable pour la lecture automatique sur iPhone / Safari
+            ["muted", "loop", "playsinline", "webkit-playsinline", "autoplay"].forEach((a) => v.setAttribute(a, ""));
+            v.muted = true; v.defaultMuted = true; v.playsInline = true;
+            v.preload = "auto";
+            v.poster = "images/films/footer-alone-film.jpg";
             v.addEventListener("playing", () => foot.classList.add("is-playing"), { once: true });
+            v.addEventListener("canplay", () => { if (v.paused && inView) v.play().catch(() => {}); });
+            v.src = "videos/footer-alone-film.mp4";
             footBg.prepend(v);
           }
           v.play().catch(() => {});
