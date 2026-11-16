@@ -51,15 +51,30 @@
       <!-- Colonne droite : le formulaire -->
       <div class="contact-card rise">
         <form id="contact-form" class="cform" novalidate>
-          <fieldset class="cform__types">
-            <legend>Votre projet</legend>
+          <!-- Étape 1 : l'univers -->
+          <fieldset class="cform__universe">
+            <legend><span>01</span> Vous cherchez…</legend>
+            <label><input type="radio" name="univers" value="Photo & vidéo" checked><span><strong>Photo &amp; vidéo</strong><small>Mariage, sport, influence, hôtels, marques</small></span></label>
+            <label><input type="radio" name="univers" value="Digital"><span><strong>Site web &amp; digital</strong><small>Site, application, branding</small></span></label>
+          </fieldset>
+
+          <!-- Étape 2 : la précision, selon l'univers choisi -->
+          <fieldset class="cform__types" data-universe="Photo & vidéo">
+            <legend><span>02</span> Pour quel projet ?</legend>
             <label><input type="radio" name="projet" value="Mariage" checked><span>Mariage</span></label>
             <label><input type="radio" name="projet" value="Sport"><span>Sport</span></label>
             <label><input type="radio" name="projet" value="Influence"><span>Influence</span></label>
             <label><input type="radio" name="projet" value="Hôtel / logement"><span>Hôtel &amp; lieu</span></label>
-            <label><input type="radio" name="projet" value="Site web / app"><span>Site web &amp; app</span></label>
+            <label><input type="radio" name="projet" value="Marque"><span>Marque</span></label>
+            <label><input type="radio" name="projet" value="Autre (photo / vidéo)"><span>Autre</span></label>
+          </fieldset>
+          <fieldset class="cform__types" data-universe="Digital" hidden disabled>
+            <legend><span>02</span> Quel type de projet ?</legend>
+            <label><input type="radio" name="projet" value="Site vitrine" checked><span>Site vitrine</span></label>
+            <label><input type="radio" name="projet" value="Application"><span>Application</span></label>
             <label><input type="radio" name="projet" value="Branding"><span>Branding</span></label>
-            <label><input type="radio" name="projet" value="Autre"><span>Autre</span></label>
+            <label><input type="radio" name="projet" value="Refonte de site"><span>Refonte</span></label>
+            <label><input type="radio" name="projet" value="Autre (digital)"><span>Autre</span></label>
           </fieldset>
 
           <div class="cform__row">

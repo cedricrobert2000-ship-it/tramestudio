@@ -349,9 +349,25 @@
   if (form) {
     const status = $(".cform__status", form), btn = $(".cform__submit", form);
     const opened = Date.now();
-    // type de projet pré-sélectionné depuis l'URL (?projet=…)
+    // étape 1 (univers) → affiche la bonne liste de l'étape 2 ; la liste cachée est désactivée
+    const groups = $$("fieldset[data-universe]", form);
+    const msg = form.elements.message;
+    const setUniverse = (u) => {
+      groups.forEach((g) => { const on = g.dataset.universe === u; g.hidden = !on; g.disabled = !on; g.classList.toggle("is-in", on); });
+      msg.placeholder = u === "Digital" ? "Votre activité, les pages souhaitées, des sites que vous aimez…" : "Le lieu, l'ambiance, ce que vous imaginez…";
+    };
+    $$('input[name="univers"]', form).forEach((r) => r.addEventListener("change", () => setUniverse(r.value)));
+    // pré-sélection depuis l'URL (?projet=…) envoyée par les boutons du site
     const wanted = new URLSearchParams(location.search).get("projet");
-    if (wanted) $$('input[name="projet"]', form).forEach((r) => { if (r.value === wanted) r.checked = true; });
+    const digitalMap = { "Site web / app": "Site vitrine" };
+    if (wanted) {
+      const isDigital = wanted in digitalMap || ["Site vitrine", "Application", "Branding", "Refonte de site"].includes(wanted);
+      const u = isDigital ? "Digital" : "Photo & vidéo";
+      $$('input[name="univers"]', form).forEach((r) => { r.checked = r.value === u; });
+      setUniverse(u);
+      const target = digitalMap[wanted] || wanted;
+      $$('input[name="projet"]', form).forEach((r) => { if (r.value === target) r.checked = true; });
+    } else setUniverse("Photo & vidéo");
     // nettoyage : caractères de contrôle retirés, longueur limitée
     const clean = (v, max) => String(v || "").replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "").trim().slice(0, max);
     const say = (msg, bad) => { status.textContent = msg; status.classList.toggle("is-error", !!bad); };
@@ -369,7 +385,7 @@
       } catch {}
       const data = {
         nom: clean(f.get("nom"), 80), email: clean(f.get("email"), 120), telephone: clean(f.get("telephone"), 30),
-        projet: clean(f.get("projet"), 40), date: clean(f.get("date"), 60), budget: clean(f.get("budget"), 40), message: clean(f.get("message"), 3000),
+        univers: clean(f.get("univers"), 30), projet: clean(f.get("projet"), 40), date: clean(f.get("date"), 60), budget: clean(f.get("budget"), 40), message: clean(f.get("message"), 3000),
       };
       let ok = true;
       const mark = (name, bad) => { const c = form.elements[name].closest(".cfield"); if (c) c.classList.toggle("is-error", bad); if (bad) ok = false; };
@@ -385,9 +401,9 @@
           method: "POST",
           headers: { "Content-Type": "application/json", Accept: "application/json" },
           body: JSON.stringify({
-            _subject: `Nouvelle demande — ${data.projet} — ${data.nom}`,
+            _subject: `Nouvelle demande — ${data.univers} · ${data.projet} — ${data.nom}`,
             _template: "table", _captcha: "false", _replyto: data.email,
-            "Projet": data.projet, "Nom": data.nom, "E-mail": data.email, "Téléphone": data.telephone || "—",
+            "Univers": data.univers, "Projet": data.projet, "Nom": data.nom, "E-mail": data.email, "Téléphone": data.telephone || "—",
             "Date / période": data.date || "—", "Budget": data.budget, "Message": data.message,
           }),
         });

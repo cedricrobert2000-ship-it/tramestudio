@@ -679,15 +679,12 @@ html.smooth { scroll-behavior: auto; }
 @keyframes shotFocus {
   0%   { filter: blur(9px); }
   48%  { filter: blur(0); }
-  54%  { filter: brightness(2.8); text-shadow: 0 0 2px #fff, 0 0 26px rgba(255,255,255,.9), 0 0 60px rgba(255,255,255,.5); }
-  70%  { filter: brightness(1.15); text-shadow: 0 0 14px rgba(255,255,255,.25); }
-  100% { filter: none; text-shadow: none; }
+  100% { filter: none; }
 }
 .theme-light .shot-title { animation-name: shotFocusLight; }
 @keyframes shotFocusLight {
   0%   { filter: blur(9px); }
   48%  { filter: blur(0); }
-  54%  { filter: contrast(2) brightness(.6); }
   100% { filter: none; }
 }
 /* Viseur : 4 coins qui se resserrent autour du titre puis disparaissent */
@@ -697,7 +694,6 @@ html.smooth { scroll-behavior: auto; }
 .vf i:nth-child(2) { right: 0; top: 0; border-left: 0; border-bottom: 0; }
 .vf i:nth-child(3) { left: 0; bottom: 0; border-right: 0; border-top: 0; }
 .vf i:nth-child(4) { right: 0; bottom: 0; border-left: 0; border-top: 0; }
-.vf::after { content: ""; position: absolute; inset: 0; background: currentColor; opacity: 0; animation: vfShutter 2.2s linear .1s both; }
 @keyframes vfFrame {
   0%   { opacity: 0; transform: scale(1.25); }
   18%  { opacity: 1; transform: scale(1.1); }
@@ -707,5 +703,25 @@ html.smooth { scroll-behavior: auto; }
   80%  { opacity: 1; }
   100% { opacity: 0; transform: scale(1); }
 }
-@keyframes vfShutter { 0%, 48% { opacity: 0; } 52% { opacity: .22; } 62%, 100% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .vf { display: none; } }
+
+/* ---------- Formulaire : choix en deux étapes ---------- */
+.cform__universe { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0; padding: 0; border: 0; }
+.cform legend { display: flex; align-items: center; gap: 8px; width: 100%; margin-bottom: 12px; font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--ink-mute); }
+.cform legend span { display: grid; place-items: center; width: 22px; height: 22px; border-radius: var(--radius); background: rgba(255,255,255,.12); color: #fff; font-size: 11px; }
+.cform__universe input { position: absolute; opacity: 0; pointer-events: none; }
+.cform__universe label > span { display: grid; gap: 4px; height: 100%; padding: 16px; border: 1px solid rgba(255,255,255,.22); border-radius: 8px; transition: background .3s, color .3s, border-color .3s, transform .4s var(--ease); }
+.cform__universe strong { font-size: 16px; font-weight: 700; letter-spacing: -.01em; text-transform: uppercase; }
+.cform__universe small { font-size: 12px; opacity: .65; line-height: 1.35; }
+.cform__universe label:hover > span { border-color: #fff; }
+.cform__universe input:checked + span { background: #fff; color: #000; border-color: #fff; transform: translateY(-2px); }
+.cform__universe input:focus-visible + span { outline: 1px solid #fff; outline-offset: 3px; }
+.cform__types[hidden] { display: none; }
+.cform__types.is-in label { animation: chipIn .45s var(--ease) both; }
+.cform__types.is-in label:nth-of-type(2) { animation-delay: .04s; }
+.cform__types.is-in label:nth-of-type(3) { animation-delay: .08s; }
+.cform__types.is-in label:nth-of-type(4) { animation-delay: .12s; }
+.cform__types.is-in label:nth-of-type(5) { animation-delay: .16s; }
+.cform__types.is-in label:nth-of-type(6) { animation-delay: .2s; }
+@keyframes chipIn { from { opacity: 0; transform: translateY(8px); } }
+@media (max-width: 420px) { .cform__universe { grid-template-columns: 1fr; } }
