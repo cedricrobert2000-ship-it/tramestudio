@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Travaux — Trame Studio</title>
+  <meta name="description" content="Les séries photo de Trame Studio : Diagonale des Fous, mariage.">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/switzer-600.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/switzer-500.woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="page">
+
+  <header class="nav">
+    <a class="nav__logo" href="index.html" aria-label="Trame Studio, accueil">T.</a>
+    <nav class="nav__links" aria-label="Navigation principale">
+      <a href="index.html" class="roll"><span>Accueil,</span><span>Accueil,</span></a>
+      <a href="travaux.html" class="roll" aria-current="page"><span>Travaux,</span><span>Travaux,</span></a>
+      <a href="index.html#services" class="roll"><span>Services,</span><span>Services,</span></a>
+      <a href="#contact" class="roll"><span>Contact</span><span>Contact</span></a>
+    </nav>
+    <button class="nav__menu" aria-expanded="false" aria-controls="menu">Menu</button>
+  </header>
+  <div class="menu" id="menu" hidden>
+    <a href="index.html">Accueil</a><a href="travaux.html">Travaux</a><a href="index.html#services">Services</a><a href="index.html#films">Films</a><a href="#contact">Contact</a>
+  </div>
+
+  <main>
+    <section class="container page-head">
+      <h1 class="page-title" data-chars>TRAVAUX</h1>
+      <p class="head__sub blur-in">Deux séries, deux façons de raconter : l'effort d'un trail mythique et l'émotion d'un mariage.</p>
+    </section>
+
+    <section class="container series" data-series="sport">
+      <div class="series__head">
+        <span class="series__tag blur-in" data-s-tag></span>
+        <h2 class="blur-in" data-s-title></h2>
+        <p class="head__sub blur-in" data-s-text></p>
+      </div>
+      <div class="gallery"></div>
+    </section>
+
+    <section class="container series" data-series="mariage">
+      <div class="series__head">
+        <span class="series__tag blur-in" data-s-tag></span>
+        <h2 class="blur-in" data-s-title></h2>
+        <p class="head__sub blur-in" data-s-text></p>
+      </div>
+      <div class="gallery"></div>
+    </section>
+  </main>
+
+  <footer class="footer" id="contact">
+    <div class="container footer__top">
+      <div class="footer__cta">
+        <p class="footer__brand blur-in">Trame Studio®</p>
+        <h2 class="footer__title blur-in">Vous avez une histoire à raconter ? Mariage, course, marque ou contenu : parlons de votre projet.</h2>
+        <a class="btn blur-in" data-mail href="mailto:contact@tramestudio.fr"><span class="roll"><span>Nous contacter</span><span>Nous contacter</span></span></a>
+      </div>
+      <div class="footer__cols">
+        <div><p>Pages</p><a href="index.html">Accueil</a><a href="travaux.html">Travaux</a><a href="#contact">Contact</a></div>
+        <div><p>Sections</p><a href="index.html#services">Services</a><a href="index.html#films">Films & reels</a><a href="index.html#faq">FAQ</a></div>
+        <div><p>Réseaux</p><a data-insta href="https://instagram.com/tramestudio" target="_blank" rel="noopener">Instagram</a><a data-mail href="mailto:contact@tramestudio.fr">E-mail</a></div>
+      </div>
+    </div>
+    <div class="container footer__bar">
+      <span>Trame <span data-year></span>. Tous droits réservés.</span>
+      <span data-zone>France & destination</span>
+      <span data-clock>--:--:--</span>
+      <span>Photo · Vidéo · Reels</span>
+    </div>
+    <div class="footer__marquee" aria-hidden="true"><div><span>Trame Creative Studio</span><span>Trame Creative Studio</span><span>Trame Creative Studio</span><span>Trame Creative Studio</span></div></div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visionneuse" hidden>
+    <button class="lightbox__close">Fermer</button>
+    <button class="lightbox__nav lightbox__prev" aria-label="Image précédente">←</button>
+    <figure class="lightbox__stage"><div class="lightbox__media"></div><figcaption class="lightbox__cap"></figcaption></figure>
+    <button class="lightbox__nav lightbox__next" aria-label="Image suivante">→</button>
+  </div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
