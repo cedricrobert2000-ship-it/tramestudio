@@ -659,7 +659,7 @@
       } catch {}
       const data = {
         nom: clean(f.get("nom"), 80), email: clean(f.get("email"), 120), telephone: clean(f.get("telephone"), 30),
-        univers: clean(f.get("univers"), 30), projet: clean(f.get("projet"), 40), date: clean(f.get("date"), 60), budget: clean(f.get("budget"), 40), message: clean(f.get("message"), 3000),
+        univers: clean(f.get("univers"), 30), projet: clean(f.get("projet"), 40), date: clean(f.get("date"), 60), message: clean(f.get("message"), 3000),
       };
       let ok = true;
       const mark = (name, bad) => { const c = form.elements[name].closest(".cfield"); if (c) c.classList.toggle("is-error", bad); if (bad) ok = false; };
@@ -678,7 +678,7 @@
             _subject: `Nouvelle demande — ${data.univers} · ${data.projet} — ${data.nom}`,
             _template: "table", _captcha: "false", _replyto: data.email,
             "Univers": data.univers, "Projet": data.projet, "Nom": data.nom, "E-mail": data.email, "Téléphone": data.telephone || "—",
-            "Date / période": data.date || "—", "Budget": data.budget, "Message": data.message,
+            "Date / période": data.date || "—", "Message": data.message,
           }),
         });
         const json = await res.json().catch(() => ({}));
