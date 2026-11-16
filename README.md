@@ -11,6 +11,7 @@ Site statique (HTML, CSS, JS), sans dépendance, prêt pour GitHub Pages.
 - `influence.html` : reels et contenus pour influenceurs (Yayha)
 - `contact.html` : formulaire de contact (envoi par e-mail via FormSubmit, anti-spam, consentement RGPD)
 - `hotels.html` : photo & vidéo pour hôtels et logements (page de démarchage)
+- `cinema.html` : films, carnets de voyage et acting (carrousel 16:9 sur l'accueil : `cinema.slides` dans data.js)
 - `digital.html` : Trame Digital, l'agence de création de sites web, d'applications et de branding (thème clair)
 - `mentions-legales.html` : mentions légales et confidentialité (**à compléter**)
 - `404.html` : page « introuvable », servie automatiquement par GitHub Pages

@@ -18,6 +18,7 @@ window.TRAME = {
     { key: "sport",     label: "Sport",     href: "sport.html" },
     { key: "influence", label: "Influence", href: "influence.html" },
     { key: "hotels",    label: "Hôtels & lieux", href: "hotels.html" },
+    { key: "cinema",    label: "Cinéma", href: "cinema.html" },
   ],
 
   /* Cartes du bandeau « Travaux » sur l'accueil.
@@ -116,6 +117,28 @@ window.TRAME = {
         desktop: "projects/trame-desktop.jpg",
         mobile: "projects/trame-mobile.jpg",
       },
+    ],
+  },
+
+  /* CINÉMA — carrousel 16:9 de l'accueil et page cinema.html
+     slides : images 1920×1080 dans images/cinema/ ; href : lien au clic
+     voyage / acting : films (embed = lien YouTube ou Vimeo). Sans lien → « Prochainement ». */
+  cinema: {
+    slides: [
+      { img: "cinema/diagonale.jpg",   title: "Diagonale des Fous", tag: "Film · Sport",     year: "2026", href: "cinema.html#films" },
+      { img: "cinema/myslf.jpg",       title: "MYSLF",              tag: "Film · Parfum",    year: "2026", href: "cinema.html#films" },
+      { img: "cinema/mariage.jpg",     title: "Un mariage",         tag: "Film · Mariage",   year: "2026", href: "cinema.html#films" },
+      { img: "cinema/nuit.jpg",        title: "La nuit",            tag: "Film · Trail",     year: "2026", href: "cinema.html#films" },
+      { img: "cinema/parfum.jpg",      title: "Voyage",             tag: "Carnets de route", year: "Bientôt", href: "cinema.html#voyage" },
+      { img: "cinema/preparation.jpg", title: "Acting",             tag: "Courts-métrages",  year: "Bientôt", href: "cinema.html#acting" },
+    ],
+    voyage: [
+      { format: "film", title: "Carnet de voyage 01", tag: "Voyage", poster: "", embed: "" },
+      { format: "film", title: "Carnet de voyage 02", tag: "Voyage", poster: "", embed: "" },
+    ],
+    acting: [
+      { format: "film", title: "Showreel acting", tag: "Acting", poster: "", embed: "" },
+      { format: "film", title: "Court-métrage 01", tag: "Acting", poster: "", embed: "" },
     ],
   },
 

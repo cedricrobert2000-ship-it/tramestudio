@@ -749,3 +749,73 @@ html.smooth { scroll-behavior: auto; }
 @keyframes eq { 0%, 100% { height: 3px; } 50% { height: 12px; } }
 .sound-toggle:not(.is-on) { opacity: .6; }
 @media (max-width: 767px) { .sound-toggle { bottom: 14px; padding: 8px 12px; } }
+
+/* ==========================================================================
+   CINÉMA : carrousel 16:9 de l'accueil
+   ========================================================================== */
+.cine__stage { position: relative; width: min(100% - 2 * var(--gutter), 1560px); margin-inline: auto; aspect-ratio: 16 / 9; max-height: 86vh; overflow: hidden; border-radius: 6px; background: #000; isolation: isolate; }
+.cine__track { position: absolute; inset: 0; }
+.cine__slide { position: absolute; inset: 0; display: block; opacity: 0; visibility: hidden; transition: opacity 1.2s var(--ease), visibility 0s 1.2s; }
+.cine__slide.is-active { opacity: 1; visibility: visible; transition: opacity 1.2s var(--ease), visibility 0s; }
+.cine__slide img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); filter: saturate(.9) contrast(1.05); transition: transform 8s linear; }
+.cine__slide.is-active img { transform: scale(1); }
+/* bandes noires cinémascope + vignettage */
+.cine__slide::before { content: ""; position: absolute; inset: 0; z-index: 1; background: radial-gradient(120% 90% at 50% 45%, transparent 45%, rgba(0,0,0,.55) 100%), linear-gradient(to top, rgba(0,0,0,.75), transparent 45%); }
+.cine__stage::before, .cine__stage::after { content: ""; position: absolute; left: 0; right: 0; z-index: 3; height: 9%; background: #000; pointer-events: none; transition: height .8s var(--ease); }
+.cine__stage::before { top: 0; }
+.cine__stage::after { bottom: 0; }
+.cine__stage:hover::before, .cine__stage:hover::after { height: 6%; }
+.cine__grain { position: absolute; inset: -50%; z-index: 2; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: .1; mix-blend-mode: screen; animation: grain 1.2s steps(5) infinite; }
+/* surimpression caméra */
+.cine__hud { position: absolute; z-index: 4; top: calc(9% + 16px); left: 24px; right: 24px; display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.85); font-variant-numeric: tabular-nums; }
+.cine__rec { display: inline-flex; align-items: center; gap: 8px; }
+.cine__rec i { width: 8px; height: 8px; border-radius: 50%; background: #ff3b30; animation: rec 1.2s steps(1) infinite; }
+@keyframes rec { 50% { opacity: 0; } }
+.cine__caption { position: absolute; z-index: 4; left: clamp(20px, 4vw, 56px); right: 120px; bottom: calc(9% + clamp(20px, 3vw, 40px)); display: grid; gap: 8px; }
+.cine__tag { font-size: var(--fs-small); font-weight: 600; text-transform: uppercase; color: rgba(255,255,255,.75); }
+.cine__title { font-size: clamp(36px, 6vw, 96px); font-weight: 700; line-height: .95; letter-spacing: -.045em; text-transform: uppercase; }
+.cine__cta { display: inline-flex; gap: 10px; align-items: center; width: max-content; margin-top: 8px; padding-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,.5); font-size: var(--fs-small); font-weight: 600; text-transform: uppercase; }
+.cine__cta i { font-style: normal; transition: transform .4s var(--ease); }
+.cine__slide:hover .cine__cta i { transform: translateX(5px); }
+/* le texte entre en décalé à chaque changement */
+.cine__slide .cine__tag, .cine__slide .cine__title, .cine__slide .cine__cta { opacity: 0; transform: translateY(24px); filter: blur(6px); transition: opacity .9s var(--ease), transform .9s var(--ease), filter .9s var(--ease); }
+.cine__slide.is-active .cine__tag { transition-delay: .35s; }
+.cine__slide.is-active .cine__title { transition-delay: .45s; }
+.cine__slide.is-active .cine__cta { transition-delay: .6s; }
+.cine__slide.is-active .cine__tag, .cine__slide.is-active .cine__title, .cine__slide.is-active .cine__cta { opacity: 1; transform: none; filter: none; }
+/* barres de progression + commandes */
+.cine__bars { position: absolute; z-index: 5; left: 24px; right: 24px; top: calc(9% - 14px); display: flex; gap: 6px; }
+.cine__bars span { flex: 1; height: 2px; background: rgba(255,255,255,.25); overflow: hidden; }
+.cine__bars i { display: block; height: 100%; background: #fff; transform: scaleX(0); transform-origin: left; }
+.cine__nav { position: absolute; z-index: 5; bottom: calc(9% + 24px); width: 48px; height: 48px; border: 1px solid rgba(255,255,255,.35); border-radius: 50%; color: #fff; font-size: 18px; background: rgba(0,0,0,.25); backdrop-filter: blur(8px); transition: background .3s, color .3s; }
+.cine__nav:hover { background: #fff; color: #000; }
+.cine__prev { right: 84px; }
+.cine__next { right: 24px; }
+.cine__count { position: absolute; z-index: 5; right: 24px; top: calc(9% + 16px); margin-top: 22px; font-size: 12px; font-weight: 600; color: rgba(255,255,255,.7); font-variant-numeric: tabular-nums; }
+@media (max-width: 767px) {
+  .cine__stage { width: 100%; border-radius: 0; aspect-ratio: 4 / 5; max-height: none; }
+  .cine__stage::before, .cine__stage::after { height: 6%; }
+  .cine__hud { top: calc(6% + 14px); left: 16px; right: 16px; font-size: 11px; }
+  .cine__bars { top: calc(6% - 10px); left: 16px; right: 16px; }
+  .cine__count { display: none; }
+  .cine__caption { left: 16px; right: 16px; bottom: calc(6% + 84px); }
+  .cine__title { font-size: 44px; }
+  .cine__nav { bottom: calc(6% + 16px); width: 44px; height: 44px; }
+  .cine__prev { right: auto; left: 16px; }
+  .cine__next { right: auto; left: 70px; }
+}
+@media (prefers-reduced-motion: reduce) { .cine__slide img { transition: none; transform: none; } .cine__grain { animation: none; } }
+
+/* ==========================================================================
+   PAGE CINÉMA
+   ========================================================================== */
+.hero--cine .hero__img img { object-position: 50% 40%; }
+.cine-bars i { position: absolute; left: 0; right: 0; z-index: 1; height: 7vh; background: #000; transform: scaleY(0); animation: barsIn 1.4s var(--ease) .3s forwards; }
+.cine-bars i:first-child { top: 0; transform-origin: top; }
+.cine-bars i:last-child { bottom: 0; transform-origin: bottom; }
+@keyframes barsIn { to { transform: scaleY(1); } }
+.hero--cine .hero__content { padding-bottom: calc(7vh + clamp(32px, 6vh, 72px)); }
+.films--cinema { grid-template-columns: 1fr 1fr; }
+.films--cinema .film--film { aspect-ratio: 16 / 9; height: auto; }
+.films--cinema .film__word { font-size: clamp(40px, 5vw, 80px); }
+@media (max-width: 767px) { .films--cinema { grid-template-columns: 1fr; overflow: visible; } }

@@ -456,6 +456,91 @@
     addEventListener("scroll", update, { passive: true }); update();
   });
 
+  /* ---------- Cinéma : carrousel 16:9 (accueil) ---------- */
+  const cine = $("#cine-carousel");
+  if (cine && D.cinema && D.cinema.slides && D.cinema.slides.length) {
+    const slides = D.cinema.slides;
+    const DUR = 6500;
+    const safeHref = (h = "") => (/^[\w\-./#]+$/.test(h) ? h : "cinema.html");
+    cine.innerHTML = `
+      <div class="cine__track">
+        ${slides.map((s, i) => `
+          <a class="cine__slide${i === 0 ? " is-active" : ""}" href="${esc(safeHref(s.href))}" aria-label="${esc(s.title)} — ${esc(s.tag)}" ${i ? 'tabindex="-1" aria-hidden="true"' : ""}>
+            <img src="${img(s.img)}" alt="" ${i ? 'loading="lazy"' : ""} decoding="async">
+            <span class="cine__grain" aria-hidden="true"></span>
+            <span class="cine__hud" aria-hidden="true">
+              <span class="cine__rec"><i></i>SC ${String(i + 1).padStart(2, "0")} · TK 01</span>
+              <span class="cine__tc">00:00:00:00</span>
+            </span>
+            <span class="cine__caption">
+              <span class="cine__tag">${esc(s.tag)} — ${esc(s.year)}</span>
+              <span class="cine__title">${esc(s.title)}</span>
+              <span class="cine__cta">Voir le film <i aria-hidden="true">→</i></span>
+            </span>
+          </a>`).join("")}
+      </div>
+      <div class="cine__bars" aria-hidden="true">${slides.map(() => "<span><i></i></span>").join("")}</div>
+      <button class="cine__nav cine__prev" type="button" aria-label="Film précédent">←</button>
+      <button class="cine__nav cine__next" type="button" aria-label="Film suivant">→</button>
+      <p class="cine__count" aria-live="polite"><span>01</span> / ${String(slides.length).padStart(2, "0")}</p>`;
+    const items = $$(".cine__slide", cine), bars = $$(".cine__bars i", cine), tcs = $$(".cine__tc", cine);
+    let cur = 0, started = performance.now(), paused = false, pausedAt = 0, visible = false;
+    const show = (n) => {
+      cur = (n + items.length) % items.length;
+      items.forEach((el, i) => {
+        const on = i === cur;
+        el.classList.toggle("is-active", on);
+        el.toggleAttribute("aria-hidden", !on);
+        el.tabIndex = on ? 0 : -1;
+      });
+      bars.forEach((b, i) => { b.style.transform = `scaleX(${i < cur ? 1 : 0})`; });
+      $(".cine__count span", cine).textContent = String(cur + 1).padStart(2, "0");
+      started = performance.now();
+    };
+    const frame = (now) => {
+      if (!paused && visible) {
+        const p = Math.min(1, (now - started) / DUR);
+        bars[cur].style.transform = `scaleX(${p})`;
+        // timecode qui défile (24 images / seconde)
+        const t = (now - started) / 1000, f = Math.floor((t % 1) * 24), sec = Math.floor(t);
+        tcs[cur].textContent = `00:00:${String(sec).padStart(2, "0")}:${String(f).padStart(2, "0")}`;
+        if (p >= 1 && !reduced) show(cur + 1);
+      }
+      requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+    const pause = (v) => {
+      if (v && !paused) { paused = true; pausedAt = performance.now(); }
+      else if (!v && paused) { paused = false; started += performance.now() - pausedAt; }
+    };
+    $(".cine__prev", cine).addEventListener("click", () => show(cur - 1));
+    $(".cine__next", cine).addEventListener("click", () => show(cur + 1));
+    cine.addEventListener("mouseenter", () => pause(true));
+    cine.addEventListener("mouseleave", () => pause(false));
+    cine.addEventListener("focusin", () => pause(true));
+    cine.addEventListener("focusout", () => pause(false));
+    cine.addEventListener("keydown", (e) => { if (e.key === "ArrowRight") show(cur + 1); if (e.key === "ArrowLeft") show(cur - 1); });
+    // glissé au doigt
+    let sx = 0, sy = 0, swiped = false;
+    cine.addEventListener("touchstart", (e) => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; swiped = false; }, { passive: true });
+    cine.addEventListener("touchend", (e) => {
+      const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) { swiped = true; show(cur + (dx < 0 ? 1 : -1)); }
+    });
+    cine.addEventListener("click", (e) => { if (swiped) { e.preventDefault(); swiped = false; } }, true);
+    // ne tourne que lorsqu'il est visible
+    new IntersectionObserver(([en]) => {
+      if (en.isIntersecting && !visible) started = performance.now();
+      visible = en.isIntersecting;
+    }, { threshold: 0.3 }).observe(cine);
+  }
+
+  // page Cinéma : films, voyage, acting
+  [["#cine-films", () => D.films], ["#cine-voyage", () => D.cinema && D.cinema.voyage], ["#cine-acting", () => D.cinema && D.cinema.acting]].forEach(([sel, get]) => {
+    const el = $(sel), list = get();
+    if (el && list) videoCards(el, list);
+  });
+
   /* ---------- Formulaire de contact (envoi via FormSubmit, sans serveur) ---------- */
   const form = $("#contact-form");
   if (form) {
