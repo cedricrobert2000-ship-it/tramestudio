@@ -398,7 +398,7 @@
     layer.className = "trail";
     layer.setAttribute("aria-hidden", "true");
     document.body.append(layer);
-    const MAX = 9, STEP = 90; // nombre max d'images à l'écran, distance (px) entre deux images
+    const MAX = 12, STEP = 90; // nombre max d'images à l'écran, distance (px) entre deux images
     trailRows.forEach((row) => {
       const srcs = row.dataset.trail.split(",").map((n) => img(`trail/${n.trim()}`)).filter(Boolean);
       let i = 0, last = null, loaded = false;
@@ -420,10 +420,10 @@
         while (layer.children.length > MAX) layer.firstElementChild.remove();
         pic.animate([
           { opacity: 0, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(.6)` },
-          { opacity: 1, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(1)`, offset: .18 },
-          { opacity: 1, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(1)`, offset: .62 },
-          { opacity: 0, transform: `translate(-50%, -40%) rotate(${rot}deg) scale(.92)` },
-        ], { duration: 1100, easing: "cubic-bezier(.22, 1, .36, 1)" }).onfinish = () => pic.remove();
+          { opacity: 1, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(1)`, offset: .12 },
+          { opacity: 1, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(1)`, offset: .72 },
+          { opacity: 0, transform: `translate(-50%, -38%) rotate(${rot}deg) scale(.9)` },
+        ], { duration: 2400, easing: "cubic-bezier(.22, 1, .36, 1)" }).onfinish = () => pic.remove();
       });
     });
   }
@@ -445,6 +445,77 @@
   }), { threshold: .1 });
   $$(".films").forEach((row) => rowIo.observe(row));
   $$(".blur-in, .rise").forEach((el) => { if (!el.closest(".hero") && !el.closest(".films")) io.observe(el); });
+
+  /* ---------- Défilement doux (molette et pavé tactile, ordinateur uniquement) ---------- */
+  const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (finePointer && !reduced) {
+    document.documentElement.classList.add("smooth");
+    let target = scrollY, current = scrollY, running = false;
+    const maxY = () => document.documentElement.scrollHeight - innerHeight;
+    const step = () => {
+      current += (target - current) * 0.1;
+      if (Math.abs(target - current) < 0.5) { current = target; running = false; }
+      scrollTo(0, current);
+      if (running) requestAnimationFrame(step);
+    };
+    const go = (y) => {
+      target = Math.max(0, Math.min(maxY(), y));
+      if (!running) { running = true; current = scrollY; requestAnimationFrame(step); }
+    };
+    // ne pas détourner : zoom, défilement horizontal, éléments défilants, visionneuse ouverte
+    const scrollableParent = (el) => {
+      for (; el && el !== document.body; el = el.parentElement) {
+        const s = getComputedStyle(el);
+        if (/(auto|scroll)/.test(s.overflowY) && el.scrollHeight > el.clientHeight) return true;
+      }
+      return false;
+    };
+    addEventListener("wheel", (e) => {
+      if (e.ctrlKey || e.defaultPrevented || document.body.style.overflow === "hidden") return;
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY) || scrollableParent(e.target)) return;
+      e.preventDefault();
+      const unit = e.deltaMode === 1 ? 40 : e.deltaMode === 2 ? innerHeight : 1;
+      go((running ? target : scrollY) + e.deltaY * unit);
+    }, { passive: false });
+    // clavier, barre de défilement, liens : on se recale sur la position réelle
+    addEventListener("scroll", () => { if (!running) target = current = scrollY; }, { passive: true });
+    // ancres internes (#contact, #services…) : glissé doux
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest('a[href*="#"]');
+      if (!a || e.defaultPrevented) return;
+      const url = new URL(a.href, location.href);
+      if (url.pathname !== location.pathname || !url.hash) return;
+      const dest = document.getElementById(decodeURIComponent(url.hash.slice(1)));
+      if (!dest) return;
+      e.preventDefault();
+      history.pushState(null, "", url.hash);
+      go(dest.getBoundingClientRect().top + scrollY);
+    });
+  }
+
+  /* ---------- Curseur « objectif photo » (pages photo & vidéo) ---------- */
+  if (finePointer && !reduced && !document.body.classList.contains("theme-light")) {
+    const lens = document.createElement("div");
+    lens.className = "lens";
+    lens.setAttribute("aria-hidden", "true");
+    lens.innerHTML = '<span class="lens__ring"></span><span class="lens__iris"></span><span class="lens__dot"></span>';
+    document.body.append(lens);
+    document.body.classList.add("has-lens");
+    let mx = -100, my = -100, lx = mx, ly = my;
+    addEventListener("mousemove", (e) => { mx = e.clientX; my = e.clientY; lens.classList.add("is-on"); }, { passive: true });
+    document.addEventListener("mouseleave", () => lens.classList.remove("is-on"));
+    addEventListener("mousedown", () => lens.classList.add("is-shot"));
+    addEventListener("mouseup", () => lens.classList.remove("is-shot"));
+    const HOVER = "a, button, summary, label, input, textarea, .work, .film, .shot, .reel";
+    document.addEventListener("mouseover", (e) => lens.classList.toggle("is-focus", !!e.target.closest(HOVER)));
+    (function loop() {
+      lx += (mx - lx) * 0.22; ly += (my - ly) * 0.22;
+      lens.style.transform = `translate3d(${lx}px, ${ly}px, 0)`;
+      lens.style.setProperty("--dx", `${(mx - lx).toFixed(1)}px`);
+      lens.style.setProperty("--dy", `${(my - ly).toFixed(1)}px`);
+      requestAnimationFrame(loop);
+    })();
+  }
 
   /* ---------- Parallaxe légère du header ---------- */
   const heroImg = $(".hero__img img");

@@ -136,7 +136,7 @@ h2 { font-size: var(--fs-h2); font-weight: 600; line-height: 1.2; letter-spacing
 .hero__text { max-width: 520px; margin: 14px auto 0; font-size: 17px; line-height: 1.5; color: rgba(255,255,255,.88); }
 
 /* ---------- Bandeau d'infos, collé sous le menu ---------- */
-.infobar { position: sticky; top: 48px; z-index: 50; margin-top: -56px; pointer-events: none; }
+.infobar { position: relative; z-index: 2; margin-top: -56px; pointer-events: none; }
 .infobar__row { display: grid; grid-template-columns: repeat(4, auto); justify-content: space-between; padding-block: 18px; font-size: var(--fs-small); font-weight: 600; text-transform: uppercase; white-space: nowrap; }
 .infobar__row span:nth-child(3) { font-variant-numeric: tabular-nums; }
 
@@ -560,3 +560,27 @@ h2 { font-size: var(--fs-h2); font-weight: 600; line-height: 1.2; letter-spacing
 .case-x__sticky > .case-x__progress { position: absolute; }
 @keyframes grain { 0% { transform: translate(0, 0); } 20% { transform: translate(-4%, 3%); } 40% { transform: translate(3%, -4%); } 60% { transform: translate(-2%, -2%); } 80% { transform: translate(4%, 2%); } 100% { transform: translate(0, 0); } }
 @media (prefers-reduced-motion: reduce) { .case-x--grain .case-x__sticky::after { animation: none; } }
+
+/* ---------- Défilement doux : géré en JS, on coupe le lissage natif ---------- */
+html.smooth { scroll-behavior: auto; }
+
+/* ---------- Curseur « objectif photo » ---------- */
+.lens { position: fixed; left: 0; top: 0; z-index: 300; width: 0; height: 0; pointer-events: none; opacity: 0; transition: opacity .3s; mix-blend-mode: difference; }
+.lens.is-on { opacity: 1; }
+.lens span { position: absolute; left: 0; top: 0; border-radius: 50%; transform: translate(-50%, -50%); transition: width .45s var(--ease), height .45s var(--ease), border-width .3s, opacity .3s; }
+.lens__ring { width: 42px; height: 42px; border: 1.5px solid #fff; }
+.lens__iris { width: 16px; height: 16px; border: 1.5px solid #fff; translate: calc(var(--dx, 0px) * .25) calc(var(--dy, 0px) * .25); }
+.lens__dot { width: 4px; height: 4px; background: #fff; translate: var(--dx, 0px) var(--dy, 0px); }
+.lens.is-focus .lens__ring { width: 68px; height: 68px; }
+.lens.is-focus .lens__iris { width: 28px; height: 28px; }
+.lens.is-shot .lens__ring { width: 30px; height: 30px; border-width: 3px; }
+.lens.is-shot .lens__iris { width: 8px; height: 8px; }
+@media (hover: hover) and (pointer: fine) {
+  .has-lens, .has-lens * { cursor: none !important; }
+}
+
+/* ---------- Curseur Windows rétro (Trame Digital) ---------- */
+@media (hover: hover) and (pointer: fine) {
+  .theme-light, .theme-light * { cursor: url("../cursor-arrow.png") 0 0, default; }
+  .theme-light a, .theme-light a *, .theme-light button, .theme-light button *, .theme-light summary, .theme-light summary *, .theme-light label { cursor: url("../cursor-hand.png") 16 0, pointer; }
+}
