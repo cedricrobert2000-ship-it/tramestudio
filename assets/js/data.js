@@ -27,6 +27,7 @@ window.TRAME = {
     { img: "works/diag-sac.jpg",       year: "2026", cat: "sport" },
     { img: "works/mariage-porte.jpg",  year: "2026", cat: "mariage" },
     { img: "works/influence-myslf.jpg", year: "2026", cat: "influence" },
+    { img: "works/alone.jpg",           year: "2026", cat: "influence" },
     { img: "works/diag-capuche.jpg",   year: "2026", cat: "sport" },
     { img: "works/mariage-balcon.jpg", year: "2026", cat: "mariage" },
     { img: "works/diag-orange.jpg",    year: "2026", cat: "sport" },
@@ -68,13 +69,20 @@ window.TRAME = {
      embed : lien Instagram, TikTok, YouTube Shorts ou Vimeo · video : fichier .mp4 léger
      poster : image de couverture (facultatif) */
   influence: {
+    // Vidéos hébergées sur le site (dossier videos/) : lues directement, sans Instagram ni TikTok
     reels: [
-      { title: "Bord de mer", client: "Yayha · Reel", poster: "influence/yayyha-01.jpg", embed: "https://www.instagram.com/reel/Ddbuve0TWFp/", video: "" },
-      { title: "Interview", client: "Yayha · Reel", poster: "influence/yayyha-02.jpg", embed: "https://www.instagram.com/reel/DejQUanNJV3/", video: "" },
-      { title: "MYSLF", client: "Yayha · Reel", poster: "influence/yayyha-03.jpg", embed: "https://www.instagram.com/reel/DaniTH7t39u/", video: "" },
-      { title: "Portrait", client: "Yayha · Post", poster: "influence/yayyha-04.jpg", embed: "https://www.instagram.com/p/Dd6x03JABXC/",    video: "" },
-      { title: "Parfum", client: "Yayha · Post", poster: "influence/yayyha-05.jpg", embed: "https://www.instagram.com/p/DctUemqjZR_/",    video: "" },
+      { title: "Sauvage",   client: "Yayha · Dior", poster: "influence/sauvage.jpg",   video: "videos/sauvage.mp4",   preview: "videos/sauvage-preview.mp4" },
+      { title: "MYSLF",     client: "Yayha · YSL",  poster: "influence/myslf.jpg",     video: "videos/myslf.mp4",     preview: "videos/myslf-preview.mp4" },
+      { title: "Paradigme", client: "Yayha · Prada", poster: "influence/paradigme.jpg", video: "videos/paradigme.mp4", preview: "videos/paradigme-preview.mp4" },
     ],
+    // ALONE — photo & vidéo de marque
+    alone: {
+      films: [
+        { format: "film", title: "Alone", tag: "Film de marque", poster: "films/alone.jpg", video: "videos/alone-film.mp4", preview: "videos/alone-film-preview.mp4" },
+        { format: "reel", title: "Alone", tag: "Reel de marque", poster: "influence/alone-reel.jpg", video: "videos/alone-reel.mp4", preview: "videos/alone-reel-preview.mp4" },
+      ],
+      photos: ["alone/01", "alone/02", "alone/03", "alone/04", "alone/05"],
+    },
   },
 
   /* DIGITAL — réalisations web présentées en plein écran sur digital.html.
@@ -126,6 +134,7 @@ window.TRAME = {
   cinema: {
     slides: [
       { img: "cinema/diagonale.jpg",   title: "Diagonale des Fous", tag: "Film · Sport",     year: "2026", href: "cinema.html#films" },
+      { img: "cinema/alone.jpg",       title: "Alone",              tag: "Film · Marque",    year: "2026", href: "cinema.html#films" },
       { img: "cinema/myslf.jpg",       title: "MYSLF",              tag: "Film · Parfum",    year: "2026", href: "cinema.html#films" },
       { img: "cinema/mariage.jpg",     title: "Un mariage",         tag: "Film · Mariage",   year: "2026", href: "cinema.html#films" },
       { img: "cinema/nuit.jpg",        title: "La nuit",            tag: "Film · Trail",     year: "2026", href: "cinema.html#films" },
@@ -144,9 +153,11 @@ window.TRAME = {
 
   /* Films & reels mis en avant sur l'accueil */
   films: [
-    { format: "film", title: "Diagonale des Fous", tag: "Sport · Film",       poster: "films/diagonale.jpg", embed: "", video: "" },
-    { format: "reel", title: "Dossard 1635",       tag: "Sport · Reel",       poster: "reels/01.jpg",        embed: "", video: "" },
-    { format: "reel", title: "MYSLF",              tag: "Influence · Yayha", poster: "influence/yayyha-03.jpg", embed: "https://www.instagram.com/reel/DaniTH7t39u/", video: "" },
-    { format: "reel", title: "La nuit",            tag: "Sport · Reel",       poster: "reels/02.jpg",        embed: "", video: "" },
+    { format: "film", title: "Alone",     tag: "Marque · Film",       poster: "films/alone.jpg",         video: "videos/alone-film.mp4", preview: "videos/alone-film-preview.mp4" },
+    { format: "reel", title: "Sauvage",   tag: "Influence · Yayha",   poster: "influence/sauvage.jpg",   video: "videos/sauvage.mp4",    preview: "videos/sauvage-preview.mp4" },
+    { format: "reel", title: "MYSLF",     tag: "Influence · Yayha",   poster: "influence/myslf.jpg",     video: "videos/myslf.mp4",      preview: "videos/myslf-preview.mp4" },
+    { format: "reel", title: "Paradigme", tag: "Influence · Yayha",   poster: "influence/paradigme.jpg", video: "videos/paradigme.mp4",  preview: "videos/paradigme-preview.mp4" },
+    { format: "film", title: "Diagonale des Fous", tag: "Sport · Film", poster: "films/diagonale.jpg", embed: "", video: "" },
+    { format: "reel", title: "Dossard 1635",       tag: "Sport · Reel", poster: "reels/01.jpg",        embed: "", video: "" },
   ],
 };

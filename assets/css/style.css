@@ -850,3 +850,20 @@ html.smooth { scroll-behavior: auto; }
   .cine__nav { bottom: 16px; }
   .cine__stage.is-on .cine__nav { bottom: calc(8% + 16px); }
 }
+/* aperçu vidéo muet au survol des cartes */
+.film__preview { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .5s; }
+.film.is-previewing .film__preview { opacity: 1; }
+.film.is-previewing img { opacity: 0; }
+.film.is-previewing .film__play { opacity: 0; }
+.film__play { transition: transform .5s var(--ease), opacity .3s; }
+/* Influence : 3 films Yayha, bloc marque Alone */
+.films--three { grid-template-columns: repeat(3, 1fr); max-width: 980px; }
+.films--brand { grid-template-columns: 2.6fr 1fr; align-items: stretch; margin-bottom: 16px; }
+.films--brand .film--film { aspect-ratio: auto; height: 100%; }
+.gallery--wide { columns: 3 260px; }
+@media (max-width: 767px) {
+  .films--three { grid-template-columns: repeat(3, 72%); }
+  .films--brand { grid-template-columns: 1fr; overflow: visible; }
+  .films--brand .film--film { aspect-ratio: 16 / 9; }
+  .films--brand .film--reel { max-width: 70%; }
+}

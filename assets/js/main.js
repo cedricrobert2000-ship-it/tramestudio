@@ -273,6 +273,17 @@
         const at = n++;
         card.addEventListener("click", () => open(playList, at));
       }
+      // aperçu muet au survol (vidéos hébergées sur le site)
+      const prev = safeVideo(f.preview || "");
+      if (prev && matchMedia("(hover: hover)").matches) {
+        const v = document.createElement("video");
+        Object.assign(v, { muted: true, loop: true, playsInline: true, preload: "none", className: "film__preview" });
+        v.setAttribute("aria-hidden", "true");
+        v.src = prev;
+        card.prepend(v);
+        card.addEventListener("mouseenter", () => { v.play().then(() => card.classList.add("is-previewing")).catch(() => {}); });
+        card.addEventListener("mouseleave", () => { v.pause(); card.classList.remove("is-previewing"); });
+      }
       el.append(card);
     });
   };
@@ -292,7 +303,7 @@
 
   // Accueil : films & reels
   const homeFilms = $("#films-grid");
-  if (homeFilms && D.films) videoCards(homeFilms, D.films);
+  if (homeFilms && D.films) videoCards(homeFilms, D.films.slice(0, 4)); // l'accueil montre les 4 premiers
 
   // Page mariage
   const mGal = $("[data-gallery='mariage']");
@@ -322,6 +333,11 @@
   // Page influence : reels
   const reels = $("#reels-grid");
   if (reels && D.influence) videoCards(reels, D.influence.reels.map((r) => ({ ...r, format: "reel", tag: r.client })));
+  const aloneFilms = $("#alone-films"), aloneGal = $("[data-gallery='alone']");
+  if (D.influence && D.influence.alone) {
+    if (aloneFilms) videoCards(aloneFilms, D.influence.alone.films);
+    if (aloneGal) gallery(aloneGal, D.influence.alone.photos, "Alone");
+  }
 
   /* ---------- Menu : liste déroulante « Travaux » ---------- */
   const drop = $(".nav__drop"), trigger = $(".nav__trigger");
