@@ -99,7 +99,7 @@
     const vm = url.match(/vimeo\.com\/(\d+)/);
     if (vm) return `https://player.vimeo.com/video/${vm[1]}?autoplay=1&dnt=1`;
     const ig = url.match(/instagram\.com\/(?:reel|p)\/([\w-]+)/);
-    if (ig) return `https://www.instagram.com/reel/${ig[1]}/embed`;
+    if (ig) return `https://www.instagram.com/p/${ig[1]}/embed/`;
     const tt = url.match(/tiktok\.com\/.*video\/(\d+)/);
     if (tt) return `https://www.tiktok.com/embed/v2/${tt[1]}`;
     return "";
@@ -110,7 +110,8 @@
     if (it.embed && embedUrl(it.embed)) {
       const f = document.createElement("iframe");
       Object.assign(f, { src: embedUrl(it.embed), allow: "autoplay; fullscreen; picture-in-picture; encrypted-media", allowFullscreen: true, title: it.title || "Vidéo", referrerPolicy: "strict-origin-when-cross-origin" });
-      if (it.vertical) f.className = "is-vertical";
+      if (/instagram\.com|tiktok\.com/.test(it.embed)) f.className = "is-social";
+      else if (it.vertical) f.className = "is-vertical";
       box.append(f);
     } else if (safeVideo(it.video)) {
       const v = document.createElement("video");

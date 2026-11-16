@@ -5,7 +5,7 @@
 
 window.TRAME = {
   email: "contact@tramestudio.fr",   // ← votre e-mail
-  instagram: "tramestudio",          // ← votre pseudo Instagram (sans @)
+  instagram: "trame_studioraw",      // ← votre pseudo Instagram (sans @)
   zone: "France & destination",      // ← votre zone d'intervention
   timezone: "Europe/Paris",          // ← fuseau de l'horloge du bandeau
 
@@ -21,16 +21,16 @@ window.TRAME = {
   works: [
     { img: "works/diag-sac.jpg",       year: "2026", cat: "sport" },
     { img: "works/mariage-porte.jpg",  year: "2026", cat: "mariage" },
+    { img: "works/influence-myslf.jpg", year: "2026", cat: "influence" },
     { img: "works/diag-capuche.jpg",   year: "2026", cat: "sport" },
     { img: "works/mariage-balcon.jpg", year: "2026", cat: "mariage" },
     { img: "works/diag-orange.jpg",    year: "2026", cat: "sport" },
     { img: "works/mariage-haie.jpg",   year: "2026", cat: "mariage" },
     { img: "works/diag-arrivee.jpg",   year: "2026", cat: "sport" },
+    { img: "works/influence-parfum.jpg", year: "2026", cat: "influence" },
     { img: "works/mariage-main.jpg",   year: "2026", cat: "mariage" },
     { img: "works/diag-reglages.jpg",  year: "2026", cat: "sport" },
     { img: "works/mariage-retour.jpg", year: "2026", cat: "mariage" },
-    // Influence : ajoutez ici une image de couverture des reels de Yayyha, par ex.
-    // { img: "works/influence-yayyha.jpg", year: "2026", cat: "influence" },
   ],
 
   /* MARIAGE — la galerie de la page mariage.html */
@@ -64,10 +64,11 @@ window.TRAME = {
      poster : image de couverture (facultatif) */
   influence: {
     reels: [
-      { title: "Reel 01", client: "Yayyha", poster: "", embed: "", video: "" },
-      { title: "Reel 02", client: "Yayyha", poster: "", embed: "", video: "" },
-      { title: "Reel 03", client: "Yayyha", poster: "", embed: "", video: "" },
-      { title: "Reel 04", client: "Yayyha", poster: "", embed: "", video: "" },
+      { title: "Bord de mer", client: "Yayyha · Reel", poster: "influence/yayyha-01.jpg", embed: "https://www.instagram.com/reel/Ddbuve0TWFp/", video: "" },
+      { title: "Interview", client: "Yayyha · Reel", poster: "influence/yayyha-02.jpg", embed: "https://www.instagram.com/reel/DejQUanNJV3/", video: "" },
+      { title: "MYSLF", client: "Yayyha · Reel", poster: "influence/yayyha-03.jpg", embed: "https://www.instagram.com/reel/DaniTH7t39u/", video: "" },
+      { title: "Portrait", client: "Yayyha · Post", poster: "influence/yayyha-04.jpg", embed: "https://www.instagram.com/p/Dd6x03JABXC/",    video: "" },
+      { title: "Parfum", client: "Yayyha · Post", poster: "influence/yayyha-05.jpg", embed: "https://www.instagram.com/p/DctUemqjZR_/",    video: "" },
     ],
   },
 
@@ -75,7 +76,7 @@ window.TRAME = {
   films: [
     { format: "film", title: "Diagonale des Fous", tag: "Sport · Film",       poster: "films/diagonale.jpg", embed: "", video: "" },
     { format: "reel", title: "Dossard 1635",       tag: "Sport · Reel",       poster: "reels/01.jpg",        embed: "", video: "" },
-    { format: "reel", title: "Yayyha",             tag: "Influence · Reel",   poster: "",                    embed: "", video: "" },
+    { format: "reel", title: "MYSLF",              tag: "Influence · Yayyha", poster: "influence/yayyha-03.jpg", embed: "https://www.instagram.com/reel/DaniTH7t39u/", video: "" },
     { format: "reel", title: "La nuit",            tag: "Sport · Reel",       poster: "reels/02.jpg",        embed: "", video: "" },
   ],
 };
