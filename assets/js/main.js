@@ -77,6 +77,94 @@
       </div>`;
   }
 
+  /* ---------- Sound design (sons synthétisés en direct, aucun fichier) ---------- */
+  const Sound = (() => {
+    let ctx = null, master = null, noise = null;
+    let on = true;
+    try { on = localStorage.getItem("trame-sound") !== "off"; } catch {}
+    const AC = window.AudioContext || window.webkitAudioContext;
+    const init = () => {
+      if (!AC) return false;
+      if (!ctx) {
+        ctx = new AC();
+        master = ctx.createGain(); master.gain.value = 0.9; master.connect(ctx.destination);
+        noise = ctx.createBuffer(1, ctx.sampleRate * 0.5, ctx.sampleRate);
+        const d = noise.getChannelData(0);
+        for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+      }
+      if (ctx.state === "suspended") ctx.resume().catch(() => {});
+      return true;
+    };
+    const ready = () => on && ctx && ctx.state === "running";
+    const env = (g, t, peak, attack, decay) => {
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(peak, t + attack);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + attack + decay);
+    };
+    const burst = (t, { freq = 2000, q = 1, peak = 0.08, decay = 0.05, type = "bandpass" } = {}) => {
+      const s = ctx.createBufferSource(); s.buffer = noise;
+      const f = ctx.createBiquadFilter(); f.type = type; f.frequency.value = freq; f.Q.value = q;
+      const g = ctx.createGain(); env(g, t, peak, 0.002, decay);
+      s.connect(f).connect(g).connect(master); s.start(t); s.stop(t + decay + 0.05);
+    };
+    const tone = (t, { freq = 1000, to, type = "sine", peak = 0.05, attack = 0.004, decay = 0.08 } = {}) => {
+      const o = ctx.createOscillator(); o.type = type; o.frequency.setValueAtTime(freq, t);
+      if (to) o.frequency.exponentialRampToValueAtTime(to, t + attack + decay);
+      const g = ctx.createGain(); env(g, t, peak, attack, decay);
+      o.connect(g).connect(master); o.start(t); o.stop(t + attack + decay + 0.05);
+    };
+    let lastTick = 0, lastSection = 0;
+    return {
+      get on() { return on; },
+      unlock: () => { if (on) init(); },
+      set(v) { on = v; try { localStorage.setItem("trame-sound", v ? "on" : "off"); } catch {} if (v) init(); },
+      // survol menu / boutons : tick doux
+      tick(soft) {
+        if (!ready()) return; const now = ctx.currentTime; if (now - lastTick < 0.05) return; lastTick = now;
+        tone(now, { freq: soft ? 1500 : 2100, to: soft ? 1100 : 1500, peak: soft ? 0.025 : 0.04, decay: 0.05 });
+        burst(now, { freq: 4500, q: 0.8, peak: soft ? 0.015 : 0.025, decay: 0.025, type: "highpass" });
+      },
+      // ouverture de la liste « Photo & vidéo »
+      open() { if (!ready()) return; const t = ctx.currentTime; tone(t, { freq: 600, to: 1200, peak: 0.03, attack: 0.01, decay: 0.12 }); },
+      // arrivée sur une section : double clic mécanique, comme le cran d'une molette d'appareil
+      section() {
+        if (!ready()) return; const t = ctx.currentTime; if (t - lastSection < 0.6) return; lastSection = t;
+        burst(t, { freq: 1400, q: 1.2, peak: 0.07, decay: 0.045 });
+        tone(t, { freq: 180, to: 90, peak: 0.05, decay: 0.05 });
+        burst(t + 0.11, { freq: 1100, q: 1.2, peak: 0.05, decay: 0.05 });
+      },
+      // mise au point du titre : moteur d'autofocus qui cherche, bips de confirmation, déclic
+      focus(delay = 0) {
+        if (!ready()) return; const t0 = ctx.currentTime + delay;
+        const motor = (start, dur, f1, f2, peak) => {
+          const o = ctx.createOscillator(); o.type = "sawtooth";
+          o.frequency.setValueAtTime(f1, start); o.frequency.linearRampToValueAtTime(f2, start + dur);
+          const lfo = ctx.createOscillator(); lfo.frequency.value = 38;
+          const lg = ctx.createGain(); lg.gain.value = 18; lfo.connect(lg).connect(o.frequency);
+          const bp = ctx.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = 1100; bp.Q.value = 3;
+          const g = ctx.createGain();
+          g.gain.setValueAtTime(0.0001, start);
+          g.gain.exponentialRampToValueAtTime(peak, start + 0.04);
+          g.gain.setValueAtTime(peak, start + dur - 0.05);
+          g.gain.exponentialRampToValueAtTime(0.0001, start + dur);
+          o.connect(bp).connect(g).connect(master);
+          o.start(start); lfo.start(start); o.stop(start + dur + 0.05); lfo.stop(start + dur + 0.05);
+        };
+        motor(t0 + 0.15, 0.62, 140, 210, 0.035);   // recherche : flou → net
+        motor(t0 + 0.92, 0.22, 190, 160, 0.025);   // léger retour, puis calage
+        tone(t0 + 1.54, { freq: 2900, peak: 0.05, attack: 0.003, decay: 0.06 });  // bip 1 (viseur)
+        tone(t0 + 1.73, { freq: 2900, peak: 0.05, attack: 0.003, decay: 0.06 });  // bip 2 (verrouillé)
+        const s = t0 + 1.98;                                                    // déclic de l'obturateur
+        burst(s, { freq: 2600, q: 0.9, peak: 0.16, decay: 0.035 });
+        tone(s, { freq: 120, to: 60, peak: 0.08, decay: 0.07 });
+        burst(s + 0.075, { freq: 1800, q: 1, peak: 0.1, decay: 0.05 });
+      },
+    };
+  })();
+  // déverrouillage au premier geste (règle des navigateurs : pas de son avant une interaction)
+  ["pointerdown", "keydown", "touchstart"].forEach((ev) => addEventListener(ev, Sound.unlock, { once: true, passive: true }));
+  Sound.unlock(); // fonctionne si le visiteur a déjà interagi avec le site (navigation interne)
+
   /* ---------- Coordonnées ---------- */
   // tous les boutons « contact » mènent au formulaire, avec le type de projet pré-sélectionné
   const projectFrom = (t = "") => {
@@ -249,6 +337,7 @@
   if (drop && trigger) {
     const isOpen = () => drop.classList.contains("is-open");
     const set = (o) => {
+      if (o && !drop.classList.contains("is-open")) Sound.open();
       drop.classList.toggle("is-open", o);
       trigger.setAttribute("aria-expanded", o);
       // fermeture explicite : on neutralise le survol jusqu'à ce que la souris quitte le menu
@@ -296,19 +385,59 @@
     heroChars.forEach((el) => el.classList.add("is-in"));
     setTimeout(() => $$(".hero .blur-in, .hero .rise").forEach((el) => el.classList.add("is-in")), 500);
     // titre principal « pris en photo » : viseur qui cadre, mise au point, déclenchement
-    if (!reduced && page === "home") {
-      const h1 = $("h1");
-      if (h1) {
-        const vf = document.createElement("span");
-        vf.className = "vf";
-        vf.setAttribute("aria-hidden", "true");
-        vf.innerHTML = "<i></i><i></i><i></i><i></i>";
-        h1.append(vf);
-        h1.classList.add("shot-title");
-        setTimeout(() => vf.remove(), 2600);
-      }
-    }
+    if (!reduced && page === "home") playShot();
   };
+  // mise au point du titre (rejouable quand on active le son)
+  function playShot() {
+    const h1 = $("h1");
+    if (!h1) return;
+    $$(".vf", h1).forEach((v) => v.remove());
+    h1.classList.remove("shot-title");
+    void h1.offsetWidth; // relance l'animation CSS
+    const vf = document.createElement("span");
+    vf.className = "vf";
+    vf.setAttribute("aria-hidden", "true");
+    vf.innerHTML = "<i></i><i></i><i></i><i></i>";
+    h1.append(vf);
+    h1.classList.add("shot-title");
+    Sound.focus();
+    setTimeout(() => vf.remove(), 2600);
+  }
+
+  /* ---------- Bouton son + déclencheurs sonores ---------- */
+  {
+    const btn = document.createElement("button");
+    btn.className = "sound-toggle";
+    btn.type = "button";
+    btn.innerHTML = '<span class="sound-toggle__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="sound-toggle__label"></span>';
+    const sync = () => {
+      btn.classList.toggle("is-on", Sound.on);
+      btn.setAttribute("aria-pressed", Sound.on);
+      btn.setAttribute("aria-label", Sound.on ? "Couper le son" : "Activer le son");
+      $(".sound-toggle__label", btn).textContent = Sound.on ? "Son" : "Son off";
+    };
+    btn.addEventListener("click", () => {
+      Sound.set(!Sound.on); sync();
+      if (Sound.on) { Sound.tick(); if (page === "home" && !reduced && scrollY < innerHeight * 0.6) setTimeout(playShot, 120); }
+    });
+    sync();
+    document.body.append(btn);
+
+    // survol du menu et des boutons
+    document.addEventListener("pointerover", (e) => {
+      if (e.pointerType !== "mouse") return;
+      const t = e.target.closest(".nav__links > a, .nav__trigger, .nav__panel a, .nav__logo");
+      if (t && !t.contains(e.relatedTarget)) return Sound.tick();
+      const b = e.target.closest(".btn, .chip, .filter, .cform__types label, .cform__universe label, .work, .film, .switch");
+      if (b && !b.contains(e.relatedTarget)) Sound.tick(true);
+    });
+    // arrivée sur une section au défilement
+    const loadedAt = Date.now();
+    const secIo = new IntersectionObserver((entries) => entries.forEach((en) => {
+      if (en.isIntersecting && Date.now() - loadedAt > 1500) Sound.section();
+    }), { threshold: 0, rootMargin: "-45% 0px -45% 0px" });
+    $$("main > section, main > div > section, .case-x, .footer").forEach((s) => secIo.observe(s));
+  }
   let seen = false;
   try { seen = sessionStorage.getItem("trame-intro"); sessionStorage.setItem("trame-intro", "1"); } catch {}
   if (!loader || reduced || seen) {
@@ -498,7 +627,7 @@
     layer.className = "trail";
     layer.setAttribute("aria-hidden", "true");
     document.body.append(layer);
-    const MAX = 12, STEP = 90; // nombre max d'images à l'écran, distance (px) entre deux images
+    const MAX = 5, STEP = 160; // nombre max d'images à l'écran, distance (px) entre deux images
     trailRows.forEach((row) => {
       const srcs = row.dataset.trail.split(",").map((n) => img(`trail/${n.trim()}`)).filter(Boolean);
       let i = 0, last = null, loaded = false;
@@ -515,15 +644,18 @@
         pic.src = srcs[i++ % srcs.length];
         pic.style.left = `${x}px`;
         pic.style.top = `${y}px`;
-        const rot = (Math.random() * 14 - 7).toFixed(1);
+        const rot = (Math.random() * 10 - 5).toFixed(1);       // inclinaison au moment où l'image se pose
+        const spin = (rot * 2.2 + (Math.random() * 16 - 8)).toFixed(1); // rotation pendant la chute
+        const drift = Math.round(Math.random() * 80 - 40);     // léger décalage latéral en tombant
         layer.append(pic);
         while (layer.children.length > MAX) layer.firstElementChild.remove();
+        // apparition → pose → chute avec gravité (accélère vers le bas) en s'effaçant
         pic.animate([
-          { opacity: 0, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(.6)` },
-          { opacity: 1, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(1)`, offset: .12 },
-          { opacity: 1, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(1)`, offset: .72 },
-          { opacity: 0, transform: `translate(-50%, -38%) rotate(${rot}deg) scale(.9)` },
-        ], { duration: 2400, easing: "cubic-bezier(.22, 1, .36, 1)" }).onfinish = () => pic.remove();
+          { opacity: 0, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(.7)`, easing: "cubic-bezier(.2, 1.4, .4, 1)" },
+          { opacity: 1, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(1)`, offset: .16 },
+          { opacity: 1, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(1)`, offset: .4, easing: "cubic-bezier(.55, 0, 1, .45)" },
+          { opacity: 0, transform: `translate(calc(-50% + ${drift}px), calc(-50% + 55vh)) rotate(${spin}deg) scale(.92)` },
+        ], { duration: 1900, fill: "forwards" }).onfinish = () => pic.remove();
       });
     });
   }
