@@ -46,6 +46,15 @@ window.TRAME = {
     { img: "works/mariage-retour.jpg", year: "2026", cat: "mariage" },
   ],
 
+  /* Projets empilés sur l'accueil (section « Nos derniers projets ») — images 16:9 */
+  projects: [
+    { title: "Alone",              cat: "Marque · Film",          year: "2026", img: "cinema/alone.jpg",     href: "influence.html#alone" },
+    { title: "Diagonale des Fous", cat: "Sport · Grand Raid",     year: "2026", img: "cinema/diagonale.jpg", href: "sport.html" },
+    { title: "Sauvage — Yayha",    cat: "Influence · Parfum",     year: "2026", img: "cinema/sauvage.jpg",   href: "influence.html#reels" },
+    { title: "Un mariage",         cat: "Mariage · Photo & film", year: "2026", img: "cinema/mariage.jpg",   href: "mariage.html" },
+    { title: "MYSLF — Yayha",      cat: "Influence · Parfum",     year: "2026", img: "cinema/myslf.jpg",     href: "influence.html#reels" },
+  ],
+
   /* MARIAGE — la galerie de la page mariage.html */
   mariage: {
     photos: ["mariage/01", "mariage/03", "mariage/04", "mariage/02", "mariage/06", "mariage/07", "mariage/05", "mariage/08", "mariage/09", "mariage/10"],

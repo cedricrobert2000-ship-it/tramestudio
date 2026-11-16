@@ -802,13 +802,83 @@
     });
   }
 
+  /* ---------- Bandeaux de section : « * · Nom · © année » ---------- */
+  $$("main section").forEach((sec) => {
+    const label = sec.dataset.strip || (sec.classList.contains("section") && $(".head h2", sec) ? $(".head h2", sec).textContent.trim() : "");
+    if (!label || $(".strip", sec)) return;
+    const st = document.createElement("div");
+    st.className = "strip container";
+    st.setAttribute("aria-hidden", "true");
+    st.innerHTML = `<span>*</span><span>${esc(label)}</span><span>© ${new Date().getFullYear()}</span>`;
+    const host = sec.classList.contains("container") ? sec : $(":scope > .container", sec);
+    if (sec.classList.contains("container")) st.classList.remove("container");
+    (host && host !== sec ? sec : sec).prepend(st);
+  });
+
+  /* ---------- Projets empilés (accueil) ---------- */
+  const stackList = $("#stack-list");
+  if (stackList && D.projects) {
+    stackList.innerHTML = D.projects.map((p, i) => `
+      <a class="stack__card" href="${esc(p.href)}" style="--i:${i}">
+        <span class="stack__media"><img src="${img(p.img)}" alt="${esc(p.title)} : ${esc(p.cat)}" loading="lazy" decoding="async"></span>
+        <span class="stack__cap"><span><b>${esc(p.title)}</b><small>${esc(p.cat)}</small></span><span>${esc(p.year)}</span></span>
+      </a>`).join("");
+    const cards = $$(".stack__card", stackList);
+    if (!reduced) {
+      let queued = false;
+      const stackUpdate = () => {
+        queued = false;
+        cards.forEach((c, i) => {
+          const n = cards[i + 1];
+          if (!n) return;
+          const r = c.getBoundingClientRect(), rn = n.getBoundingClientRect();
+          const p = Math.min(1, Math.max(0, (r.bottom - rn.top) / r.height));
+          c.style.transform = p ? `scale(${(1 - p * 0.08).toFixed(4)})` : "";
+          c.style.filter = p ? `brightness(${(1 - p * 0.55).toFixed(3)})` : "";
+        });
+      };
+      addEventListener("scroll", () => { if (!queued) { queued = true; requestAnimationFrame(stackUpdate); } }, { passive: true });
+      addEventListener("resize", stackUpdate);
+      stackUpdate();
+    }
+  }
+
+  /* ---------- Menu en noir au-dessus des sections claires (pages sombres) ---------- */
+  const lightSecs = $$(".process, .switch-full");
+  if (lightSecs.length && !document.body.classList.contains("theme-light")) {
+    let q = false;
+    const navLight = () => {
+      q = false;
+      const on = lightSecs.some((sec) => {
+        const r = sec.getBoundingClientRect();
+        const cut = sec.classList.contains("process") ? Math.min(120, Math.max(40, innerWidth * .07)) : 0;
+        return r.top + cut <= 40 && r.bottom - cut > 40;
+      });
+      document.body.classList.toggle("nav-on-light", on);
+    };
+    addEventListener("scroll", () => { if (!q) { q = true; requestAnimationFrame(navLight); } }, { passive: true });
+    navLight();
+  }
+
+  /* ---------- Bouton flottant « L'équipe · Répond vite » ---------- */
+  if (page !== "contact") {
+    const pill = document.createElement("a");
+    pill.className = "pill";
+    pill.href = "contact.html";
+    pill.innerHTML = `<span class="pill__logo" aria-hidden="true">T.</span><span class="pill__txt"><b>L'équipe</b><small><i></i>Répond vite</small></span>`;
+    pill.setAttribute("aria-label", "Contacter l'équipe Trame Studio");
+    document.body.append(pill);
+    const pillUpdate = () => pill.classList.toggle("is-on", scrollY > innerHeight * 0.6);
+    addEventListener("scroll", pillUpdate, { passive: true }); pillUpdate();
+  }
+
   /* ---------- Apparitions au scroll (flou → net, montée) ---------- */
   const io = new IntersectionObserver((entries) => entries.forEach((e) => {
     if (!e.isIntersecting) return;
     e.target.classList.add("is-in");
     io.unobserve(e.target);
   }), { threshold: .12, rootMargin: "0px 0px -6% 0px" });
-  $$(".stats, .steps, .faq__list, .service, .films, .gallery, .offer, .points").forEach((group) => {
+  $$(".stats, .steps, .faq__list, .service, .films, .gallery, .offer, .points, .approach").forEach((group) => {
     $$(".rise", group).forEach((el, i) => (el.style.transitionDelay = `${Math.min(i, 8) * 80}ms`));
   });
   // les rangées qui défilent horizontalement (films sur mobile) apparaissent d'un bloc
@@ -819,6 +889,7 @@
   }), { threshold: .1 });
   $$(".films").forEach((row) => rowIo.observe(row));
   $$(".blur-in, .rise").forEach((el) => { if (!el.closest(".hero") && !el.closest(".films")) io.observe(el); });
+  $$(".strip, .prow, .stack__card, .approach").forEach((el) => io.observe(el));
 
   /* ---------- Défilement doux (molette et pavé tactile, ordinateur uniquement) ---------- */
   const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;

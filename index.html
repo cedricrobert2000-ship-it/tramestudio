@@ -49,6 +49,7 @@
       <div class="hero__content">
         <h1 class="hero__title"><span data-chars>TRAME</span> <span class="hero__soft" data-chars>STUDIO</span></h1>
         <p class="hero__text blur-in">Studio photo et vidéo à Paris : mariages, sport, marques et hôtels.</p>
+        <a class="btn hero__cta blur-in" data-mail="Prise de rendez-vous" href="#"><span class="roll"><span>Prendre rendez-vous →</span><span aria-hidden="true">Prendre rendez-vous →</span></span></a>
       </div>
     </section>
 
@@ -64,37 +65,33 @@
     </div>
 
     <!-- À PROPOS -->
-    <section class="about container" id="studio">
-      <p class="about__text" data-words>On photographie et on filme ce qui se passe vraiment, sans trop de mise en scène. La même équipe fait la photo et la vidéo, et vous recevez des images prêtes à publier sur vos réseaux comme sur votre site.</p>
-      <div class="stats">
-        <div class="stat rise"><strong>05</strong><span>Activités</span></div>
-        <div class="stat rise"><strong>Photo + Vidéo</strong><span>Une seule équipe</span></div>
-        <div class="stat rise"><strong>9:16</strong><span>Formats réseaux inclus</span></div>
-        <div class="stat rise"><strong>Sur mesure</strong><span>Un devis par projet</span></div>
+    <section class="about container" id="studio" data-strip="Trame Studio">
+      <p class="about__text statement" data-words>Chez Trame Studio, on photographie et on filme ce qui se passe vraiment. Des images soignées, sans mise en scène inutile, pour les mariages, le sport, les créateurs, les marques et les hôtels.</p>
+      <div class="approach">
+        <div class="approach__img rise"><img src="images/trail/influence-04.jpg" alt="Portrait en lumière naturelle, Trame Studio" loading="lazy"></div>
+        <p class="approach__label rise">Notre approche</p>
+        <div class="approach__text rise">
+          <p>Chaque projet commence par un échange pour comprendre ce que vous voulez montrer, et à qui. La même équipe s'occupe ensuite de la photo, de la vidéo, du montage et de la retouche. Vous recevez des fichiers prêts à publier, sur vos réseaux comme sur votre site.</p>
+          <a class="btn" data-mail="Prise de rendez-vous" href="#"><span class="roll"><span>Prendre rendez-vous →</span><span aria-hidden="true">Prendre rendez-vous →</span></span></a>
+        </div>
       </div>
     </section>
     </div>
 
-    <!-- TRAVAUX -->
-    <section class="section" id="travaux">
-      <div class="container head">
-        <div>
-          <h2 class="blur-in">Travaux</h2>
-          <p class="head__sub blur-in">Nos derniers projets : mariages, sport et marques.</p>
+    <!-- PROJETS : cartes qui s'empilent au scroll (contenu : assets/js/data.js → projects) -->
+    <section class="section" id="travaux" data-strip="Nos derniers projets">
+      <div class="container stack">
+        <div class="stack__side">
+          <h2 class="blur-in">Nos derniers<br>projets</h2>
+          <p class="head__sub blur-in">Mariages, sport, créateurs et marques.</p>
+          <a class="btn blur-in" data-mail="Projet photo / vidéo" href="#"><span class="roll"><span>Parlons de votre projet →</span><span aria-hidden="true">Parlons de votre projet →</span></span></a>
         </div>
-        <div class="chips blur-in">
-          <a class="chip" href="mariage.html"><span class="roll"><span>Mariage</span><span aria-hidden="true">Mariage</span></span></a>
-          <a class="chip" href="sport.html"><span class="roll"><span>Sport</span><span aria-hidden="true">Sport</span></span></a>
-          <a class="chip" href="influence.html"><span class="roll"><span>Influence</span><span aria-hidden="true">Influence</span></span></a>
-        </div>
-      </div>
-      <div class="marquee" data-marquee>
-        <div class="marquee__track" id="works-track"></div>
+        <div class="stack__list" id="stack-list"></div>
       </div>
     </section>
 
     <!-- CINÉMA : carrousel 16:9 (contenu dans assets/js/data.js → cinema.slides) -->
-    <section class="section cine" id="cinema" aria-roledescription="carrousel" aria-label="Cinéma">
+    <section class="section cine" id="cinema" data-strip="Cinéma" aria-roledescription="carrousel" aria-label="Cinéma">
       <div class="container head">
         <div>
           <h2 class="blur-in">Cinéma</h2>
@@ -106,7 +103,7 @@
     </section>
 
     <!-- FILMS &amp; REELS -->
-    <section class="section" id="films">
+    <section class="section" id="films" data-strip="Films &amp; reels">
       <div class="container head">
         <div>
           <h2 class="blur-in">Films &amp; reels</h2>
@@ -117,8 +114,23 @@
       <div class="container films" id="films-grid"></div>
     </section>
 
+    <!-- TRAME DIGITAL : bloc blanc qui mène à la page digital.html -->
+    <section class="section">
+      <div class="switch-full">
+        <a class="switch switch--light switch--full" href="digital.html">
+          <div class="switch__text">
+            <p class="switch__kicker">Trame Digital</p>
+            <h2 class="switch__title">Sites web, apps<br>&amp; branding</h2>
+            <p class="switch__sub">Notre agence web : sites, applications et identités de marque, avec les photos et vidéos du studio.</p>
+            <span class="btn btn--dark"><span class="roll"><span>Découvrir Trame Digital</span><span aria-hidden="true">Découvrir Trame Digital</span></span></span>
+          </div>
+          <div class="switch__visual"><img src="images/digital/phones.jpg" alt="Le site Trame Studio sur trois écrans de téléphone" loading="lazy"></div>
+        </a>
+      </div>
+    </section>
+
     <!-- SERVICES PHOTO &amp; VIDÉO : survol = traînée de photos (images dans images/trail/) -->
-    <section class="section" id="services">
+    <section class="section" id="services" data-strip="Photo &amp; vidéo">
       <div class="container head">
         <div>
           <h2 class="blur-in">Photo &amp; vidéo</h2>
@@ -158,50 +170,32 @@
       </div>
     </section>
 
-    <!-- TRAME DIGITAL : bloc blanc qui mène à la page digital.html -->
-    <section class="section">
-      <div class="switch-full">
-        <a class="switch switch--light switch--full" href="digital.html">
-          <div class="switch__text">
-            <p class="switch__kicker">Trame Digital</p>
-            <h2 class="switch__title">Sites web, apps<br>&amp; branding</h2>
-            <p class="switch__sub">Notre agence web : sites, applications et identités de marque, avec les photos et vidéos du studio.</p>
-            <span class="btn btn--dark"><span class="roll"><span>Découvrir Trame Digital</span><span aria-hidden="true">Découvrir Trame Digital</span></span></span>
-          </div>
-          <div class="switch__visual"><img src="images/digital/phones.jpg" alt="Le site Trame Studio sur trois écrans de téléphone" loading="lazy"></div>
-        </a>
-      </div>
-    </section>
 
-    <!-- MÉTHODE -->
-    <section class="section" id="methode">
-      <div class="container head">
-        <div>
-          <h2 class="blur-in">Notre méthode</h2>
-          <p class="head__sub blur-in">Trois étapes, de la prise de contact à la livraison.</p>
-        </div>
-      </div>
-      <div class="container steps">
-        <article class="step rise">
-          <span class="step__n">01</span>
-          <h3 class="step__title">Échange</h3>
-          <p>Un appel pour comprendre votre projet, vos envies et vos contraintes. On vous envoie ensuite une proposition claire.</p>
+    <!-- PROCESSUS -->
+    <section class="process" id="methode" data-strip="Notre processus">
+      <div class="container">
+        <p class="about__text statement" data-words>Un seul interlocuteur, de la première idée aux fichiers livrés. Photo, vidéo, montage et retouche : tout est fait par la même équipe.</p>
+        <div class="process__cta"><a class="btn btn--dark blur-in" data-mail="Prise de rendez-vous" href="#"><span class="roll"><span>Prendre rendez-vous →</span><span aria-hidden="true">Prendre rendez-vous →</span></span></a></div>
+        <article class="prow">
+          <p class="prow__n" aria-hidden="true"><span>01</span></p>
+          <div class="prow__img"><img src="images/trail/influence-02.jpg" alt="Un échange autour d'un projet" loading="lazy"></div>
+          <div class="prow__txt"><h3>Échange</h3><p>On prend le temps de comprendre votre projet : ce que vous voulez montrer, à qui, et où les images seront publiées. Vous recevez ensuite un devis clair.</p></div>
         </article>
-        <article class="step rise">
-          <span class="step__n">02</span>
-          <h3 class="step__title">Tournage</h3>
-          <p>On s'adapte au projet : discrets pour un mariage, plus présents pour une marque. La même équipe fait la photo et la vidéo.</p>
+        <article class="prow">
+          <p class="prow__n" aria-hidden="true"><span>02</span></p>
+          <div class="prow__img"><img src="images/trail/diag-reglages.jpg" alt="Préparation avant le départ d'une course" loading="lazy"></div>
+          <div class="prow__txt"><h3>Tournage</h3><p>Photo et vidéo le même jour, par la même équipe. Discrets pour un mariage, plus présents pour une marque : on s'adapte au projet.</p></div>
         </article>
-        <article class="step rise">
-          <span class="step__n">03</span>
-          <h3 class="step__title">Livraison</h3>
-          <p>Une galerie privée, des fichiers en haute définition et des formats prêts à publier sur chaque réseau.</p>
+        <article class="prow">
+          <p class="prow__n" aria-hidden="true"><span>03</span></p>
+          <div class="prow__img"><img src="images/trail/mariage-main.jpg" alt="Des mariés main dans la main" loading="lazy"></div>
+          <div class="prow__txt"><h3>Montage & livraison</h3><p>Montage, étalonnage, son et retouche des photos. Vous recevez une galerie privée et des fichiers prêts pour chaque réseau.</p></div>
         </article>
       </div>
     </section>
 
     <!-- FAQ -->
-    <section class="section" id="faq">
+    <section class="section" id="faq" data-strip="Questions fréquentes">
       <div class="container faq">
         <div>
           <h2 class="blur-in">FAQ</h2>
