@@ -50,4 +50,8 @@ Dans le repo GitHub : Settings → Pages → Deploy from a branch → `main` / `
 2. Mettre votre e-mail et votre Instagram dans `assets/js/data.js`.
 3. Vérifier que vous avez l'accord des personnes photographiées pour publier leurs images.
 4. Activer GitHub Pages : Settings → Pages → Deploy from a branch → `main` / `(root)`.
-5. Avec un nom de domaine : ajouter un fichier `CNAME`, configurer les DNS, puis cocher **Enforce HTTPS**.
+5. Nom de domaine **trameraw.com** : le fichier `CNAME` est en place. Chez le registrar, créer les DNS :
+   - 4 enregistrements **A** sur `@` : `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+   - 4 enregistrements **AAAA** sur `@` : `2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153`, `2606:50c0:8003::153`
+   - 1 enregistrement **CNAME** sur `www` : `cedricrobert2000-ship-it.github.io.`
+   Puis dans Settings → Pages : Custom domain = `trameraw.com`, et cocher **Enforce HTTPS** dès que possible.
