@@ -113,7 +113,7 @@
       const g = ctx.createGain(); env(g, t, peak, attack, decay);
       o.connect(g).connect(master); o.start(t); o.stop(t + attack + decay + 0.05);
     };
-    let lastTick = 0, lastSection = 0;
+    let lastTick = 0;
     return {
       get on() { return on; },
       unlock: () => { if (on) init(); },
@@ -123,13 +123,6 @@
         if (!ready()) return; const t = ctx.currentTime; if (t - lastTick < 0.06) return; lastTick = t;
         burst(t, { freq: 5200, q: 2.5, peak: 0.05, decay: 0.012 });
         burst(t + 0.018, { freq: 3400, q: 2, peak: 0.022, decay: 0.015 });
-      },
-      // section « Photo & vidéo » : déclic d'obturateur (miroir + rideau)
-      section() {
-        if (!ready()) return; const t = ctx.currentTime; if (t - lastSection < 1.5) return; lastSection = t;
-        burst(t, { freq: 2400, q: 0.9, peak: 0.13, decay: 0.03 });
-        tone(t, { freq: 140, to: 70, peak: 0.07, decay: 0.06 });
-        burst(t + 0.07, { freq: 1700, q: 1, peak: 0.09, decay: 0.045 });
       },
       // mise au point du titre : moteur d'autofocus qui cherche, bips de confirmation, déclic
       focus(delay = 0) {
@@ -426,14 +419,7 @@
       const t = e.target.closest(".nav__links > a, .nav__trigger, .nav__panel a, .btn");
       if (t && !t.contains(e.relatedTarget)) Sound.tick();
     });
-    // défilement : un seul déclic, à l'arrivée sur la section « Photo & vidéo » de l'accueil
-    const services = page === "home" && $("#services");
-    if (services) {
-      const loadedAt = Date.now();
-      new IntersectionObserver((entries) => entries.forEach((en) => {
-        if (en.isIntersecting && Date.now() - loadedAt > 1500) Sound.section();
-      }), { threshold: 0, rootMargin: "-45% 0px -45% 0px" }).observe(services);
-    }
+
   }
   let seen = false;
   try { seen = sessionStorage.getItem("trame-intro"); sessionStorage.setItem("trame-intro", "1"); } catch {}
