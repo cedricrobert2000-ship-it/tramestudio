@@ -8,11 +8,12 @@ Site statique (HTML, CSS, JS), sans dépendance, prêt pour GitHub Pages.
 - `index.html` : accueil (header plein écran, présentation, travaux, films & reels, services, méthode, FAQ, contact)
 - `mariage.html` : page dédiée au mariage (offre, galerie, déroulé, FAQ)
 - `sport.html` : les sessions sport (Session 01 : Diagonale des Fous), une section par session
-- `influence.html` : reels et contenus pour influenceurs
+- `influence.html` : reels et contenus pour influenceurs (Yayha)
+- `digital.html` : Trame Digital, l'agence de création de sites web, d'applications et de branding (thème clair)
 - `mentions-legales.html` : mentions légales et confidentialité (**à compléter**)
 - `404.html` : page « introuvable », servie automatiquement par GitHub Pages
 
-Le menu et le pied de page sont communs à toutes les pages (générés par `assets/js/main.js`).
+Menu : Accueil · Photo & vidéo (Mariage, Sport, Influence) · Digital · Contact. Le menu et le pied de page sont communs à toutes les pages (générés par `assets/js/main.js`).
 
 ## Modifier le contenu
 

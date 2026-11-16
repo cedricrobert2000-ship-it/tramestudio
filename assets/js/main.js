@@ -31,12 +31,12 @@
         <nav class="nav__links" aria-label="Navigation principale">
           <a class="nav__home" href="index.html"${page === "home" ? ' aria-current="page"' : ""}>${roll("Accueil,")}</a>
           <div class="nav__drop">
-            <button class="nav__trigger" aria-expanded="false" aria-controls="nav-panel"${onCat ? ' data-current="true"' : ""}>${roll("Travaux,")}</button>
+            <button class="nav__trigger" aria-expanded="false" aria-controls="nav-panel"${onCat ? ' data-current="true"' : ""}>${roll("Photo & vidéo,")}</button>
             <div class="nav__panel" id="nav-panel">
               ${cats.map((c, i) => `<a href="${esc(c.href)}"${c.key === page ? ' aria-current="page"' : ""}><span class="nav__n">0${i + 1}</span><span class="nav__label">${esc(c.label)}</span><span class="nav__arrow" aria-hidden="true">↗</span></a>`).join("")}
             </div>
           </div>
-          <a href="index.html#studio">${roll("Studio,")}</a>
+          <a href="digital.html"${page === "digital" ? ' aria-current="page"' : ""}>${roll("Digital,")}</a>
           <a href="#contact">${roll("Contact")}</a>
         </nav>
       </header>`;
@@ -52,8 +52,8 @@
             <a class="btn blur-in" data-mail href="#">${roll("Nous contacter")}</a>
           </div>
           <div class="footer__cols">
-            <div><p>Travaux</p>${D.categories.map((c) => `<a href="${esc(c.href)}">${esc(c.label)}</a>`).join("")}</div>
-            <div><p>Studio</p><a href="index.html#services">Services</a><a href="index.html#films">Films & reels</a><a href="index.html#faq">FAQ</a></div>
+            <div><p>Photo & vidéo</p>${D.categories.map((c) => `<a href="${esc(c.href)}">${esc(c.label)}</a>`).join("")}</div>
+            <div><p>Digital</p><a href="digital.html">Sites web</a><a href="digital.html#expertises">Applications</a><a href="digital.html#expertises">Branding</a></div>
             <div><p>Réseaux</p><a data-insta href="#" target="_blank" rel="noopener noreferrer">Instagram</a><a data-mail href="#">E-mail</a></div>
           </div>
         </div>
@@ -256,12 +256,20 @@
     const text = el.textContent;
     el.setAttribute("aria-label", text);
     el.textContent = "";
-    [...text].forEach((ch, i) => {
-      const c = document.createElement("span");
-      c.className = "c"; c.setAttribute("aria-hidden", "true");
-      c.style.setProperty("--i", i);
-      c.textContent = ch === " " ? "\u00a0" : ch;
-      el.append(c);
+    // lettres regroupées par mot : un mot ne se coupe jamais en fin de ligne
+    let i = 0;
+    text.split(" ").forEach((word, w) => {
+      if (w) { el.append(" "); i++; }
+      const box = document.createElement("span");
+      box.className = "cw";
+      [...word].forEach((ch) => {
+        const c = document.createElement("span");
+        c.className = "c"; c.setAttribute("aria-hidden", "true");
+        c.style.setProperty("--i", i++);
+        c.textContent = ch;
+        box.append(c);
+      });
+      el.append(box);
     });
   });
 

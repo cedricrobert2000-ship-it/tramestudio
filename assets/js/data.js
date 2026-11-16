@@ -64,11 +64,11 @@ window.TRAME = {
      poster : image de couverture (facultatif) */
   influence: {
     reels: [
-      { title: "Bord de mer", client: "Yayyha · Reel", poster: "influence/yayyha-01.jpg", embed: "https://www.instagram.com/reel/Ddbuve0TWFp/", video: "" },
-      { title: "Interview", client: "Yayyha · Reel", poster: "influence/yayyha-02.jpg", embed: "https://www.instagram.com/reel/DejQUanNJV3/", video: "" },
-      { title: "MYSLF", client: "Yayyha · Reel", poster: "influence/yayyha-03.jpg", embed: "https://www.instagram.com/reel/DaniTH7t39u/", video: "" },
-      { title: "Portrait", client: "Yayyha · Post", poster: "influence/yayyha-04.jpg", embed: "https://www.instagram.com/p/Dd6x03JABXC/",    video: "" },
-      { title: "Parfum", client: "Yayyha · Post", poster: "influence/yayyha-05.jpg", embed: "https://www.instagram.com/p/DctUemqjZR_/",    video: "" },
+      { title: "Bord de mer", client: "Yayha · Reel", poster: "influence/yayyha-01.jpg", embed: "https://www.instagram.com/reel/Ddbuve0TWFp/", video: "" },
+      { title: "Interview", client: "Yayha · Reel", poster: "influence/yayyha-02.jpg", embed: "https://www.instagram.com/reel/DejQUanNJV3/", video: "" },
+      { title: "MYSLF", client: "Yayha · Reel", poster: "influence/yayyha-03.jpg", embed: "https://www.instagram.com/reel/DaniTH7t39u/", video: "" },
+      { title: "Portrait", client: "Yayha · Post", poster: "influence/yayyha-04.jpg", embed: "https://www.instagram.com/p/Dd6x03JABXC/",    video: "" },
+      { title: "Parfum", client: "Yayha · Post", poster: "influence/yayyha-05.jpg", embed: "https://www.instagram.com/p/DctUemqjZR_/",    video: "" },
     ],
   },
 
@@ -76,7 +76,7 @@ window.TRAME = {
   films: [
     { format: "film", title: "Diagonale des Fous", tag: "Sport · Film",       poster: "films/diagonale.jpg", embed: "", video: "" },
     { format: "reel", title: "Dossard 1635",       tag: "Sport · Reel",       poster: "reels/01.jpg",        embed: "", video: "" },
-    { format: "reel", title: "MYSLF",              tag: "Influence · Yayyha", poster: "influence/yayyha-03.jpg", embed: "https://www.instagram.com/reel/DaniTH7t39u/", video: "" },
+    { format: "reel", title: "MYSLF",              tag: "Influence · Yayha", poster: "influence/yayyha-03.jpg", embed: "https://www.instagram.com/reel/DaniTH7t39u/", video: "" },
     { format: "reel", title: "La nuit",            tag: "Sport · Reel",       poster: "reels/02.jpg",        embed: "", video: "" },
   ],
 };
