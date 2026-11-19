@@ -924,9 +924,18 @@ section > .strip.container::before { left: var(--gutter); right: var(--gutter); 
 .stack__cap small { display: block; margin-top: 2px; color: var(--ink-soft); font-size: 12px; }
 
 /* Processus : section claire coupée en biais, grands numéros */
-.process { --cut: clamp(40px, 7vw, 120px); --ink: #0b0b0b; --ink-soft: rgba(0,0,0,.55); --line: rgba(0,0,0,.14); --btn-bg: #0b0b0b; --btn-ink: #fff;
-  position: relative; margin-top: var(--section); padding: calc(var(--cut) + clamp(48px, 6vw, 96px)) 0 calc(var(--cut) + clamp(48px, 6vw, 96px)); background: #f1f1ef; color: var(--ink);
-  clip-path: polygon(0 var(--cut), 100% 0, 100% calc(100% - var(--cut)), 0 100%); }
+.process { --ink: #0b0b0b; --ink-soft: rgba(0,0,0,.55); --line: rgba(0,0,0,.14); --btn-bg: #0b0b0b; --btn-ink: #fff;
+  position: relative; margin-top: var(--section); padding: var(--section) 0; background: #f1f1ef; color: var(--ink);
+  /* cadre de viseur : la section s'ouvre en plein écran au scroll, puis se referme */
+  --fx: 6vw; --fr: 28px;
+  clip-path: inset(0 var(--fx) round var(--fr)); }
+/* repères d'angle de viseur, qui s'effacent quand le cadre est ouvert */
+.process__marks { position: absolute; inset: 20px calc(var(--fx) + 20px); pointer-events: none; opacity: calc(var(--fx-p, 1)); }
+.process__marks i { position: absolute; width: 22px; height: 22px; border: 0 solid rgba(0,0,0,.5); }
+.process__marks i:nth-child(1) { top: 0; left: 0; border-width: 1.5px 0 0 1.5px; }
+.process__marks i:nth-child(2) { top: 0; right: 0; border-width: 1.5px 1.5px 0 0; }
+.process__marks i:nth-child(3) { bottom: 0; left: 0; border-width: 0 0 1.5px 1.5px; }
+.process__marks i:nth-child(4) { bottom: 0; right: 0; border-width: 0 1.5px 1.5px 0; }
 .process .about__text .w { color: rgba(0,0,0,.14); }
 .process .about__text .w.is-on { color: #0b0b0b; }
 .process__cta { display: flex; justify-content: flex-end; margin: clamp(32px, 4vw, 56px) 0 clamp(48px, 6vw, 96px); }
@@ -942,7 +951,7 @@ section > .strip.container::before { left: var(--gutter); right: var(--gutter); 
 .prow.is-in .prow__n span, .prow.is-in .prow__txt { transform: none; opacity: 1; }
 .prow.is-in .prow__img { clip-path: inset(0); }
 .prow.is-in .prow__img img { transform: none; }
-.process + .section { padding-top: calc(var(--section) * .6); }
+
 
 /* Bouton flottant « L'équipe · Répond vite » */
 .pill { position: fixed; left: 24px; bottom: 24px; z-index: 60; display: flex; align-items: center; gap: 10px; padding: 6px 18px 6px 6px; border-radius: 999px; background: #fff; color: #0b0b0b; box-shadow: 0 10px 30px rgba(0,0,0,.25); opacity: 0; transform: translateY(16px); pointer-events: none; transition: opacity .6s var(--ease), transform .6s var(--ease); }
@@ -984,3 +993,5 @@ section > .strip.container::before { left: var(--gutter); right: var(--gutter); 
 .nav-on-light .nav { --ink: #0b0b0b; --ink-mute: rgba(0,0,0,.45); }
 .nav-on-light .nav::before { background: linear-gradient(to bottom, rgba(241,241,239,.92), rgba(241,241,239,0)); }
 @media (max-width: 767px) { .infobar__row { gap: 16px; } .infobar__row span:first-child { overflow: hidden; text-overflow: ellipsis; } }
+
+@media (prefers-reduced-motion: reduce) { .process { clip-path: none; } .process__marks { display: none; } }

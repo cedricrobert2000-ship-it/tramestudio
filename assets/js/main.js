@@ -851,13 +851,30 @@
       q = false;
       const on = lightSecs.some((sec) => {
         const r = sec.getBoundingClientRect();
-        const cut = sec.classList.contains("process") ? Math.min(120, Math.max(40, innerWidth * .07)) : 0;
-        return r.top + cut <= 40 && r.bottom - cut > 40;
+        return r.top <= 40 && r.bottom > 40;
       });
       document.body.classList.toggle("nav-on-light", on);
     };
     addEventListener("scroll", () => { if (!q) { q = true; requestAnimationFrame(navLight); } }, { passive: true });
     navLight();
+  }
+
+  /* ---------- Processus : cadre de viseur qui s'ouvre puis se referme au scroll ---------- */
+  const proc = $(".process");
+  if (proc && !reduced) {
+    let q = false;
+    const frame = () => {
+      q = false;
+      const r = proc.getBoundingClientRect(), vh = innerHeight;
+      const open = Math.min(1, Math.max(0, (vh - r.top) / (vh * .7)), Math.max(0, r.bottom / (vh * .7)));
+      const e = 1 - Math.pow(1 - open, 3);
+      proc.style.setProperty("--fx", `${((1 - e) * 6).toFixed(3)}vw`);
+      proc.style.setProperty("--fr", `${((1 - e) * 28).toFixed(1)}px`);
+      proc.style.setProperty("--fx-p", (1 - e).toFixed(3));
+    };
+    addEventListener("scroll", () => { if (!q) { q = true; requestAnimationFrame(frame); } }, { passive: true });
+    addEventListener("resize", frame);
+    frame();
   }
 
   /* ---------- Bouton flottant « L'équipe · Répond vite » ---------- */
